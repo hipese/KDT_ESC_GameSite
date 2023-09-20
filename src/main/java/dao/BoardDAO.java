@@ -33,7 +33,7 @@ public class BoardDAO {
 	}
 
 	public int getRecordCount() throws Exception {
-		String sql = "select count(*) from border";
+		String sql = "select count(*) from board";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			ResultSet rs = pstat.executeQuery();
 			rs.next();
@@ -42,7 +42,7 @@ public class BoardDAO {
 	}
 
 	public int getSearchRecordCount(String searchText) throws Exception {
-		String sql = "SELECT count(*)\r\n" + "FROM border\r\n"
+		String sql = "SELECT count(*)\r\n" + "FROM board\r\n"
 				+ "WHERE title LIKE ? OR writer LIKE ? OR contents Like ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, "%" + searchText + "%");
@@ -55,8 +55,8 @@ public class BoardDAO {
 	}
 
 	public List<BoardDTO> selectBy(int start, int end) throws Exception {
-		String sql = "select * from " + "(select " + "row_number() over(order by seq desc) as rs , border.* from "
-				+ "border) temp " + "where rs between ? and ?";
+		String sql = "select * from " + "(select " + "row_number() over(order by seq desc) as rs , board.* from "
+				+ "board) temp " + "where rs between ? and ?";
 		
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			List<BoardDTO> list = new ArrayList<>();
@@ -79,7 +79,7 @@ public class BoardDAO {
 	}
 
 	public int writeWord(BoardDTO dto) throws Exception {
-		String sql = "insert into border values(null,?,?,?,?,?)";
+		String sql = "insert into board values(null,?,?,?,?,?)";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
 			pstat.setString(1, dto.getWriter());
@@ -97,7 +97,7 @@ public class BoardDAO {
 	}
 
 	public List<BoardDTO> getBoardList() throws Exception {
-		String sql = "select * from border order by seq desc";
+		String sql = "select * from board order by seq desc";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				ResultSet rs = pstat.executeQuery()) {
@@ -117,7 +117,7 @@ public class BoardDAO {
 	}
 
 	public BoardDTO showContents(int seq) throws Exception {
-		String sql = "select * from border where seq like ?";
+		String sql = "select * from board where seq like ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, seq);
 			ResultSet rs = pstat.executeQuery();
@@ -137,7 +137,7 @@ public class BoardDAO {
 	}
 
 	public int upDateContents(String seq, String title, String contents) throws Exception {
-		String sql = "update border set title=?,contents=?" + "where seq=? ";
+		String sql = "update board set title=?,contents=?" + "where seq=? ";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, title);
 			pstat.setString(2, contents);
@@ -147,7 +147,7 @@ public class BoardDAO {
 	}
 
 	public int upView_Count(int seq) throws Exception {
-		String sql = "update border set view_count=view_count+1 where seq=?";
+		String sql = "update board set view_count=view_count+1 where seq=?";
 		System.out.println("업");
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, seq);
@@ -157,7 +157,7 @@ public class BoardDAO {
 	}
 
 	public int deleteContents(int seq) throws Exception {
-		String sql = "delete from border where seq=?";
+		String sql = "delete from board where seq=?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, seq);
 			return pstat.executeUpdate();
@@ -167,7 +167,7 @@ public class BoardDAO {
 
 	public List<BoardDTO> searchContents(String searchText, int start, int end) throws Exception {
 		String sql = "SELECT * \r\n" + "FROM (\r\n" + "  SELECT \r\n"
-				+ "    row_number() OVER (ORDER BY seq DESC) AS rs, \r\n" + "    border.* \r\n" + "  FROM border\r\n"
+				+ "    row_number() OVER (ORDER BY seq DESC) AS rs, \r\n" + "    board.* \r\n" + "  FROM board\r\n"
 				+ "  WHERE title LIKE ? OR writer LIKE ? OR contents LIKE ?\r\n" + ") AS temp\r\n"
 				+ "WHERE temp.rs BETWEEN ? AND ?";
 
@@ -197,7 +197,7 @@ public class BoardDAO {
 	}
 
 	public boolean isExistTest(String searchText) throws Exception {
-		String sql = "SELECT *\r\n" + "FROM border\r\n" + "WHERE title LIKE ? OR writer LIKE ? OR contents Like ?";
+		String sql = "SELECT *\r\n" + "FROM board\r\n" + "WHERE title LIKE ? OR writer LIKE ? OR contents Like ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, "%" + searchText + "%");
 			pstat.setString(2, "%" + searchText + "%");
