@@ -96,7 +96,7 @@ public class BoardDAO {
 
 	}
 
-	public List<BoardDTO> getBorderList() throws Exception {
+	public List<BoardDTO> getBoardList() throws Exception {
 		String sql = "select * from border order by seq desc";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);

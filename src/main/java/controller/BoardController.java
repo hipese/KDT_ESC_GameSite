@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import dto.BoardDTO;
 import dao.BoardDAO;
 //import dao.FilesDAO;
 //import dao.ReplyDAO;
@@ -45,7 +46,7 @@ public class BoardController extends HttpServlet {
 		System.out.println("요청 URI:" + cmd);
 		Gson gson=new Gson();
 		try {
-			if (cmd.equals("/write.Border")) {
+			if (cmd.equals("/write.board")) {
 				Timestamp date = new Timestamp(System.currentTimeMillis());
 				int view_count = 0;
 				PrintWriter pw=response.getWriter();
@@ -89,12 +90,13 @@ public class BoardController extends HttpServlet {
 
 				System.out.println("파일의 부모 seq값:" + parentseq);
 
-				List<BoardDTO> borderlist = dao.getBorderList();
+				List<BoardDTO> boardlist = dao.getBoardList();
 
-				request.getSession().setAttribute("borderlist", borderlist);
-				response.sendRedirect("/showBorderList.Border");
+				request.getSession().setAttribute("boardlist", boardlist);
+				response.sendRedirect("/showboardlist.board");
 
-			} else if (cmd.equals("/showContents.Border")) {
+			} else if (cmd.equals("/showContents.board")) {
+				
 				String searchText = request.getParameter("searchText");
 				int seq = Integer.parseInt(request.getParameter("seq"));
 
@@ -134,15 +136,17 @@ public class BoardController extends HttpServlet {
 //				request.setAttribute("innerFiles", innerFiles);
 				request.setAttribute("seq", seq);
 			
-				request.getRequestDispatcher("/border/showContents.jsp").forward(request, response);
+				request.getRequestDispatcher("/board/showContents.jsp").forward(request, response);
 
-			} else if (cmd.equals("/showBorderList.Border")) {
-
+			} else if (cmd.equals("/showBoardlist.board")) {
+				
 				String searchText = null;
 				String cpage = request.getParameter("cpage");
 				searchText = request.getParameter("searchText");
+				
+				System.out.println("cpage: "+cpage);
 
-				List<BoardDTO> borderlist = null;
+				List<BoardDTO> boardlist = null;
 				int currentPage = cpage == null ? 1 : Integer.parseInt(cpage);
 				int totalRecordCount = 0;
 
@@ -151,11 +155,11 @@ public class BoardController extends HttpServlet {
 				System.out.println("문자열이 존재해?: " + isExistText);
 
 				if (searchText == null || !isExistText) {
-					borderlist = dao.selectBy(currentPage * Constants.RECORD_COUNT_PER_PAGE - 9,
+					boardlist = dao.selectBy(currentPage * Constants.RECORD_COUNT_PER_PAGE - 9,
 							currentPage * Constants.RECORD_COUNT_PER_PAGE);
 					totalRecordCount = dao.getRecordCount();
 				} else {
-					borderlist = dao.searchContents(searchText, currentPage * Constants.RECORD_COUNT_PER_PAGE - 9,
+					boardlist = dao.searchContents(searchText, currentPage * Constants.RECORD_COUNT_PER_PAGE - 9,
 							currentPage * Constants.RECORD_COUNT_PER_PAGE);
 					totalRecordCount = dao.getSearchRecordCount(searchText);
 				}
@@ -171,23 +175,22 @@ public class BoardController extends HttpServlet {
 				System.out.println("현재 페이지 확인: " + currentPage);
 
 				request.getSession().setAttribute("latesPageNum", currentPage);
-				request.setAttribute("borderlist", borderlist);
+				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("recordTotalCount", totalRecordCount);
 				request.setAttribute("recordCountPerPge", Constants.RECORD_COUNT_PER_PAGE);
 				request.setAttribute("NaviCountPerPage", Constants.NAVI_COUNT_PER_PAGE);
 				request.setAttribute("searchText", searchText);
 				request.setAttribute("isExistText", isExistText);
+				request.getRequestDispatcher("/board/board.jsp").forward(request, response);
 
-				request.getRequestDispatcher("/border/mainborder.jsp").forward(request, response);
-
-			} else if (cmd.equals("/upDateContents.Border")) {
+			} else if (cmd.equals("/upDateContents.board")) {
 				String title = request.getParameter("title");
 				String contents = request.getParameter("Contents");
 				String seq = request.getParameter("seq");
 				String writer = (String) request.getSession().getAttribute("checkLoing");
 
 				dao.upDateContents(seq, title, contents);
-				response.sendRedirect("/showBorderList.Border");
+				response.sendRedirect("/showboardlist.Border");
 			} else if (cmd.equals("/deleteContents.Border")) {
 				
 //				파일을 삭제하는 기능도 같이 넣어야 한다.
@@ -200,9 +203,9 @@ public class BoardController extends HttpServlet {
 				
 				dao.deleteContents(seq);
 
-				response.sendRedirect("/showBorderList.Border?cpage=" + parentseq);
+				response.sendRedirect("/showboardlist.board?cpage=" + parentseq);
 
-			} else if (cmd.equals("/download.Border")) {
+			} else if (cmd.equals("/download.board")) {
 				String ori_name = request.getParameter("oriname");
 				String sys_name = request.getParameter("sysname");
 				String filePath = request.getServletContext().getRealPath("files");
