@@ -596,7 +596,7 @@
                         </li>
                         <li class="headerli headerlogout"><a href="/logout.members">로그아웃</a>
                         </li>
-                        <li class="headerli"><a href="#">게시판</a></li>
+                        <li class="headerli"><a href="/showBoardlist.board?cpage=1">게시판</a></li>
                         <li class="headerli headerboard"><a href="/mypage.members">마이페이지</a></li>
                     </ul>
                 </div>
@@ -731,7 +731,7 @@
                     <div class="leftbox">
                         <div class="list">목록</div>
                         <ul>
-                            <li><a href="#">게시판</a></li>
+                            <li><a href="/showBoardlist.board?cpage=1">게시판</a></li>
                             <li><a href="/mypage.members?id=${id }">마이페이지</a></li>
                             <li><a href="#">랭킹보기</a></li>
                             <li><a href="#">상점</a></li>
