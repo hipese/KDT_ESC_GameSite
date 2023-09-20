@@ -26,7 +26,7 @@ public class MembersDAO {
 		return ds.getConnection();
 	}
 	public int insert(MembersDTO dto) throws Exception{
-        String sql = "insert into gamemembers values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into members values(?,?,?,?,?,?,?,?,?)";
         try(Connection con = this.getConnection();
                 PreparedStatement pstat = con.prepareStatement(sql);){
             pstat.setString(1, dto.getId());
@@ -43,7 +43,7 @@ public class MembersDAO {
         }
     }
 	public Boolean isIdExist (MembersDTO dto) throws Exception {
-		String sql = "select * from gamemembers where id=?";
+		String sql = "select * from members where id=?";
 		try(Connection con = this.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);){
 			
@@ -55,7 +55,7 @@ public class MembersDAO {
 		}
 	}
 	public boolean login(String id,String pw)throws Exception{
-	      String sql = "select * from gamemembers where id=? and pw=?";
+	      String sql = "select * from members where id=? and pw=?";
 	      try(Connection con = this.getConnection();
 	            PreparedStatement pstat = con.prepareStatement(sql);){
 	         pstat.setString(1, id);
