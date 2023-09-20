@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+.second-fluid {
+    overflow: none;
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+.footer {
+    padding: 50px 50px 50px;
+}
+
+.foottitle {
+    font-family: "Nanum Pen Script", cursive;
+    font-size: calc(1.2rem + 2vw);
+}
+
+.footenter {
+    font-size: 13px;
+}
+
+.footertitle {
+    font-family: "Nanum Pen Script", cursive;
+    font-size: 25px;
+    border-bottom: 1px solid black;
+}
+
+.icon {
+    animation: colorChange 2s infinite;
+}
+
+.youtube {
+    animation: colorChange 3s infinite;
+}
+
+.service {
+    font-family: "Nanum Pen Script", cursive;
+    font-size: 20px;
+}
+
+.service>a {
+    text-decoration-line: none;
+}
