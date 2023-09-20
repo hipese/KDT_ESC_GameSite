@@ -597,7 +597,7 @@
                         <li class="headerli headerlogout"><a href="/logout.members">로그아웃</a>
                         </li>
                         <li class="headerli"><a href="#">게시판</a></li>
-                        <li class="headerli headerboard"><a href="#">마이페이지</a></li>
+                        <li class="headerli headerboard"><a href="/mypage.members">마이페이지</a></li>
                     </ul>
                 </div>
                 <div class="col-1 d-md-block d-none"></div>
@@ -607,7 +607,7 @@
                     <div class="wrapper">
                         <ul>
                             <li><a href="#">Board</a></li>
-                            <li><a href="#">MyPage</a></li>
+                            <li><a href="/mypage.members">MyPage</a></li>
                             <li><a href="#">Rank</a></li>
                             <li><a href="#">Shop</a></li>
                         </ul>
@@ -711,12 +711,12 @@
                                 <div class="imgbox">
                                     <img src="img/쥐돌이.png" class="img" />
                                 </div>
-                                <div class="mpname">쥐돌이</div>
-                                <div class="mpemail">Mousedol2@naver.com</div>
+                                <div class="mpname">${name }</div>
+                                <div class="mpemail">${email }</div>
                                 <div class="row">
                                     <div class="col-12">
                                         <a href="/logout.members"><button type="button" class="mpbtn">로그아웃</button></a>
-                                        <a href="#"><button type="butotn" class="mpbtn">마이페이지</button></a>
+                                        <a href="/mypage.members"><button type="butotn" class="mpbtn">마이페이지</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -732,7 +732,7 @@
                         <div class="list">목록</div>
                         <ul>
                             <li><a href="#">게시판</a></li>
-                            <li><a href="#">마이페이지</a></li>
+                            <li><a href="/mypage.members?id=${id }">마이페이지</a></li>
                             <li><a href="#">랭킹보기</a></li>
                             <li><a href="#">상점</a></li>
                         </ul>
