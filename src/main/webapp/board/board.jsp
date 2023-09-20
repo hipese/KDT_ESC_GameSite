@@ -257,18 +257,7 @@ form>.searchArea {
 
 					<div class="loginInputbox">
 					
-						<div class="input">
-							<input type="text" name="id" id="inputId" placeholder="Input your ID">
-						</div>
-						<div class="input">
-							<input type="password" name="pw" id="inputpw" placeholder="Input your password">
-						</div>
 						
-						<div class="loginbuttonbox">
-							<button id="login" class="btn btn-primary">로그인</button>
-							<button id="join" type="button" class="btn btn-primary">회원가입</button>
-						</div>
-
 						<div class="remember">
 							로그인 폼을 여기에 등록
 						</div>

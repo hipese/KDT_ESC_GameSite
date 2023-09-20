@@ -58,8 +58,6 @@ public class BoardDAO {
 		String sql = "select * from " + "(select " + "row_number() over(order by seq desc) as rs , border.* from "
 				+ "border) temp " + "where rs between ? and ?";
 		
-		
-		System.out.println("데이터베이스에서 검색중입니다.");
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			List<BoardDTO> list = new ArrayList<>();
 			pstat.setInt(1, start);
