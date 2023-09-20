@@ -294,7 +294,7 @@ form>.searchArea {
 					표시할 내용이 없습니다.
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="i" items="${borderlist }">
+					<c:forEach var="i" items="${boardlist }">
 						<div class="col-12 c">
 							<div class="row contents">
 								<div class="col-4 col-sm-1 d-none d-sm-block">${i.seq }</div>
