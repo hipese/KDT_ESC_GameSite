@@ -18,9 +18,6 @@
         integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
         integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
-        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
         integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
 
@@ -151,19 +148,19 @@
         <div class="row header mb-4">
             <div class="col-md-11"> <!-- 제목 칸과 넓이를 동일하게 하기 위해 col 제거 -->
                 <div class="title" id="title_update" style="display: none;">
-                    <input type="text" id="title_update_value" name="title_update" size=100 value="게임이 너무 어려워요"
-                        placeholder="">
+                    <input type="text" id="title_update_value" name="title_update" size=100 value="${selectboard.title}"
+                        placeholder=""><input type="hidden" name="seq" id="seq" readonly>
                 </div>
                 <div class="title" id="contents_title">
-                    산수유
+					${selectboard.title}
                 </div>
             </div>
             <div class="col-md-1">
                 <div class="row">
-                    날짜
+                    날짜 : ${selectboard.formedSignupData}
                 </div>
                 <div class="row">
-                    조회수
+                    조회수 : ${selectboard.view_count}
                 </div>
             </div>
         </div>
@@ -171,16 +168,10 @@
         <div class="row contents mb-4">
             <div class="col contents justify-content-end" id="contentContainer">
                 <div id="contents" name="contents">
-                    <p>산수유는 존재로서의 중량감이 전혀 없다.</p>
-                    <p>꽃의 어렴풋한 기운만 파스텔처럼</p>
-                    <p>산야의 번져있다.</p>
-                    <p>산수유가 언제 지는 것인지는 눈치채기 어렵다.</p>
-                    <p>그 꽃이 스러지는 모습은 나무가 지우개로 저 자신을 지우는 것과 같다.</p>
-                    <p>그래서 산수유는 꽃이 아니라 나무가 꾸는 꿈처럼 보인다.</p>
-                    <p>-김훈-</p>
+             		${selectboard.contents}
                 </div>
                 <div id="summernoteContainer" style="display: none;">
-                    <textarea id="summernote" name="summernote_contents"></textarea>
+                    <textarea id="summernote" name="summernote_contents">${selectboard.contents}</textarea>
                 </div>
             </div>
         </div>
@@ -204,7 +195,7 @@
                 <button type="button" class="btn btn-outline-secondary" style="margin-right: 10px;">목록으로</button>
                 <button type="button" class="btn btn-outline-secondary" id="updateBtn"
                     style="margin-right: 10px;">수정하기</button>
-                <button type="button" class="btn btn-outline-secondary">삭제하기</button>
+                <button type="button" class="btn btn-outline-secondary" id="delete">삭제하기</button>
             </div>
         </div>
         <div class="row reply_list mb-4">
@@ -295,6 +286,8 @@
     </div>
 
     <script>
+    	$('input[name=seq]').attr('value', "${selectboard.seq}"); 
+   
         $('#updateBtn').click(function () {
             $('#contents').hide();
             $('#summernoteContainer').show();
@@ -315,18 +308,42 @@
             // 여기에 수정 확인 로직을 추가하세요.
             let updatedContent = $('#summernote').val();
             let updateTitle = $('#title_update_value').val();
+            let updateSeq = $("#seq").val();
             // 수정한 내용을 서버로 보내는 등의 동작을 수행할 수 있습니다.
             console.log(updatedContent);
             console.log(updateTitle);
-
-            $('#contents').html(updatedContent);
-            $('#contents_title').html(updateTitle);
+            
+			$.ajax({
+				url:"/updateContents.board",
+				data:{
+					title:updateTitle,
+					Contents:updatedContent,
+					seq:updateSeq
+				}
+			}).done(function(resp){
+				window.location.reload();
+			});
+			
             $('#contents').show();
             $('#summernoteContainer').hide();
             $('.update_buttons').hide(); // 수정 확인 버튼을 클릭하면 수정 내용을 표시하고 버튼을 숨기도록 설정
             $('#title_update').hide();
             $('#contents_title').show();
         });
+        
+        $("#delete").on("click",function(){
+        	let deleteSeq = $("#seq").val();
+        	  
+			$.ajax({
+				url:"/deleteContents.board",
+				data:{
+					seq:deleteSeq
+				}
+			}).done(function(resp){
+				  window.location.href = "/showBoardList.board";
+			});
+        })
+        
 
         $('#summernote').summernote({
             placeholder: '내용을 작성해 주세요',
