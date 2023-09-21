@@ -22,9 +22,7 @@
 	
 </script>
 <style>
-* {
-	box-sizing: border-box;
-}
+*{box-sizing: border-box;}
 	
 /* 기본틀 만들기 */
 .container>.title {
@@ -211,7 +209,7 @@ form>.searchArea {
 				<div class="left col-12 col-sm-5">✨사이트 이름✨</div>
 
 				<!-- 검색시 정보를 controller로 전송 -->
-				<form action="/showBorderList.Border" method="get"
+				<form action="/showboardList.board" method="get"
 					class="col-12 col-7">
 					<div class="searchArea">
 						<input type="text" id="search" name="searchText">
@@ -279,7 +277,7 @@ form>.searchArea {
 			</div>
 
 			<c:choose>
-				<c:when test="${borderlist.size()==0}">
+				<c:when test="${boardlist.size()==0}">
 					표시할 내용이 없습니다.
 				</c:when>
 				<c:otherwise>
@@ -289,7 +287,7 @@ form>.searchArea {
 								<div class="col-4 col-sm-1 d-none d-sm-block">${i.seq }</div>
 								<div class="col-12 col-sm-4 ">
 									<a
-										href="/showContents.Border?title=${i.title}&seq=${i.seq}&searchText=${searchText}">${i.title}</a>
+										href="/showContents.board?title=${i.title}&seq=${i.seq}&searchText=${searchText}">${i.title}</a>
 								</div>
 								<div class="col-4 col-sm-3">${i.writer }</div>
 								<div class="col-4 col-sm-1">${i.view_count }</div>
@@ -324,11 +322,7 @@ form>.searchArea {
 	<script>
 		${isExistText}
 		$("#write").on("click", function() {
-			let okorNo = confirm("게시글을 작성하시겠습니까?");
-			if (okorNo == false) {
-				return false;
-			}
-			location.href = "/border/write.jsp";
+			location.href = "/board/write.jsp";
 		});
 
 		$("#back").on("click", function() {
