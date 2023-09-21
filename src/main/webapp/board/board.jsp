@@ -337,7 +337,7 @@ form>.searchArea {
 			if (okorNo == false) {
 				return false;
 			}
-			location.href = "/index.jsp";
+			location.href = "/updateBack.members";
 		});
 		
 	</script>
