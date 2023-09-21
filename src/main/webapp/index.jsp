@@ -734,7 +734,7 @@
                             <li><a href="#">게시판</a></li>
                             <li><a href="#">마이페이지</a></li>
                             <li><a href="#">랭킹보기</a></li>
-                            <li><a href="#">상점</a></li>
+                            <li><a href="shop.jsp">상점</a></li>
                         </ul>
                     </div>
                 </div>
