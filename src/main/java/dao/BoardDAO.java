@@ -137,14 +137,15 @@ public class BoardDAO {
 	}
 
 	public int updateContents(String seq, String title, String contents) throws Exception {
-		String sql = "update board set title=?,contents=?" + "where seq=? ";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setString(1, title);
-			pstat.setString(2, contents);
-			pstat.setString(3, seq);
-			return pstat.executeUpdate();
-		}
+	    String sql = "UPDATE board SET title=?, contents=? WHERE seq=?";
+	    try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+	        pstat.setString(1, title);
+	        pstat.setString(2, contents);
+	        pstat.setString(3, seq);
+	        return pstat.executeUpdate();
+	    }
 	}
+
 
 	public int upView_Count(int seq) throws Exception {
 		String sql = "update board set view_count=view_count+1 where seq=?";

@@ -115,7 +115,8 @@ public class BoardController extends HttpServlet {
 				System.out.println("검색한 문자열: " + searchText);
 
 				dao.upView_Count(mydto.getSeq());
-
+		
+				
 				if (login.equals(mydto.getWriter())) {
 					isWriterCheck = true;
 					System.out.println("작성자와 일치한 아이디입니다.");
@@ -131,7 +132,9 @@ public class BoardController extends HttpServlet {
 
 //				request.setAttribute("isParentseq", isParentseq);
 //				request.setAttribute("replyList", replyList);
-				request.setAttribute("titledao", mydto);
+				request.setAttribute("selectboard", mydto);
+				
+				// 게시판을 작성한 주인의 여부
 				request.setAttribute("isWriterCheck", isWriterCheck);
 				request.setAttribute("searchText", searchText);
 //				request.setAttribute("innerFiles", innerFiles);
