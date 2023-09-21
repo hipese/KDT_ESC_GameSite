@@ -192,7 +192,7 @@
         </div>
         <div class="row botton mb-4">
             <div class="col botton d-flex justify-content-end">
-                <button type="button" class="btn btn-outline-secondary" style="margin-right: 10px;">목록으로</button>
+                <button type="button" class="btn btn-outline-secondary" style="margin-right: 10px;" id="return">목록으로</button>
                 <button type="button" class="btn btn-outline-secondary" id="updateBtn"
                     style="margin-right: 10px;">수정하기</button>
                 <button type="button" class="btn btn-outline-secondary" id="delete">삭제하기</button>
@@ -344,7 +344,10 @@
 			});
         })
         
-
+        $("#return").on("click",function(){
+        	 location.href = "/showBoardList.board";
+        })
+        
         $('#summernote').summernote({
             placeholder: '내용을 작성해 주세요',
             tabsize: 2,
