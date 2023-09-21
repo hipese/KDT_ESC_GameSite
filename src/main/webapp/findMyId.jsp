@@ -109,7 +109,7 @@
 	                url: "/findMemberId.members", // 서블릿 URL
 	                data: { name: name, email: email }, // 전송할 데이터
 	                success: function (response) {
-	                    if (response !== null) { // 수정된 부분
+	                    if (response !== null && response !== "null") { // 수정된 부분
 	                        alert("ID found: " + response);
 	                    } else {
 	                        alert("ID not found.");
