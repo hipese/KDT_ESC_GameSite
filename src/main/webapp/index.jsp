@@ -691,7 +691,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <ul class="findelement">
-                                                <a href="">
+                                                <a href="findMyId.jsp">
                                                     <li>아이디 찾기</li>
                                                 </a>
                                                 <a href="">
