@@ -107,4 +107,14 @@ public class ReplyDAO {
 			return list;
 		}
 	}
+	
+	public int countReply(int parent_seq) throws Exception {
+		String sql = "SELECT count(*)FROM reply where parent_seq=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1,parent_seq);
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
 }

@@ -20,6 +20,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import constants.Constants;
 import dao.ReplyDAO;
 import dto.ReplyDTO;
 
@@ -53,7 +54,7 @@ public class ReplyController extends HttpServlet {
 				String writer = (String) request.getSession().getAttribute("loginID");
 				String replyContents = request.getParameter("replyContents");
 				Timestamp date = new Timestamp(System.currentTimeMillis());
-				int parentSeq = Integer.parseInt(request.getParameter("parentSeq"));
+				int parentSeq = Integer.parseInt(request.getParameter("parent_seq"));
 
 				dao.writeReply(new ReplyDTO(0, writer, replyContents, date, parentSeq));
 				response.sendRedirect("/showContents.board?seq=" + parentSeq);
@@ -78,14 +79,18 @@ public class ReplyController extends HttpServlet {
 
 				String parent_seq = request.getParameter("parent_seq");
 				response.sendRedirect("/showReplyList.reply?seq=" + Integer.parseInt(parent_seq));
-			} else if (cmd.equals("/showReplyList.reply")) {
+				
+			} else if (cmd.equals("/showReplyList.reply")) { //댓글 리스트를 불러오는 서블릿 
+				
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				System.out.println("부모의 번호: " + seq);
-
+				
+				
 				List<ReplyDTO> replyList = dao.selectReply(seq);
+				
 				printwriter.append(gson.toJson(replyList));
+				
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.html");

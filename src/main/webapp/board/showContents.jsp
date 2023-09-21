@@ -363,7 +363,7 @@ window.onload = function() {
             });
         });
 
-
+		/*댓글을 삭제하는 함수*/
         $('.delete-btn').on('click', function() {
             let confirmation = confirm('정말로 댓글을 삭제하시겠습니까?');
             if (confirmation) {
@@ -478,6 +478,7 @@ $('#wirte_reply').on('click', function(){
 			height : 400,
 			lang : 'ko-KR', // default: 'en-US'
 		});
-	</script>
+	</script>	
+
 </body>
 </html>
