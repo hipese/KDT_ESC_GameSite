@@ -22,8 +22,10 @@
 	
 </script>
 <style>
-*{box-sizing: border-box;}
-	
+* {
+	box-sizing: border-box;
+}
+
 /* 기본틀 만들기 */
 .container>.title {
 	height: 10%;
@@ -82,7 +84,7 @@ form>.searchArea {
 	display: flex;
 }
 
-.header>div{
+.header>div {
 	height: 100%;
 	font-size: 20px;
 	font-weight: bold;
@@ -95,7 +97,7 @@ form>.searchArea {
 }
 
 .loginbox {
-	color:white;
+	color: white;
 	padding: 10px;
 	height: 150px;
 	width: 40%;
@@ -119,13 +121,15 @@ form>.searchArea {
 	justify-content: center;
 	align-items: center;
 }
-.loginbox{
+
+.loginbox {
 	height: 100%;
 	width: 40%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+
 .container>.body {
 	padding: 10px;
 	height: 65%;
@@ -133,7 +137,7 @@ form>.searchArea {
 }
 
 .container>.footer {
-	display:felx;
+	display: felx;
 	padding: 10px;
 	height: 20%;
 }
@@ -149,6 +153,7 @@ form>.searchArea {
 .pageNav>a {
 	margin: 2px;
 }
+
 .c:hover {
 	background-color: aquamarine;
 	color: white;
@@ -168,20 +173,24 @@ form>.searchArea {
 .nav-link {
 	color: white;
 }
-.pageNav>a{
- 	font-size: 15;
-    margin: 5px;
+
+.pageNav>a {
+	font-size: 15;
+	margin: 5px;
 }
-.footer>.details{
+
+.footer>.details {
 	
 }
-.footer>.buttonbox{
+
+.footer>.buttonbox {
 	height: 50%;
 	display: flex;
 	justify-content: right;
 	align-items: center;
 }
-.details>.copyright{
+
+.details>.copyright {
 	height: 200px;
 	width: 100%;
 	display: flex;
@@ -243,31 +252,28 @@ form>.searchArea {
 					<div class="managerNames">
 						<fieldset>
 							<legend>관리자</legend>
-							hipes<br> 
-							관리자의 닉네임1  
+							hipes<br> 관리자의 닉네임1
 						</fieldset>
 					</div>
 
 				</div>
-				
+
 				<!-- 로그인 폼이 존재하는 장소(로그인 여부에 따라 바꿔야함) -->
 				<div class="loginbox col-12 col-sm-4 bg-secondary rounded-3 m-1">
 
 					<div class="loginInputbox">
-					
-						
-						<div class="remember">
-							로그인 폼을 여기에 등록
-						</div>
+
+
+						<div class="remember">로그인 폼을 여기에 등록</div>
 					</div>
-					
+
 				</div>
 			</div>
 
 		</div>
 
 		<div class="body">
-		
+
 			<div class="header col-12 col-sm-12">
 				<div class="nav col-12 col-sm-1 d-none d-sm-block ">번호</div>
 				<div class="nav col-12 col-sm-4 ">제목</div>
@@ -302,21 +308,22 @@ form>.searchArea {
 
 		<div class="footer">
 			<div class="buttonbox">
-					<button type="button" class="btn btn-primary col-12 col-sm-2 m-2"
-						id="write">작성하기</button>
-					<button type="button" class="btn btn-primary col-12 col-sm-2 m-2"
-						id="back">돌아가기</button>
-				</div>
+				<button type="button" class="btn btn-primary col-12 col-sm-2 m-2"
+					id="write">작성하기</button>
+				<button type="button" class="btn btn-primary col-12 col-sm-2 m-2"
+					id="back">돌아가기</button>
+			</div>
+
+			<div class="pageNav">
 				
-			<div class="pageNav"></div>
-			
-			 <div class="details">
+			</div>
+
+			<div class="details">
 				<div class="copyright col-12 col-sm-2 m-12 bg-secondary rounded-3">
-						여기에 footer를 꾸미는 내용을 작성
-				</div>
-			 </div>
-			
-			
+					여기에 footer를 꾸미는 내용을 작성</div>
+			</div>
+
+
 		</div>
 	</div>
 	<script>
@@ -335,64 +342,66 @@ form>.searchArea {
 		
 	</script>
 	<script>
-	
-	
-	let recordTotalCount=${recordTotalCount};
-	let recordCountPerPage=${recordCountPerPge};
-	let naviCountPerPage=${NaviCountPerPage};
-	let currentPage=${latesPageNum};
+    let recordTotalCount = ${recordTotalCount};
+    let recordCountPerPage = ${recordCountPerPge};
+    let naviCountPerPage = ${NaviCountPerPage};
+    let currentPage = ${latesPageNum};
 
-	
-	let pageTotalCount = 0;
-	
-	let pageNav=$(".pageNav");
-	
-	if (recordTotalCount % recordCountPerPage > 0) {
-		pageTotalCount =  Math.floor(recordTotalCount / recordCountPerPage + 1);
-	} else {
-		pageTotalCount =  Math.floor(recordTotalCount / recordCountPerPage);
-	}
-	
+    let pageTotalCount = 0;
 
-	
-	if (currentPage < 1) {
-		currentPage = 1;
-	} else if (currentPage > pageTotalCount) {
-		currentPage = pageTotalCount;
-	}
-	
-	
-	let startNavi = Math.floor((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1;
-	
-	let endNavi = startNavi + (naviCountPerPage - 1);
-	
+    let pageNav = $(".pageNav");
 
-	if (endNavi > pageTotalCount) {
-		endNavi = pageTotalCount;
-	}
-	
-	let needPrev = true;
-	let needNext = true;
+    if (recordTotalCount % recordCountPerPage > 0) {
+        pageTotalCount = Math.floor(recordTotalCount / recordCountPerPage + 1);
+    } else {
+        pageTotalCount = Math.floor(recordTotalCount / recordCountPerPage);
+    }
 
-	if (startNavi == 1) {
-		needPrev = false;
-	}
-	if (endNavi == pageTotalCount) {
-		needNext = false;
-	}
-	
-	if (needPrev) {
-		pageNav.append("<a href='/showBoardList.board?cpage="+(startNavi-1)+"&searchText=${searchText}'> < </a>");
-	}
-	for (let i = startNavi; i <= endNavi; i++) {
-		pageNav.append("<a href='/showBoardList.board?cpage="+i+"&searchText=${searchText}'>" + i + " </a>");
-	}
-	if (needNext) {
-		pageNav.append("<a href='/showBoardList.board?cpage="+(endNavi+1)+"&searchText=${searchText}'> > </a>");
-	}
+    if (currentPage < 1) {
+        currentPage = 1;
+    } else if (currentPage > pageTotalCount) {
+        currentPage = pageTotalCount;
+    }
 
-	
-	</script>
+    let startNavi = Math.floor((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1;
+
+    let endNavi = startNavi + (naviCountPerPage - 1);
+
+    if (endNavi > pageTotalCount) {
+        endNavi = pageTotalCount;
+    }
+
+    let needPrev = true;
+    let needNext = true;
+
+    if (startNavi == 1) {
+        needPrev = false;
+    }
+    if (endNavi == pageTotalCount) {
+        needNext = false;
+    }
+
+    let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
+
+    if (needPrev) {
+        paginationHTML += '<li class="page-item"><a class="page-link" href="/showBoardList.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}" aria-label="Previous">&laquo;</a></li>';
+    }
+
+    for (let i = startNavi; i <= endNavi; i++) {
+        paginationHTML += '<li class="page-item"><a class="page-link" href="/showBoardList.board?cpage=' + i + '&searchText=${searchText}">' + i + '</a></li>';
+    }
+
+    if (needNext) {
+        paginationHTML += '<li class="page-item"><a class="page-link" href="/showBoardList.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}" aria-label="Next">&raquo;</a></li>';
+    }
+
+    paginationHTML += '</ul></nav>';
+
+    // Append the generated pagination HTML to the pageNav element
+    pageNav.append(paginationHTML);
+</script>
+
+
 </body>
 
 </html>
