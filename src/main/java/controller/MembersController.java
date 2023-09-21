@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import commons.EmailService;
 import commons.EncryptionUtils;
 import dao.MembersDAO;
 import dto.MembersDTO;
@@ -112,6 +113,16 @@ public class MembersController extends HttpServlet {
 				PrintWriter pw = response.getWriter();
 				pw.append(json);
 				
+			} else if(cmd.equals("/tempPwRelease.members")) {
+				EmailService es = new EmailService();
+				Gson gson = new Gson();
+				String name = request.getParameter("name");
+				String email = request.getParameter("email");
+				String id = request.getParameter("id");
+				int result = dao.updateTempPw(es.sendEmail(email), id, email, name);
+				String json = gson.toJson(result);
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
 			}
 		} catch (Exception e) {
 			response.sendRedirect("/error.html");

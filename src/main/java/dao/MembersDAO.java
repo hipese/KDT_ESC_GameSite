@@ -122,11 +122,13 @@ public class MembersDAO {
 		return null;
 	}
 	
-	public int updatePw(String pw, String id) throws SQLException, Exception {
-		String sql = "update members set pw = ? where id = ?";
+	public int updateTempPw(String pw, String id, String email, String name) throws SQLException, Exception {
+		String sql = "update members set pw = ? where id = ? and email = ? and name=?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, EncryptionUtils.getSHA512(pw));
 			pstat.setString(2, id);
+			pstat.setString(3, email);
+			pstat.setString(4, name);
 			return pstat.executeUpdate();
 		}
 	}

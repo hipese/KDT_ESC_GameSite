@@ -1,9 +1,16 @@
 package commons;
 
-import javax.mail.*;
-import javax.mail.internet.*;
 import java.util.Properties;
 import java.util.Random;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class EmailService {
     private final String USER_EMAIL = "kdtesc134679@gmail.com";
@@ -13,7 +20,6 @@ public class EmailService {
     private final String SPECIAL_CHARACTERS = "!@#$";
     //private final int SMTP_PORT = 465; //SSL
   	private final int SMTP_PORT = 587; //TLS
-  	//final String user_pw = "@KDTesc1234";
 
     public String sendEmail(String toEmail) {
         // SMTP 서버 설정
@@ -23,7 +29,7 @@ public class EmailService {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         //props.put("mail.smtp.ssl.enable", "true"); 
-        //props.put("mail.smtp.ssl.trust", getSMTP_HOST());
+        //props.put("mail.smtp.ssl.trust", SMTP_HOST);
 
         // 세션 생성
         Session session = Session.getInstance(props, new Authenticator() {
