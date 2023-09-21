@@ -103,6 +103,15 @@ public class MembersController extends HttpServlet {
 				request.setAttribute("name",dto.getName());
 				request.setAttribute("email",dto.getEmail());
 				request.getRequestDispatcher("/index.jsp").forward(request,response);
+			} else if(cmd.equals("/findMemberId.members")) {
+				Gson gson = new Gson();
+				String name = request.getParameter("name");
+				String email = request.getParameter("email");
+				String foundId = dao.findId(email, name);
+				String json = gson.toJson(foundId);
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
+				
 			}
 		} catch (Exception e) {
 			response.sendRedirect("/error.html");
