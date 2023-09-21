@@ -22,9 +22,7 @@
 	
 </script>
 <style>
-* {
-	box-sizing: border-box;
-}
+*{box-sizing: border-box;}
 	
 /* 기본틀 만들기 */
 .container>.title {
@@ -279,7 +277,7 @@ form>.searchArea {
 			</div>
 
 			<c:choose>
-				<c:when test="${boardList.size()==0}">
+				<c:when test="${boardlist.size()==0}">
 					표시할 내용이 없습니다.
 				</c:when>
 				<c:otherwise>
@@ -324,10 +322,6 @@ form>.searchArea {
 	<script>
 		${isExistText}
 		$("#write").on("click", function() {
-			let okorNo = confirm("게시글을 작성하시겠습니까?");
-			if (okorNo == false) {
-				return false;
-			}
 			location.href = "/board/write.jsp";
 		});
 

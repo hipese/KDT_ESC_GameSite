@@ -60,16 +60,18 @@ public class BoardController extends HttpServlet {
 				} // 파일을 업로드 할 폴더 생성
 				int maxSize = 1024 * 1024 * 10; // 업로드 파일 최대 사이즈 10mb 제한
 
+//
+//				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf8",
+//						new DefaultFileRenamePolicy());
+//
+//				Enumeration<String> fileNames = multi.getFileNames();
 
-				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf8",
-						new DefaultFileRenamePolicy());
-
-				Enumeration<String> fileNames = multi.getFileNames();
-
-				String writer = (String) request.getSession().getAttribute("checkLoing");
-				String title = multi.getParameter("title");
-				String contents = multi.getParameter("contents");
-
+				String writer = (String) request.getSession().getAttribute("loginID");
+				String title = request.getParameter("title");
+				String contents = request.getParameter("contents");
+				
+				System.out.println(title+" : "+contents);
+			
 				int parentseq = dao.writeWord(new BoardDTO(0, writer, title, contents, date, view_count));
 
 //				while (fileNames.hasMoreElements()) { // ResultSet의 next()와 같은 역할
@@ -93,7 +95,6 @@ public class BoardController extends HttpServlet {
 				List<BoardDTO> boardlist = dao.getBoardList();
 
 				request.getSession().setAttribute("boardlist", boardlist);
-				response.sendRedirect("/showBoardList.board");
 
 			} else if (cmd.equals("/showContents.board")) {
 				
@@ -107,8 +108,8 @@ public class BoardController extends HttpServlet {
 //				System.out.println("검색한 해당 문서에 존재하는 파일수: " + innerFiles.size());
 
 				BoardDTO mydto = dao.showContents(seq);
-				String login = (String) request.getSession().getAttribute("checkLoing");
-
+				String login = (String) request.getSession().getAttribute("loginID");
+				
 				System.out.println("작성자: " + mydto.getWriter());
 				System.out.println("현재 아이디: " + login);
 				System.out.println("검색한 문자열: " + searchText);
@@ -185,11 +186,11 @@ public class BoardController extends HttpServlet {
 				String title = request.getParameter("title");
 				String contents = request.getParameter("Contents");
 				String seq = request.getParameter("seq");
-				String writer = (String) request.getSession().getAttribute("checkLoing");
+				String writer = (String) request.getSession().getAttribute("loginID");
 
 				dao.updateContents(seq, title, contents);
-				response.sendRedirect("/showBoardList.Border");
-			} else if (cmd.equals("/deleteContents.Border")) {
+				response.sendRedirect("/showboardlist.board");
+			} else if (cmd.equals("/deleteContents.board")) {
 				
 //				파일을 삭제하는 기능도 같이 넣어야 한다.
 				int seq = Integer.parseInt(request.getParameter("seq"));
