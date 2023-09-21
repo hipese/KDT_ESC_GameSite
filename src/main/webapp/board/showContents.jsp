@@ -240,15 +240,7 @@ form>.searchArea {
 			<div class="col reply_pagenation" id="reply_pagenation">
 				<nav aria-label="Page navigation example">
 					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#"
-							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#"
-							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-						</a></li>
+
 					</ul>
 				</nav>
 			</div>
@@ -479,6 +471,44 @@ $('#wirte_reply').on('click', function(){
 			lang : 'ko-KR', // default: 'en-US'
 		});
 	</script>	
+	
+	<script>
+    // AJAX call to get pagination data
+    $.ajax({
+        url: '/replyNav.reply',
+        data: { cpage: 1, seq: "${selectboard.seq}" },
+        dataType: 'json',
+    }).done(function (paginationData) {
+        // Assuming paginationData is the JSON response from the server
+        let recordTotalCount = paginationData.recordTotalCount;
+        let recordCountPerPage = paginationData.recordCountPerPage;
+        let naviCountPerPage = paginationData.naviCountPerPage;
+        let currentPage = paginationData.latestPageNum;
+        
+        // Calculate pagination and generate HTML
+        let pageTotalCount = Math.ceil(recordTotalCount / recordCountPerPage);
+        let startNavi = Math.floor((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1;
+        let endNavi = Math.min(startNavi + naviCountPerPage - 1, pageTotalCount);
+
+        // Create the pagination HTML
+        let paginationHTML = '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=1&searchText=${searchText}" aria-label="First">First</a></li>';
+        if (startNavi > 1) {
+            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + (startNavi - 1) + '&searchText=${searchText}" aria-label="Previous">&laquo;</a></li>';
+        }
+        
+        for (let i = startNavi; i <= endNavi; i++) {
+            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + i + '&searchText=${searchText}">' + i + '</a></li>';
+        }
+        
+        if (endNavi < pageTotalCount) {
+            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + (endNavi + 1) + '&searchText=${searchText}" aria-label="Next">&raquo;</a></li>';
+        }
+        paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + pageTotalCount + '&searchText=${searchText}" aria-label="Last">Last</a></li>';
+        
+        // Append the generated pagination HTML to the pageNav element
+        $('.pagination').html(paginationHTML);
+    });
+</script>
 
 </body>
 </html>

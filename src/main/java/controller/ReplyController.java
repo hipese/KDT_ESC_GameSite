@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -89,6 +91,33 @@ public class ReplyController extends HttpServlet {
 				List<ReplyDTO> replyList = dao.selectReply(seq);
 				
 				printwriter.append(gson.toJson(replyList));
+				
+			}else if(cmd.equals("/replyNav.reply")) {
+				System.out.println("여기는 오냐?");
+				
+				String cpage = request.getParameter("cpage");
+				int currentPage = cpage == null ? 1 : Integer.parseInt(cpage);
+				
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				
+				System.out.println("현재 번호: " + currentPage);
+
+				int replyCount = dao.countReply(seq);
+				int recordCountPerPage = Constants.RECORD_COUNT_PER_PAGE;
+				int naviCountPerPage = Constants.NAVI_COUNT_PER_PAGE;
+
+				Map<String, Object> paginationData = new HashMap<>();
+				paginationData.put("recordTotalCount", replyCount);
+				paginationData.put("recordCountPerPage", Constants.RECORD_COUNT_PER_PAGE);
+				paginationData.put("naviCountPerPage", Constants.NAVI_COUNT_PER_PAGE);
+				paginationData.put("latestPageNum", currentPage);
+				
+				String paginationJson = gson.toJson(paginationData);
+				
+				System.out.println("여기까지 오냐?");
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(paginationJson);
 				
 			}
 		} catch (Exception e) {
