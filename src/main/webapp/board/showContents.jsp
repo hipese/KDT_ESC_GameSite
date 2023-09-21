@@ -122,7 +122,7 @@
                 <div class="left col-12 col-sm-5">✨사이트 이름✨</div>
 
                 <!-- 검색시 정보를 controller로 전송 -->
-                <form action="/showBorderList.Border" method="get" class="col-12 col-7">
+                <form action="/showBoardList.board" method="get" class="col-12 col-7">
                     <div class="searchArea">
                         <input type="text" id="search" name="searchText">
                         <button id="searchBtn" class="btn btn-primary col-12 col-sm-2 m-2">검색</button>
@@ -332,16 +332,19 @@
         });
         
         $("#delete").on("click",function(){
+        	let isdelete = confirm("작성을 취소하시겠습니까?");
         	let deleteSeq = $("#seq").val();
-        	  
-			$.ajax({
-				url:"/deleteContents.board",
-				data:{
-					seq:deleteSeq
-				}
-			}).done(function(resp){
-				  window.location.href = "/showBoardList.board";
-			});
+       	 	if (isdelete) {
+       	 		$.ajax({
+					url:"/deleteContents.board",
+					data:{
+						seq:deleteSeq
+					}
+				}).done(function(resp){
+					  window.location.href = "/showBoardList.board";
+				});
+       	 	}
+			return;
         })
         
         $("#return").on("click",function(){

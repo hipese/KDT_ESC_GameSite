@@ -172,13 +172,23 @@ form>.searchArea {
         	  window.location.href = "/showBoardList.board";
          });
 	})
-        
+    
+		
+	
 	$('#summernote').summernote({
             placeholder: '내용을 작성해 주세요',
             tabsize: 2,
             height: 400,
             lang: 'ko-KR', // default: 'en-US'
         });
+	
+    $("#update_cancel").on("click", function () {
+    	let isCancel = confirm("작성을 취소하시겠습니까?");
+   	 	if (isCancel) {
+     	   location.href = "/showBoardList.board";
+   	 	}
+   		 return; // Semicolon should be placed here, and it's optional
+		});
     </script>
 </body>
 </html>
