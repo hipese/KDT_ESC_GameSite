@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -58,13 +59,50 @@ public class MembersController extends HttpServlet {
 				boolean success = dao.login(id, pw);
 				if(success) {
 					request.getSession().setAttribute("loginID",id);
+					MembersDTO dto = dao.mypage(id);
+					request.setAttribute("name",dto.getName());
+					request.setAttribute("email",dto.getEmail());
 				}
-				response.sendRedirect("/index.jsp"); // 로그인시 어디로 이동할지
+				request.getRequestDispatcher("/index.jsp").forward(request,response); // 로그인시 어디로 이동할지
 			}
 
 			else if(cmd.equals("/logout.members")) {
 				request.getSession().invalidate();
 				response.sendRedirect("/index.jsp"); // 로그아웃시 어디로 이동할지
+			}
+			else if(cmd.equals("/mypage.members")) {
+				String id = (String)request.getSession().getAttribute("loginID");
+				MembersDTO dto = dao.mypage(id);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("/myPage.jsp").forward(request,response);
+			} else if (cmd.equals("/update.members")) {
+				response.sendRedirect("/updateMyPage.jsp");
+			} else if (cmd.equals("/updateComplete.members")) {
+				request.setCharacterEncoding("UTF-8");
+				String id = (String)request.getSession().getAttribute("loginID");
+				String name = request.getParameter("name");
+				String phone1 = request.getParameter("phone1");
+				String phone2 = request.getParameter("phone2");
+				String phone = "010"+phone1 + phone2;
+				String email1 = request.getParameter("email1");
+				String email2 = request.getParameter("email2");
+				String email = email1 + "@" + email2;
+				String zipcode = request.getParameter("zipcode");
+				String address1 = request.getParameter("address1");
+				String address2 = request.getParameter("address2");
+				String address = address1 + " " +address2;
+				String address3 = request.getParameter("address3");
+
+				dao.update(id, name, phone, email, zipcode, address, address3);
+				MembersDTO dto = dao.mypage(id);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("/myPage.jsp").forward(request, response);
+			} else if(cmd.equals("/updateBack.members")) {
+				String id = (String)request.getSession().getAttribute("loginID");
+				MembersDTO dto = dao.mypage(id);
+				request.setAttribute("name",dto.getName());
+				request.setAttribute("email",dto.getEmail());
+				request.getRequestDispatcher("/index.jsp").forward(request,response);
 			}
 		} catch (Exception e) {
 			response.sendRedirect("/error.html");
