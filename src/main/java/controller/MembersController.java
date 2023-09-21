@@ -119,10 +119,15 @@ public class MembersController extends HttpServlet {
 				String name = request.getParameter("name");
 				String email = request.getParameter("email");
 				String id = request.getParameter("id");
-				int result = dao.updateTempPw(es.sendEmail(email), id, email, name);
-				String json = gson.toJson(result);
 				PrintWriter pw = response.getWriter();
-				pw.append(json);
+				if(dao.tempPwCondition(id, email, name)) {
+					int result = dao.updateTempPw(es.sendEmail(email), id, email, name);
+					String json = gson.toJson(result);
+					pw.append(json);
+				}else {
+					String json = gson.toJson(null);
+					pw.append(json);
+				}
 			}
 		} catch (Exception e) {
 			response.sendRedirect("/error.html");
