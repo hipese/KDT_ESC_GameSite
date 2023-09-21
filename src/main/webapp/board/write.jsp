@@ -169,7 +169,7 @@ form>.searchArea {
              method: 'POST', // HTTP 메서드 (POST로 보냅니다)
              data: dataToSend, // 보낼 데이터
          }).done(function(resp){
-        	  window.location.href = "/showBoardlist.board";
+        	  window.location.href = "/showBoardList.board";
          });
 	})
         

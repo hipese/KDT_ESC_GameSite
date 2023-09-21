@@ -596,7 +596,7 @@
                         </li>
                         <li class="headerli headerlogout"><a href="/logout.members">로그아웃</a>
                         </li>
-                        <li class="headerli"><a href="/showBoardlist.board?cpage=1">게시판</a></li>
+                        <li class="headerli"><a href="/showBoardList.board?cpage=1">게시판</a></li>
                         <li class="headerli headerboard"><a href="/mypage.members">마이페이지</a></li>
                     </ul>
                 </div>
@@ -643,7 +643,7 @@
                                     </div>
                                     <div class="col-7">
                                         <div class="bannertext">
-                                            <strong>Vampire Survivor</strong>
+                                            <strong>Skull Survivor</strong>
                                         </div>
                                         <br> 생존을 위해서 싸우는<br> 샌즈의 처절한 이야기<br> 절찬 상영 대개봉<br>
                                         <br> <a href="#"><button class="playbutton">Play</button></a>
@@ -716,7 +716,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <a href="/logout.members"><button type="button" class="mpbtn">로그아웃</button></a>
-                                        <a href="/mypage.members"><button type="butotn" class="mpbtn">마이페이지</button></a>
+                                        <a href="/mypage.members"><button type="button" class="mpbtn">마이페이지</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -731,7 +731,7 @@
                     <div class="leftbox">
                         <div class="list">목록</div>
                         <ul>
-                            <li><a href="/showBoardlist.board?cpage=1">게시판</a></li>
+                            <li><a href="/showBoardList.board?cpage=1">게시판</a></li>
                             <li><a href="/mypage.members?id=${id }">마이페이지</a></li>
                             <li><a href="#">랭킹보기</a></li>
                             <li><a href="#">상점</a></li>

@@ -139,7 +139,7 @@ public class BoardController extends HttpServlet {
 			
 				request.getRequestDispatcher("/board/showContents.jsp").forward(request, response);
 
-			} else if (cmd.equals("/showBoardlist.board")) {
+			} else if (cmd.equals("/showBoardList.board")) {
 				
 				String searchText = null;
 				String cpage = request.getParameter("cpage");
@@ -182,13 +182,13 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("isExistText", isExistText);
 				request.getRequestDispatcher("/board/board.jsp").forward(request, response);
 
-			} else if (cmd.equals("/upDateContents.board")) {
+			} else if (cmd.equals("/updateContents.board")) {
 				String title = request.getParameter("title");
 				String contents = request.getParameter("Contents");
 				String seq = request.getParameter("seq");
 				String writer = (String) request.getSession().getAttribute("loginID");
 
-				dao.upDateContents(seq, title, contents);
+				dao.updateContents(seq, title, contents);
 				response.sendRedirect("/showboardlist.board");
 			} else if (cmd.equals("/deleteContents.board")) {
 				
@@ -202,7 +202,7 @@ public class BoardController extends HttpServlet {
 				
 				dao.deleteContents(seq);
 
-				response.sendRedirect("/showboardlist.board?cpage=" + parentseq);
+				response.sendRedirect("/showBoardList.board?cpage=" + parentseq);
 
 			} else if (cmd.equals("/download.board")) {
 				String ori_name = request.getParameter("oriname");

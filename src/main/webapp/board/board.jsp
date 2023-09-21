@@ -209,7 +209,7 @@ form>.searchArea {
 				<div class="left col-12 col-sm-5">✨사이트 이름✨</div>
 
 				<!-- 검색시 정보를 controller로 전송 -->
-				<form action="/showboardList.board" method="get"
+				<form action="/showBoardList.board" method="get"
 					class="col-12 col-7">
 					<div class="searchArea">
 						<input type="text" id="search" name="searchText">
@@ -382,13 +382,13 @@ form>.searchArea {
 	}
 	
 	if (needPrev) {
-		pageNav.append("<a href='/showBoardlist.board?cpage="+(startNavi-1)+"&searchText=${searchText}'> < </a>");
+		pageNav.append("<a href='/showBoardList.board?cpage="+(startNavi-1)+"&searchText=${searchText}'> < </a>");
 	}
 	for (let i = startNavi; i <= endNavi; i++) {
-		pageNav.append("<a href='/showBoardlist.board?cpage="+i+"&searchText=${searchText}'>" + i + " </a>");
+		pageNav.append("<a href='/showBoardList.board?cpage="+i+"&searchText=${searchText}'>" + i + " </a>");
 	}
 	if (needNext) {
-		pageNav.append("<a href='/showBoardlist.board?cpage="+(endNavi+1)+"&searchText=${searchText}'> > </a>");
+		pageNav.append("<a href='/showBoardList.board?cpage="+(endNavi+1)+"&searchText=${searchText}'> > </a>");
 	}
 
 	
