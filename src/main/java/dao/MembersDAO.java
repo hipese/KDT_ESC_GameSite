@@ -3,12 +3,14 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commons.EncryptionUtils;
 import dto.MembersDTO;
 
 public class MembersDAO {
@@ -101,6 +103,30 @@ public class MembersDAO {
 			pstat.setString(6, address2);
 			pstat.setString(7, id);
 			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public String findId(String email,String name) throws Exception {
+		String sql = "select id from members where email=? and name=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1,email);
+			pstat.setString(2,name);
+			try (ResultSet rs = pstat.executeQuery()){
+				while(rs.next()) {
+					String memberId = rs.getString(1);
+					return memberId.substring(0,memberId.length()-2)+"**";
+				}
+			}
+		}
+		return null;
+	}
+	
+	public int updatePw(String pw, String id) throws SQLException, Exception {
+		String sql = "update members set pw = ? where id = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, EncryptionUtils.getSHA512(pw));
+			pstat.setString(2, id);
 			return pstat.executeUpdate();
 		}
 	}
