@@ -89,6 +89,11 @@ form>.searchArea {
 #contents_title {
 	background-color: whitesmoke;
 }
+
+@font-face {
+	font-family: 'NotoSansKR';
+	src: url('font/NotoSansKR-Black.otf') format('opentype')
+}
 </style>
 </head>
 <body>
@@ -155,30 +160,47 @@ form>.searchArea {
 	</div>
 
 	<script>
-	/*작성 버튼을 클릭시 ajax로 board controller에 데이터를 전송 후 리스트로 돌아오는 함수 */
-    $("#write_check_button").on("click",function(){
-		
-		let dataToSend = {
-				title:$("#title").val(),
-                contents: $("#summernote").val()
-                // 필요한 데이터 필드를 추가하십시오.
-            };
-		
-		 $.ajax({
-             url: '/write.board', // 요청을 보낼 URL
-             method: 'POST', // HTTP 메서드 (POST로 보냅니다)
-             data: dataToSend, // 보낼 데이터
-         }).done(function(resp){
-        	  window.location.href = "/showBoardList.board";
-         });
-	})
-        
-	$('#summernote').summernote({
-            placeholder: '내용을 작성해 주세요',
-            tabsize: 2,
-            height: 400,
-            lang: 'ko-KR', // default: 'en-US'
-        });
-    </script>
+		/*작성 버튼을 클릭시 ajax로 board controller에 데이터를 전송 후 리스트로 돌아오는 함수 */
+		$("#write_check_button").on("click", function() {
+
+			let dataToSend = {
+				title : $("#title").val(),
+				contents : $("#summernote").val()
+			// 필요한 데이터 필드를 추가하십시오.
+			};
+
+			$.ajax({
+				url : '/write.board', // 요청을 보낼 URL
+				method : 'POST', // HTTP 메서드 (POST로 보냅니다)
+				data : dataToSend, // 보낼 데이터
+			}).done(function(resp) {
+				window.location.href = "/showBoardList.board";
+			});
+		})
+
+		$(document).ready(function() {
+			let fontList = [ '맑은 고딕', 'NotoSansKR' ];
+			$('#summernote').summernote({
+				toolbar: [
+				    // [groupName, [list of button]]
+				    ['fontname', ['fontname']],
+				    ['fontsize', ['fontsize']],
+				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+				    ['color', ['forecolor','color']],
+				    ['table', ['table']],
+				    ['para', ['ul', 'ol', 'paragraph']],
+				    ['height', ['height']],
+				    ['insert',['picture','link','video']],
+				    ['view', ['fullscreen', 'help']]
+				  ],
+				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+				placeholder : '내용을 작성해 주세요',
+				tabsize : 2,
+				height : 400,
+				lang : 'ko-KR'
+			});
+		});
+	</script>
 </body>
 </html>
