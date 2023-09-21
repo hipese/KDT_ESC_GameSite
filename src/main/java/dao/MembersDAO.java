@@ -117,10 +117,23 @@ public class MembersDAO {
 					String memberId = rs.getString(1);
 					return memberId.substring(0,memberId.length()-2)+"**";
 				}
+				
 			}
 		}
 		return null;
 	}
+	
+	public boolean tempPwCondition(String id, String email, String name) throws Exception {
+		String sql = "select * from members where id = ? and email = ? and name=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1,id);
+			pstat.setString(2, email);
+			pstat.setString(3, name);
+			try (ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}	
+		}
+	} 
 	
 	public int updateTempPw(String pw, String id, String email, String name) throws SQLException, Exception {
 		String sql = "update members set pw = ? where id = ? and email = ? and name=?";
