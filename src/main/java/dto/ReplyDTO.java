@@ -11,7 +11,6 @@ public class ReplyDTO {
 	private int parent_seq;
 	
 	
-	
 	public ReplyDTO() {}
 	
 	
