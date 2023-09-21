@@ -17,13 +17,13 @@ import dao.BoardDAO;
 import dto.BoardDTO;
 
 public class BoardDAO {
-	private static BoardDAO instantce;
+	private static BoardDAO instance;
 
 	public static BoardDAO getInstance() {
-		if (instantce == null) {
-			instantce = new BoardDAO();
+		if (instance == null) {
+			instance = new BoardDAO();
 		}
-		return instantce;
+		return instance;
 	}
 
 	private Connection getConnection() throws Exception {
@@ -136,7 +136,7 @@ public class BoardDAO {
 		return null;
 	}
 
-	public int upDateContents(String seq, String title, String contents) throws Exception {
+	public int updateContents(String seq, String title, String contents) throws Exception {
 		String sql = "update board set title=?,contents=?" + "where seq=? ";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, title);

@@ -93,7 +93,7 @@ public class BoardController extends HttpServlet {
 				List<BoardDTO> boardlist = dao.getBoardList();
 
 				request.getSession().setAttribute("boardlist", boardlist);
-				response.sendRedirect("/showboardlist.board");
+				response.sendRedirect("/showBoardList.board");
 
 			} else if (cmd.equals("/showContents.board")) {
 				
@@ -138,7 +138,7 @@ public class BoardController extends HttpServlet {
 			
 				request.getRequestDispatcher("/board/showContents.jsp").forward(request, response);
 
-			} else if (cmd.equals("/showBoardlist.board")) {
+			} else if (cmd.equals("/showBoardList.board")) {
 				
 				String searchText = null;
 				String cpage = request.getParameter("cpage");
@@ -181,14 +181,14 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("isExistText", isExistText);
 				request.getRequestDispatcher("/board/board.jsp").forward(request, response);
 
-			} else if (cmd.equals("/upDateContents.board")) {
+			} else if (cmd.equals("/updateContents.board")) {
 				String title = request.getParameter("title");
 				String contents = request.getParameter("Contents");
 				String seq = request.getParameter("seq");
 				String writer = (String) request.getSession().getAttribute("checkLoing");
 
-				dao.upDateContents(seq, title, contents);
-				response.sendRedirect("/showboardlist.Border");
+				dao.updateContents(seq, title, contents);
+				response.sendRedirect("/showBoardList.Border");
 			} else if (cmd.equals("/deleteContents.Border")) {
 				
 //				파일을 삭제하는 기능도 같이 넣어야 한다.
@@ -201,7 +201,7 @@ public class BoardController extends HttpServlet {
 				
 				dao.deleteContents(seq);
 
-				response.sendRedirect("/showboardlist.board?cpage=" + parentseq);
+				response.sendRedirect("/showBoardList.board?cpage=" + parentseq);
 
 			} else if (cmd.equals("/download.board")) {
 				String ori_name = request.getParameter("oriname");
