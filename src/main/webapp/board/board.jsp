@@ -328,7 +328,7 @@ form>.searchArea {
 			if (okorNo == false) {
 				return false;
 			}
-			location.href = "/border/write.jsp";
+			location.href = "/board/write.jsp";
 		});
 
 		$("#back").on("click", function() {
