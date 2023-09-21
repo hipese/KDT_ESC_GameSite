@@ -90,10 +90,6 @@ form>.searchArea {
 	background-color: whitesmoke;
 }
 
-@font-face {
-	font-family: 'NotoSansKR';
-	src: url('font/NotoSansKR-Black.otf') format('opentype')
-}
 </style>
 </head>
 <body>
