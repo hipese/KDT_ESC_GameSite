@@ -694,7 +694,7 @@
                                                 <a href="findMyId.jsp">
                                                     <li>아이디 찾기</li>
                                                 </a>
-                                                <a href="">
+                                                <a href="findMyPw.jsp">
                                                     <li>비밀번호 찾기</li>
                                                 </a>
                                                 <a href="/Membership.members">
