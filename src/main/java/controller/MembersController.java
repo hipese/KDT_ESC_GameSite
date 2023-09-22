@@ -61,15 +61,15 @@ public class MembersController extends HttpServlet {
 			else if(cmd.equals("/login.members")){
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
+				String url = request.getParameter("url");
+				String scroll = request.getParameter("scroll");
+				request.getSession().setAttribute("scrollPosition", scroll);
 				pw = EncryptionUtils.getSHA512(pw);
 				boolean success = dao.login(id, pw);
 				if(success) {
 					request.getSession().setAttribute("loginID",id);
-					MembersDTO dto = dao.mypage(id);
-					request.setAttribute("name",dto.getName());
-					request.setAttribute("email",dto.getEmail());
 				}
-				request.getRequestDispatcher("/index.jsp").forward(request,response); // 로그인시 어디로 이동할지
+				response.sendRedirect(url);
 			}
 
 			else if(cmd.equals("/logout.members")) {
@@ -173,6 +173,13 @@ public class MembersController extends HttpServlet {
 					PrintWriter check = response.getWriter();
 					check.append("아이디 또는 비밀번호를 다시 확인해주세요.");
 				}
+			} else if(cmd.equals("/scrollout.members")){
+				request.getSession().removeAttribute("scrollPosition");
+				Gson gson = new Gson();
+				String action = request.getParameter("action");
+				String json = gson.toJson(action);
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
 			}
 		} catch (Exception e) {
 			response.sendRedirect("/error.html");
