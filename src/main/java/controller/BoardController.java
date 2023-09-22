@@ -24,7 +24,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dto.BoardDTO;
 import dao.BoardDAO;
 //import dao.FilesDAO;
-//import dao.ReplyDAO;
+import dao.ReplyDAO;
+import dto.ReplyDTO;
 import dto.BoardDTO;
 //import dto.FilesDTO;
 import constants.Constants;
@@ -34,7 +35,7 @@ import constants.Constants;
 public class BoardController extends HttpServlet {
 	
 	BoardDAO dao = BoardDAO.getInstance();
-//	ReplyDAO rdao = ReplyDAO.getInstance();
+	ReplyDAO rdao = ReplyDAO.getInstance();
 //	FilesDAO fdao = FilesDAO.getInstance();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -100,7 +101,20 @@ public class BoardController extends HttpServlet {
 				
 				String searchText = request.getParameter("searchText");
 				int seq = Integer.parseInt(request.getParameter("seq"));
-
+				
+				String cpageParam = request.getParameter("cpage");
+				
+				System.out.println("cpageParam의 값"+cpageParam);
+				int replynaviseq;
+				
+				if (cpageParam == null) {
+					replynaviseq=1;
+				}else {
+					replynaviseq = Integer.parseInt(cpageParam);
+				}
+				
+				System.out.println("replynaviseq의 값"+replynaviseq);
+				
 				boolean isWriterCheck;
 				System.out.println("클릭한 번호:  " + seq);
 
@@ -126,13 +140,17 @@ public class BoardController extends HttpServlet {
 				}
 
 //				댓글 리스트 추출
-//				List<ReplyDTO> replyList = rdao.selectAll();
+				List<ReplyDTO> replyList = rdao.selectAll();
 //				댓글이 해당 부모인지 확인하는 변수
-//				boolean isParentseq = rdao.isReplyExist(seq);
-
-//				request.setAttribute("isParentseq", isParentseq);
-//				request.setAttribute("replyList", replyList);
+				boolean isParentseq = rdao.isReplyExist(seq);
+				
+				System.out.println("댓글이 존재하는가?: "+isParentseq);
+				
+				request.setAttribute("isParentseq", isParentseq);
+				request.setAttribute("replyList", replyList);
 				request.setAttribute("selectboard", mydto);
+				
+				request.setAttribute("replynaviseq", replynaviseq);
 				
 				// 게시판을 작성한 주인의 여부
 				request.setAttribute("isWriterCheck", isWriterCheck);
@@ -166,16 +184,11 @@ public class BoardController extends HttpServlet {
 					totalRecordCount = dao.getSearchRecordCount(searchText);
 				}
 				System.out.println("출력할 목록의 개수: " + totalRecordCount);
-//				int currentPage = Integer.parseInt(cpage);
-//
-//				if (cpage == null) {
-//					currentPage = 1;
-//				} else {
-//					currentPage = Integer.parseInt(cpage);
-//				}
+
 
 				System.out.println("현재 페이지 확인: " + currentPage);
-
+				System.out.println(boardlist.size());
+				
 				request.getSession().setAttribute("latesPageNum", currentPage);
 				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("recordTotalCount", totalRecordCount);

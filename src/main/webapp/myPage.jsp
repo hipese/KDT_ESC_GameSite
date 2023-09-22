@@ -17,7 +17,11 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="sweetalert2.all.min.js"></script>
 <style>
+	body{
+		background-color:whitesmoke;
+	}
 	#mypagediv{
 		width:400px;
 		margin:auto;
@@ -25,23 +29,7 @@
 	#iddiv{
 		height:60px;
 	}
-	#back>a{
-            text-decoration:none;
-            color:black;
-        }
-    #back:hover{
-            text-decoration:none;
-            cursor: pointer;
-            background-color: black;
-            color: white;
-        }
-    #back>a:link{
-            text-decoration:none;
-        }
-    #back>a:hover{
-            text-decoration:none;
-            color:white;
-        }
+	
 </style>
 </head>
 <body>
@@ -126,8 +114,9 @@
 					</li>
 				  </ul>
 				  <div class="card-body">
-				    <button id="back" type="button" class="btn btn-light"><a href="/updateBack.members">뒤로가기</a></button>
+				    <a href="/updateBack.members"><button id="back" type="button" class="btn btn-light">뒤로가기</button></a>
 					<button class="btn btn-dark">수정하기</button>
+					<a href="/delete.members"><button type="button" class="btn btn-dark">회원탈퇴</button></a>
 				  </div>
 				</div>
 	</form>

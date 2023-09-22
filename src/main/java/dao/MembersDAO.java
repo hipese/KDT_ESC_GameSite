@@ -3,12 +3,14 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commons.EncryptionUtils;
 import dto.MembersDTO;
 
 public class MembersDAO {
@@ -101,6 +103,62 @@ public class MembersDAO {
 			pstat.setString(6, address2);
 			pstat.setString(7, id);
 			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public String findId(String email,String name) throws Exception {
+		String sql = "select id from members where email=? and name=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1,email);
+			pstat.setString(2,name);
+			try (ResultSet rs = pstat.executeQuery()){
+				while(rs.next()) {
+					String memberId = rs.getString(1);
+					return memberId.substring(0,memberId.length()-2)+"**";
+				}
+				
+			}
+		}
+		return null;
+	}
+	
+	public boolean tempPwCondition(String id, String email, String name) throws Exception {
+		String sql = "select * from members where id = ? and email = ? and name=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1,id);
+			pstat.setString(2, email);
+			pstat.setString(3, name);
+			try (ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}	
+		}
+	} 
+	
+	public int updateTempPw(String pw, String id, String email, String name) throws SQLException, Exception {
+		String sql = "update members set pw = ? where id = ? and email = ? and name=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, EncryptionUtils.getSHA512(pw));
+			pstat.setString(2, id);
+			pstat.setString(3, email);
+			pstat.setString(4, name);
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public int delete(String id) throws SQLException, Exception {
+		String sql = "delete from members where id=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public int changePW(String pw1, String pw2) throws SQLException, Exception {
+		String sql = "update members set pw = ? where pw = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, pw2);
+			pstat.setString(2, pw1);
 			return pstat.executeUpdate();
 		}
 	}

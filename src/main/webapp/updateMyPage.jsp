@@ -21,6 +21,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
+	body{
+		background-color:whitesmoke;
+	}
     #updatemypage{
         width:1000px;
         margin:auto;
@@ -75,23 +78,6 @@
     #cancel {
     	margin-right:5px;
     }
-    #cancel>a{
-            text-decoration:none;
-            color:black;
-        }
-    #cancel:hover{
-            text-decoration:none;
-            cursor: pointer;
-            background-color: black;
-            color: white;
-        }
-    #cancel>a:link{
-            text-decoration:none;
-        }
-    #cancel>a:hover{
-            text-decoration:none;
-            color:white;
-        }
 </style>
 </head>
 <body>
@@ -156,7 +142,8 @@
     <br>
     <div class="row g-0">
     	<div class="btns">
-    		<button id="cancel" type="button" class="btn btn-light"><a href="/mypage.members">수정취소</a></button>
+    		<a href="/mypage.members"><button id="cancel" type="button" class="btn btn-light">수정취소</button></a>
+    		<a href="/changePW.members"><button id="cancel" type="button" class="btn btn-dark">비밀번호 변경</button></a>
 			<button class="btn btn-dark">수정완료</button>
     	</div>
     </div>
