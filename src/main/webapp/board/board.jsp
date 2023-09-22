@@ -380,7 +380,7 @@ form>.searchArea {
     if (endNavi == pageTotalCount) {
         needNext = false;
     }
-
+	
     let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
 
     if (needPrev) {

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,112 +7,126 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-        integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
-        integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
-        integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg="
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
+	integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg="
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
+	integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw="
+	crossorigin="anonymous"></script>
 
-    <!-- language pack -->
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
-        integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>
+<!-- language pack -->
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
+	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ="
+	crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <style>
-        /* div {
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+	rel="stylesheet">
+<style>
+/* div {
             border: 1px solid black;
         } */
+.title>.titleContents {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
 
-        .title>.titleContents {
-            display: flex;
-            width: 100%;
-            height: 100%;
-        }
+.titleContents>.left {
+	width: 30%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: bold;
+}
 
-        .titleContents>.left {
-            width: 30%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            font-weight: bold;
-        }
+.titleContents>form {
+	height: 100%;
+	width: 70%;
+}
 
-        .titleContents>form {
-            height: 100%;
-            width: 70%;
-        }
+form>.searchArea {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
 
-        form>.searchArea {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-        }
+.navbox {
+	width: 100%;
+}
 
-        .navbox {
-            width: 100%;
-        }
+.navlist {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
-        .navlist {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.nonnav {
+	display: flex;
+}
 
-        .nonnav {
-            display: flex;
-        }
+#contents {
+	width: 100%;
+	height: 400px;
+	background-color: whitesmoke;
+}
 
-        #contents {
-            width: 100%;
-            height: 400px;
-            background-color: whitesmoke;
-        }
+#contents_title {
+	background-color: whitesmoke;
+}
 
-        #contents_title {
-            background-color: whitesmoke;
-        }
+/* input 요소와 textarea 요소의 테두리 없애기 */
+#contents {
+	border: none;
+	outline: none;
+	/* 다른 스타일을 추가할 수 있습니다. */
+}
 
-        /* input 요소와 textarea 요소의 테두리 없애기 */
-        #contents {
-            border: none;
-            outline: none;
-            /* 다른 스타일을 추가할 수 있습니다. */
-        }
+#contents {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: inline-block;
+}
 
-        #contents {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            display: inline-block;
-        }
+#suggestion_buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
-        #suggestion_buttons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #reply_pagenation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
+#reply_pagenation {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>
 </head>
 
 <body>
@@ -220,15 +234,13 @@
 				</table>
 			</div>
 		</div>
-		<div class="row reply_pagenation mb-4">
-			<div class="col reply_pagenation" id="reply_pagenation">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination">
 
-					</ul>
-				</nav>
+		<div class="row reply_pagenation mb-4">
+			<div class="col reply_pagenation pageNav" id="reply_pagenation">
+
 			</div>
 		</div>
+
 		<div class="row reply_write mb-4">
 			<div class="col reply_input">
 				<div class="d-flex justify-content-between align-items-center">
@@ -241,22 +253,31 @@
 		</div>
 	</div>
 
-	<!-- 댓글을 생성하는 ajax 스크립트 부분 -->
+	<!-- 댓글을 생성하는 ajax 스크립트 부분 여기서 nav도 같이 출력한다. -->
 	<script>
 window.onload = function() {
 	
     let seq = "${selectboard.seq}";
     let commentsTable = $('#comments-table');
-
+	let cpage="${replynaviseq}";
+	
+	console.log("범인 너냐?:"+cpage)
     $.ajax({
         url: '/showReplyList.reply',
-        data: { seq: seq },
+        data: { seq: seq ,
+        		cpage:cpage
+        		},
         dataType: 'json',
     }).done(function(resp) {
-
-       for (let i = 0; i < resp.length; i++) {
-           console.log(resp[i]);
-           let comment = resp[i];
+    	console.log(resp);
+    	
+    	//댓글을 보여주는 반환결과
+		let replyList=resp.replyList;
+		console.log("길이:"+replyList.length);
+		
+       for (let i = 0; i < replyList.length; i++) {
+           console.log(replyList[i]);
+           let comment = replyList[i];
 
            let commentRow = $('<tr>');
            
@@ -302,6 +323,78 @@ window.onload = function() {
            commentsTable.append(commentRow);
        }
 
+       
+       //navi를 보여주는 반환결과
+    	let paginationData = resp.paginationData;
+        
+        let recordTotalCount = paginationData.recordTotalCount;
+        let recordCountPerPage = paginationData.recordCountPerPage;
+        let naviCountPerPage = paginationData.naviCountPerPage;
+        let currentPage = paginationData.latestPageNum;
+        
+        console.log("recordTotalCount:", recordTotalCount);
+        console.log("recordCountPerPage:", recordCountPerPage);
+        console.log("naviCountPerPage:", naviCountPerPage);
+        console.log("currentPage:", currentPage);
+    	
+       
+       let pageNav = $(".pageNav");
+       // Calculate pagination and generate HTML 현재 네비의 개수를 확인
+       let pageTotalCount = 0;
+       
+       if (recordTotalCount % recordCountPerPage > 0) {
+           pageTotalCount = Math.floor(recordTotalCount / recordCountPerPage + 1);
+       } else {
+           pageTotalCount = Math.floor(recordTotalCount / recordCountPerPage);
+       }
+       if (currentPage < 1) {
+           currentPage = 1;
+       } else if (currentPage > pageTotalCount) {
+           currentPage = pageTotalCount;
+       }
+
+       let startNavi = Math.floor((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1;
+
+       let endNavi = startNavi + (naviCountPerPage - 1);
+
+       if (endNavi > pageTotalCount) {
+           endNavi = pageTotalCount;
+       }
+		
+       
+       let needPrev = true;
+       let needNext = true;
+
+       if (startNavi == 1) {
+           needPrev = false;
+       }
+       if (endNavi == pageTotalCount) {
+           needNext = false;
+       }
+       
+       if (pageTotalCount > 0) {
+       	  let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
+
+       	  paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=1&searchText=${searchText}&seq=${selectboard.seq}" aria-label="First">First</a></li>';
+       	  if (needPrev) {
+       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
+       	  }
+
+       	  for (let i = startNavi; i <= endNavi; i++) {
+       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
+       	  }
+
+       	  if (needNext) {
+       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
+       	  }
+       	  paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + pageTotalCount + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Last">Last</a></li>';
+
+       	  paginationHTML += '</ul></nav>';
+       	  // Append the generated pagination HTML to the pageNav element
+       	  pageNav.append(paginationHTML);
+       	}
+       
+       
        
         $('.edit-btn').on('click', function() {
             $(this).closest('tr').find('.comment-input').removeAttr('readonly');
@@ -357,30 +450,30 @@ window.onload = function() {
                           success: function() {
                               window.location.reload();
                           }
-                });
-            }
-        });
-    });
-}
-$('#wirte_reply').on('click', function(){
-	let seq = "${selectboard.seq}";
-    if($("#replyText").val() == ""){
-       alert("댓글 내용을 입력하세요");
-       return;
-    }
-    $.ajax({
+               		 });
+           	 	}
+       	 	});
+    	});
+	}
+	$('#wirte_reply').on('click', function(){
+		let seq = "${selectboard.seq}";
+    	if($("#replyText").val() == ""){
+       	alert("댓글 내용을 입력하세요");
+       	return;
+    	}
+    	$.ajax({
     	
-       url : "/writeReply.reply",
-       data : {
-    	  replyContents : $("#replyText").val(),
-          parent_seq : seq
-       },
-       success: function() {
-              window.location.reload();
-           }
-    });
- });
-</script>
+       	url : "/writeReply.reply",
+       	data : {
+    		  replyContents : $("#replyText").val(),
+        	  parent_seq : seq
+       	},
+       	success: function() {
+            	  window.location.reload();
+        	   }
+    	});
+	 });
+	</script>
 
 	<script>
 		$('input[name=seq]').attr('value', "${selectboard.seq}");
@@ -445,48 +538,12 @@ $('#wirte_reply').on('click', function(){
 		})
 
 		$("#return").on("click", function() {
-			location.href = "/showBoardList.board";
+			location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText="+$("search").val();
 		})
 
-	</script>	
-	
-	 <script>
-    // AJAX call to get pagination data
-    $.ajax({
-        url: '/replyNav.reply',
-        data: { cpage: 1, seq: "${selectboard.seq}" },
-        dataType: 'json',
-    }).done(function (paginationData) {
-        // Assuming paginationData is the JSON response from the server
-        let recordTotalCount = paginationData.recordTotalCount;
-        let recordCountPerPage = paginationData.recordCountPerPage;
-        let naviCountPerPage = paginationData.naviCountPerPage;
-        let currentPage = paginationData.latestPageNum;
-        
-        // Calculate pagination and generate HTML
-        let pageTotalCount = Math.ceil(recordTotalCount / recordCountPerPage);
-        let startNavi = Math.floor((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1;
-        let endNavi = Math.min(startNavi + naviCountPerPage - 1, pageTotalCount);
+	</script>
 
-        // Create the pagination HTML
-        let paginationHTML = '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=1&searchText=${searchText}" aria-label="First">First</a></li>';
-        if (startNavi > 1) {
-            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + (startNavi - 1) + '&searchText=${searchText}" aria-label="Previous">&laquo;</a></li>';
-        }
-        
-        for (let i = startNavi; i <= endNavi; i++) {
-            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + i + '&searchText=${searchText}">' + i + '</a></li>';
-        }
-        
-        if (endNavi < pageTotalCount) {
-            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + (endNavi + 1) + '&searchText=${searchText}" aria-label="Next">&raquo;</a></li>';
-        }
-        paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + pageTotalCount + '&searchText=${searchText}" aria-label="Last">Last</a></li>';
-        
-        // Append the generated pagination HTML to the pageNav element
-        $('.pagination').html(paginationHTML);
-    });
-    
+	<script>    
     $('#summernote').summernote({
         toolbar: [
           // [groupName, [list of button]]
