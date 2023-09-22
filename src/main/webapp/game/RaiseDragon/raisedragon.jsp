@@ -55,7 +55,11 @@
                     debug:false
                 }
             },
-            scene:[StartScene,EndScene,RunScene,BallScene,MainScene,BounceScene,GameOverScene]
+            scene:[StartScene,EndScene,RunScene,BallScene,MainScene,BounceScene,GameOverScene],
+            fps: {
+                target: 60, 
+                forceSetTimeOut: true 
+            }
         };
         let game = new Phaser.Game(option);
     </script>

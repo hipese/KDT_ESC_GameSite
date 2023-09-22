@@ -119,7 +119,7 @@ class RunScene extends Phaser.Scene{
                 this.randombox.shift()
             }
         }
-        if(this.cursors.up.isDown){
+        else if(this.cursors.up.isDown){
             if(this.randombox[0].texture.key=="random1"){
                 this.player.y-=100;
                 this.player.anims.play('left', true);
@@ -127,7 +127,7 @@ class RunScene extends Phaser.Scene{
                 this.randombox.shift()
             }
         }
-        if(this.cursors.down.isDown){
+        else if(this.cursors.down.isDown){
             if(this.randombox[0].texture.key=="random2"){
                 this.player.y-=100;
                 this.player.anims.play('left', true);
@@ -135,7 +135,7 @@ class RunScene extends Phaser.Scene{
                 this.randombox.shift()
             }
         }
-        if(this.cursors.right.isDown){
+        else if(this.cursors.right.isDown){
             if(this.randombox[0].texture.key=="random4"){
                 this.player.y-=100;
                 this.player.anims.play('left', true);
