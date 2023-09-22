@@ -149,6 +149,25 @@ public class MembersController extends HttpServlet {
 				dao.delete(id);
 				request.getSession().invalidate();
 				response.sendRedirect("/index.jsp");
+			} else if(cmd.equals("/changePW.members")) {
+				response.sendRedirect("/changePW.jsp");
+			} else if(cmd.equals("/changeCompletePW.members")) {
+				String id1 = request.getParameter("id");
+				String pw1 = request.getParameter("pw1");
+				String pw2 = request.getParameter("pw2");
+				pw1 = EncryptionUtils.getSHA512(pw1);
+				pw2 = EncryptionUtils.getSHA512(pw2);
+				boolean success = dao.login(id1, pw1);
+				String id2 = (String)request.getSession().getAttribute("loginID");
+				response.setCharacterEncoding("UTF-8");
+				if(success && id1.equals(id2)) {
+					dao.changePW(pw1,pw2);
+					PrintWriter check = response.getWriter();
+					check.append("");
+				} else {
+					PrintWriter check = response.getWriter();
+					check.append("아이디 또는 비밀번호를 다시 확인해주세요.");
+				}
 			}
 		} catch (Exception e) {
 			response.sendRedirect("/error.html");
