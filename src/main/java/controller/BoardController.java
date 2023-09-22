@@ -22,7 +22,9 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dto.BoardDTO;
+import dto.FilesDTO;
 import dao.BoardDAO;
+import dao.FilesDAO;
 //import dao.FilesDAO;
 import dao.ReplyDAO;
 import dto.ReplyDTO;
@@ -36,7 +38,7 @@ public class BoardController extends HttpServlet {
 	
 	BoardDAO dao = BoardDAO.getInstance();
 	ReplyDAO rdao = ReplyDAO.getInstance();
-//	FilesDAO fdao = FilesDAO.getInstance();
+	FilesDAO fdao = FilesDAO.getInstance();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -50,7 +52,7 @@ public class BoardController extends HttpServlet {
 			if (cmd.equals("/write.board")) {
 				Timestamp date = new Timestamp(System.currentTimeMillis());
 				int view_count = 0;
-				PrintWriter pw=response.getWriter();
+				PrintWriter pw = response.getWriter();
 
 //				파일 첨부 기능
 				System.out.println("Realpath : " + request.getServletContext().getRealPath(""));
@@ -62,32 +64,32 @@ public class BoardController extends HttpServlet {
 				int maxSize = 1024 * 1024 * 10; // 업로드 파일 최대 사이즈 10mb 제한
 
 //
-//				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf8",
-//						new DefaultFileRenamePolicy());
-//
-//				Enumeration<String> fileNames = multi.getFileNames();
+				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf8",
+						new DefaultFileRenamePolicy());
+
+				Enumeration<String> fileNames = multi.getFileNames();
 
 				String writer = (String) request.getSession().getAttribute("loginID");
-				String title = request.getParameter("title");
-				String contents = request.getParameter("contents");
+				String title = multi.getParameter("title");
+				String contents = multi.getParameter("contents");
 				
 				System.out.println(title+" : "+contents);
 			
 				int parentseq = dao.writeWord(new BoardDTO(0, writer, title, contents, date, view_count));
 
-//				while (fileNames.hasMoreElements()) { // ResultSet의 next()와 같은 역할
-//					String fileName = fileNames.nextElement();
-//
-//					if (multi.getFile(fileName) != null) {
-//
-//						String ori_name = multi.getOriginalFileName(fileName); // file : input type="file"의 name
-//						String sys_name = multi.getFilesystemName(fileName); // file : input type="file"의 name
-//						FilesDTO dto = new FilesDTO(0, ori_name, sys_name, parentseq);
-//						fdao.saveFiles(dto);
-//						pw.append("/files/"+sys_name);
-//						System.out.println("파일 저장 완료");
-//					}
-//				}
+				while (fileNames.hasMoreElements()) { // ResultSet의 next()와 같은 역할
+					String fileName = fileNames.nextElement();
+
+					if (multi.getFile(fileName) != null) {
+
+						String ori_name = multi.getOriginalFileName(fileName); // file : input type="file"의 name
+						String sys_name = multi.getFilesystemName(fileName); // file : input type="file"의 name
+						FilesDTO dto = new FilesDTO(0, ori_name, sys_name, parentseq);
+						fdao.insert(dto);
+						pw.append("/files/"+sys_name);
+						System.out.println("파일 저장 완료");
+					}
+				}
 
 				System.out.println("전송된 데이터: " + writer + " ," + title + " ," + contents + " ,");
 
@@ -105,8 +107,8 @@ public class BoardController extends HttpServlet {
 				boolean isWriterCheck;
 				System.out.println("클릭한 번호:  " + seq);
 
-//				List<FilesDTO> innerFiles = fdao.selectFiles(seq);
-//				System.out.println("검색한 해당 문서에 존재하는 파일수: " + innerFiles.size());
+				List<FilesDTO> innerFiles = fdao.selectAll(seq);
+				System.out.println("검색한 해당 문서에 존재하는 파일수: " + innerFiles.size());
 
 				BoardDTO mydto = dao.showContents(seq);
 				String login = (String) request.getSession().getAttribute("loginID");
@@ -140,7 +142,7 @@ public class BoardController extends HttpServlet {
 				// 게시판을 작성한 주인의 여부
 				request.setAttribute("isWriterCheck", isWriterCheck);
 				request.setAttribute("searchText", searchText);
-//				request.setAttribute("innerFiles", innerFiles);
+				request.setAttribute("innerFiles", innerFiles);
 				request.setAttribute("seq", seq);
 			
 				request.getRequestDispatcher("/board/showContents.jsp").forward(request, response);
