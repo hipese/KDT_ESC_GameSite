@@ -101,7 +101,20 @@ public class BoardController extends HttpServlet {
 				
 				String searchText = request.getParameter("searchText");
 				int seq = Integer.parseInt(request.getParameter("seq"));
-
+				
+				String cpageParam = request.getParameter("cpage");
+				
+				System.out.println("cpageParam의 값"+cpageParam);
+				int replynaviseq;
+				
+				if (cpageParam == null) {
+					replynaviseq=1;
+				}else {
+					replynaviseq = Integer.parseInt(cpageParam);
+				}
+				
+				System.out.println("replynaviseq의 값"+replynaviseq);
+				
 				boolean isWriterCheck;
 				System.out.println("클릭한 번호:  " + seq);
 
@@ -137,6 +150,8 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("replyList", replyList);
 				request.setAttribute("selectboard", mydto);
 				
+				request.setAttribute("replynaviseq", replynaviseq);
+				
 				// 게시판을 작성한 주인의 여부
 				request.setAttribute("isWriterCheck", isWriterCheck);
 				request.setAttribute("searchText", searchText);
@@ -169,16 +184,11 @@ public class BoardController extends HttpServlet {
 					totalRecordCount = dao.getSearchRecordCount(searchText);
 				}
 				System.out.println("출력할 목록의 개수: " + totalRecordCount);
-//				int currentPage = Integer.parseInt(cpage);
-//
-//				if (cpage == null) {
-//					currentPage = 1;
-//				} else {
-//					currentPage = Integer.parseInt(cpage);
-//				}
+
 
 				System.out.println("현재 페이지 확인: " + currentPage);
-
+				System.out.println(boardlist.size());
+				
 				request.getSession().setAttribute("latesPageNum", currentPage);
 				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("recordTotalCount", totalRecordCount);

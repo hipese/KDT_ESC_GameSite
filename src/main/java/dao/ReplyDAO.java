@@ -12,6 +12,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
 import dto.ReplyDTO;
 
 
@@ -117,4 +118,39 @@ public class ReplyDAO {
 			return rs.getInt(1);
 		}
 	}
+	
+	public List<ReplyDTO> selectBy(int seq,int start, int end) throws Exception {
+		String sql = "SELECT *\r\n"
+				+ "FROM (\r\n"
+				+ "  SELECT\r\n"
+				+ "    row_number() OVER (ORDER BY seq DESC) AS rs,\r\n"
+				+ "    reply.*\r\n"
+				+ "  FROM reply\r\n"
+				+ "  WHERE parent_seq=?\r\n"
+				+ ") AS temp\r\n"
+				+ "WHERE temp.rs BETWEEN ? AND ?";
+		
+		try (Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);) {
+			
+			pstat.setInt(1, seq);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			
+			List<ReplyDTO> list = new ArrayList<>();
+			try (ResultSet rs = pstat.executeQuery();) {
+				while (rs.next()) {
+					ReplyDTO dto = new ReplyDTO();
+					dto.setSeq(rs.getInt("seq"));
+					dto.setWriter(rs.getString("writer"));
+					dto.setContents(rs.getString("contents"));
+					dto.setWrite_date(rs.getTimestamp("write_date"));
+					dto.setParent_seq(rs.getInt("parent_seq"));
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
+
 }
