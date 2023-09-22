@@ -643,9 +643,9 @@
                                     </div>
                                     <div class="col-7">
                                         <div class="bannertext">
-                                            <strong>Skull Survivor</strong>
+                                            <strong>Skeleton Survivor</strong>
                                         </div>
-                                        <br> 생존을 위해서 싸우는<br> 샌즈의 처절한 이야기<br> 절찬 상영 대개봉<br>
+                                        <br> 죽어서도 악마들을 퇴치하는 <br> 뼈다귀 마법사의 처절한 이야기<br><br>
                                         <br> <a href="#"><button class="playbutton">Play</button></a>
 
                                     </div>
@@ -660,7 +660,7 @@
                                         <div class="bannertext">
                                             <strong>Dino Game</strong>
                                         </div>
-                                        <br> 살기 위해서 <br> 매일 같은 코스를 뛰는<br> 슬픈 공룡 한마리 이야기<br>
+                                        <br> 404 Not Found가<br> 반가운 공룡의 이야기<br><br>
                                         <br> <a href="#"><button class="playbutton">Play</button></a>
                                     </div>
                                 </div>
@@ -749,7 +749,7 @@
                         <div class="col-6 col-lg-4 gamebox g-0">
                             <div class="game game2">
                                 <img src="img/VampireSurvival.gif" loop="infinite" class="gameimg gameimg2">
-                                <div class="gametitle">Vampire Survivor</div>
+                                <div class="gametitle">Skeleton Survivor</div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-4 gamebox g-0">
