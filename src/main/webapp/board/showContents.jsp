@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +94,6 @@ form>.searchArea {
 
 #contents {
 	width: 100%;
-	height: 400px;
 	background-color: whitesmoke;
 }
 
@@ -126,6 +126,7 @@ form>.searchArea {
 	justify-content: center;
 	align-items: center;
 }
+
 </style>
 </head>
 
@@ -203,6 +204,22 @@ form>.searchArea {
 					id="update_cancel">
 					<i class="fa-regular fa-thumbs-down fa-lg"></i>
 				</button>
+			</div>
+		</div>
+		<div class="row contents mb-4">
+			<div class="col contents justify-content-end" id="contentContainer">
+				<fieldset>
+					<legend>첨부파일</legend>
+					<c:choose>
+						<c:when test="${innerFiles.size() != 0}">
+							<c:forEach var="i" items="${innerFiles }">
+								<a
+									href="/download.file?sysname=${i.sys_name }&oriname=${i.ori_name}">${i.ori_name }</a>
+								<br>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+				</fieldset>
 			</div>
 		</div>
 		<div class="row botton mb-4">
@@ -561,7 +578,6 @@ window.onload = function() {
       fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
          placeholder: '내용을 작성해 주세요',
          tabsize: 2,
-         height: 400,
          lang: 'ko-KR' // default: 'en-US'
      });
 </script>

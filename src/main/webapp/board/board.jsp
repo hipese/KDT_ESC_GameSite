@@ -328,6 +328,7 @@ form>.searchArea {
 	</div>
 	<script>
 		${isExistText}
+		let previousPageURL = window.location.href;
 		$("#write").on("click", function() {
 			location.href = "/board/write.jsp";
 		});
