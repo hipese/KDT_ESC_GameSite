@@ -145,5 +145,22 @@ public class MembersDAO {
 			return pstat.executeUpdate();
 		}
 	}
+	
+	public int delete(String id) throws SQLException, Exception {
+		String sql = "delete from members where id=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public int changePW(String pw1, String pw2) throws SQLException, Exception {
+		String sql = "update members set pw = ? where pw = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, pw2);
+			pstat.setString(2, pw1);
+			return pstat.executeUpdate();
+		}
+	}
 
 }
