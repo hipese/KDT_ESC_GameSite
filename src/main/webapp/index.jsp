@@ -944,7 +944,7 @@
                 window.open("game/JumpKing/jumpking.jsp");
             })
             $(".game2").on("click", function () {
-                window.open("game/SkeletonSurvivor/skeletonsuvivor.jsp");
+                window.open("game/SkeletonSurvivor/skeletonsurvivor.jsp");
             })
             $(".game3").on("click", function () {
                 window.open("game/DinoGame/dinogame.jsp");
