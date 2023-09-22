@@ -81,12 +81,12 @@
 </style>
 </head>
 <body>
-	<form id="frm" action="/updateComplete.members" method="post" novalidate>
+	<form id="frm" action="/updateComplete.members" method="post" enctype="multipart/form-data" novalidate>
 	<div class="container">
 		<div class="card" id="updatemypage">
         <div class="row g-0">
           <div class="col-12 col-md-4">
-            <img src="profile.jpg" class="img-fluid rounded-start" alt="...">
+            <img src="/img/쥐돌이.png" id="preview" class="img-fluid rounded-start" alt="...">
             <input class="form-control" type="file" id="formFile">
           </div>
           <div class="col-12 col-md-8" id="changes">
@@ -153,6 +153,17 @@
         
 </body>
 <script>
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('#preview')
+	                .attr('src', e.target.result);
+	        };
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	
     // 무조건 마지막에 숫자 나오게 하기
     let regexname = /^[가-힣]{2,5}$/;
     let regexphone1 = /^[\d]{4}$/;
