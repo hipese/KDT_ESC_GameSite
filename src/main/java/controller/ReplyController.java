@@ -82,42 +82,40 @@ public class ReplyController extends HttpServlet {
 				String parent_seq = request.getParameter("parent_seq");
 				response.sendRedirect("/showReplyList.reply?seq=" + Integer.parseInt(parent_seq));
 				
-			} else if (cmd.equals("/showReplyList.reply")) { //댓글 리스트를 불러오는 서블릿 
-				
-				int seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println("부모의 번호: " + seq);
-				
-				
-				List<ReplyDTO> replyList = dao.selectReply(seq);
-				
-				printwriter.append(gson.toJson(replyList));
-				
-			}else if(cmd.equals("/replyNav.reply")) {
-				System.out.println("여기는 오냐?");
+			} else if (cmd.equals("/showReplyList.reply")) { //댓글 리스트와 nav를 같이 불러오는 서블릿 
 				
 				String cpage = request.getParameter("cpage");
 				int currentPage = cpage == null ? 1 : Integer.parseInt(cpage);
-				
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				
-				System.out.println("현재 번호: " + currentPage);
-
-				int replyCount = dao.countReply(seq);
-				int recordCountPerPage = Constants.RECORD_COUNT_PER_PAGE;
-				int naviCountPerPage = Constants.NAVI_COUNT_PER_PAGE;
-
-				Map<String, Object> paginationData = new HashMap<>();
-				paginationData.put("recordTotalCount", replyCount);
+				System.out.println("부모의 번호: " + seq);
+				System.out.println("cpage:"+cpage);
+				
+				
+//				댓글 리스트 가져오기
+				int totalRecordCount = dao.countReply(seq);
+			    List<ReplyDTO> replyList = dao.selectBy(seq, currentPage * Constants.RECORD_COUNT_PER_PAGE - 9,
+			            currentPage * Constants.RECORD_COUNT_PER_PAGE);
+				
+//			    그 후 해당 댓글 리스트를 map으로 전환
+			    Map<String, Object> responseData = new HashMap<>();
+			    responseData.put("replyList", replyList);
+			    
+//			    보내야할 내용을 ajsx(JSON형식으로 보내기 위한 map 형태로 변경)
+			    Map<String, Object> paginationData = new HashMap<>();
+				paginationData.put("recordTotalCount", totalRecordCount);
 				paginationData.put("recordCountPerPage", Constants.RECORD_COUNT_PER_PAGE);
 				paginationData.put("naviCountPerPage", Constants.NAVI_COUNT_PER_PAGE);
 				paginationData.put("latestPageNum", currentPage);
 				
-				String paginationJson = gson.toJson(paginationData);
+				responseData.put("paginationData", paginationData);
 				
-				System.out.println("여기까지 오냐?");
+				
+				String responseJson = gson.toJson(responseData);
+				
 				response.setContentType("application/json");
-				response.setCharacterEncoding("UTF-8");
-				response.getWriter().write(paginationJson);
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().write(responseJson);
 				
 			}
 		} catch (Exception e) {
