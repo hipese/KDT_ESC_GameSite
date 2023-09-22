@@ -155,7 +155,6 @@
 				  text: '비밀번호는 6자 이상의 문자 및 특수문자로 이루어져야 합니다.',
 			})
 		} else {
-			$("#delete").on("click",function(){
 				$.ajax({
 					url:"/changeCompletePW.members",
 					contentType : "application/json; charset:UTF-8",
@@ -177,7 +176,7 @@
 						Swal.fire(resp);
 					}
 				});
-			});
+			
 		}
 	});
 		
