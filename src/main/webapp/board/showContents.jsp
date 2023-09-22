@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,6 +127,11 @@ form>.searchArea {
 	justify-content: center;
 	align-items: center;
 }
+
+#contents{
+	height: 400px; /* Adjust the height as needed */
+	overflow: auto;
+}
 </style>
 </head>
 
@@ -203,6 +209,22 @@ form>.searchArea {
 					id="update_cancel">
 					<i class="fa-regular fa-thumbs-down fa-lg"></i>
 				</button>
+			</div>
+		</div>
+		<div class="row contents mb-4">
+			<div class="col contents justify-content-end" id="contentContainer">
+				<fieldset>
+					<legend>첨부파일</legend>
+					<c:choose>
+						<c:when test="${innerFiles.size() != 0}">
+							<c:forEach var="i" items="${innerFiles }">
+								<a
+									href="/download.file?sysname=${i.sys_name }&oriname=${i.ori_name}">${i.ori_name }</a>
+								<br>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+				</fieldset>
 			</div>
 		</div>
 		<div class="row botton mb-4">
