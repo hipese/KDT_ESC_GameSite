@@ -189,7 +189,7 @@
                 // 이미지를 업로드한 경우, 서버에서 이미지를 삭제하고 에디터에 이미지를 추가했을 때 이 부분을 적절하게 처리해야 합니다.
 
                 // 뒤로 돌아가기
-                window.history.back();
+                window.location.href = location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText="+$("search").val();
             }
         });
 
