@@ -10,13 +10,14 @@ public class BoardDTO {
 	private String contents;
 	private Timestamp write_date;
 	private int view_count;
-	
+	private int like;
+	private int dislike;
 	
 	
 	
 	public BoardDTO() {}
 	
-	public BoardDTO(int seq, String writer, String title, String contents, Timestamp write_date, int view_count) {
+	public BoardDTO(int seq, String writer, String title, String contents, Timestamp write_date, int view_count, int like, int dislike) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -24,6 +25,8 @@ public class BoardDTO {
 		this.contents = contents;
 		this.write_date = write_date;
 		this.view_count = view_count;
+		this.like = like;
+		this.dislike = dislike;
 	}
 	
 	
@@ -80,5 +83,17 @@ public class BoardDTO {
 	}
 	public void setView_count(int view_count) {
 		this.view_count = view_count;
+	}
+	public int getLike() {
+		return like;
+	}
+	public void setDislike(int like) {
+		this.like = like;
+	}
+	public int getDislike() {
+		return dislike;
+	}
+	public void setLike(int dislike) {
+		this.dislike = dislike;
 	}
 }
