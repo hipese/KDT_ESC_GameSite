@@ -128,6 +128,27 @@ public class MembersController extends HttpServlet {
 					String json = gson.toJson(null);
 					pw.append(json);
 				}
+			} else if(cmd.equals("/delete.members")) {
+				response.sendRedirect("/deleteMembers.jsp");
+			} else if(cmd.equals("/deleteComplete.members")) {
+				String id = request.getParameter("id");
+				String id2 = (String)request.getSession().getAttribute("loginID");
+				String pw = request.getParameter("pw");
+				pw = EncryptionUtils.getSHA512(pw);
+				boolean success = dao.login(id, pw);
+				response.setCharacterEncoding("UTF-8");
+				if(success && id.equals(id2)) {
+					PrintWriter check = response.getWriter();
+					check.append("정말로 탈퇴하시겠습니까?");
+				} else {
+					PrintWriter check = response.getWriter();
+					check.append("아이디 또는 비밀번호를 다시 확인해주세요.");
+				}
+			} else if(cmd.equals("/realDelete.members")) {
+				String id = (String)request.getSession().getAttribute("loginID");
+				dao.delete(id);
+				request.getSession().invalidate();
+				response.sendRedirect("/index.jsp");
 			}
 		} catch (Exception e) {
 			response.sendRedirect("/error.html");

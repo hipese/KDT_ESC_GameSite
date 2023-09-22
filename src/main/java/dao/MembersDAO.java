@@ -145,5 +145,13 @@ public class MembersDAO {
 			return pstat.executeUpdate();
 		}
 	}
+	
+	public int delete(String id) throws SQLException, Exception {
+		String sql = "delete from members where id=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			return pstat.executeUpdate();
+		}
+	}
 
 }
