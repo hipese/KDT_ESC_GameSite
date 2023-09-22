@@ -578,7 +578,33 @@ window.onload = function() {
       fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
          placeholder: '내용을 작성해 주세요',
          tabsize: 2,
-         lang: 'ko-KR' // default: 'en-US'
+         lang: 'ko-KR', // default: 'en-US'
+        	 callbacks: {
+                 onImageUpload: function (files) {
+                     let editor = $(this);
+
+                     // FormData 객체를 생성하고 이미지를 추가합니다.
+                     let formData = new FormData();
+                     formData.append(
+                         "image",
+                         files[0]);
+
+                     // 이미지를 서버로 업로드합니다.
+                     $.ajax({
+                         url: "/upload.file",
+                         method: "post",
+                         data: formData,
+                         processData: false, // 필수 : FormData 객체를 문자열로 변환하지 않음
+                         contentType: false, // 필수 : x-www-form-urlencoded로 파싱되는 것을 방지
+                     }).done(function (resp) {
+                         let img = $("<img>");
+                         img.attr("src", resp);
+                         console.log(img);
+                         $("#summernote").summernote(
+                             "insertNode", img[0]);
+                     })
+                 }
+             }
      });
 </script>
 
