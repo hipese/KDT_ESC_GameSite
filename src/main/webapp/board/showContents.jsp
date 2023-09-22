@@ -445,7 +445,7 @@ $('#wirte_reply').on('click', function(){
 		})
 
 		$("#return").on("click", function() {
-			location.href = "/showBoardList.board";
+			location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText="+$("search").val();
 		})
 
 	</script>	
@@ -469,19 +469,19 @@ $('#wirte_reply').on('click', function(){
         let endNavi = Math.min(startNavi + naviCountPerPage - 1, pageTotalCount);
 
         // Create the pagination HTML
-        let paginationHTML = '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=1&searchText=${searchText}" aria-label="First">First</a></li>';
+        let paginationHTML = '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=1&searchText=${searchText}&seq=${selectboard.seq}" aria-label="First">First</a></li>';
         if (startNavi > 1) {
-            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + (startNavi - 1) + '&searchText=${searchText}" aria-label="Previous">&laquo;</a></li>';
+            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
         }
         
         for (let i = startNavi; i <= endNavi; i++) {
-            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + i + '&searchText=${searchText}">' + i + '</a></li>';
+            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
         }
         
         if (endNavi < pageTotalCount) {
-            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + (endNavi + 1) + '&searchText=${searchText}" aria-label="Next">&raquo;</a></li>';
+            paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
         }
-        paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + pageTotalCount + '&searchText=${searchText}" aria-label="Last">Last</a></li>';
+        paginationHTML += '<li class="page-item"><a class="page-link" href="/replyNav.reply?cpage=' + pageTotalCount + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Last">Last</a></li>';
         
         // Append the generated pagination HTML to the pageNav element
         $('.pagination').html(paginationHTML);
