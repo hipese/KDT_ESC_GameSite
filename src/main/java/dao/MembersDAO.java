@@ -153,5 +153,14 @@ public class MembersDAO {
 			return pstat.executeUpdate();
 		}
 	}
+	
+	public int changePW(String pw1, String pw2) throws SQLException, Exception {
+		String sql = "update members set pw = ? where pw = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, pw2);
+			pstat.setString(2, pw1);
+			return pstat.executeUpdate();
+		}
+	}
 
 }

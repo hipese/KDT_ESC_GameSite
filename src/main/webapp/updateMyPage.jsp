@@ -78,23 +78,6 @@
     #cancel {
     	margin-right:5px;
     }
-    #cancel>a{
-            text-decoration:none;
-            color:black;
-        }
-    #cancel:hover{
-            text-decoration:none;
-            cursor: pointer;
-            background-color: black;
-            color: white;
-        }
-    #cancel>a:link{
-            text-decoration:none;
-        }
-    #cancel>a:hover{
-            text-decoration:none;
-            color:white;
-        }
 </style>
 </head>
 <body>
@@ -160,6 +143,7 @@
     <div class="row g-0">
     	<div class="btns">
     		<a href="/mypage.members"><button id="cancel" type="button" class="btn btn-light">수정취소</button></a>
+    		<a href="/changePW.members"><button id="cancel" type="button" class="btn btn-dark">비밀번호 변경</button></a>
 			<button class="btn btn-dark">수정완료</button>
     	</div>
     </div>

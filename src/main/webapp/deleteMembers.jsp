@@ -150,8 +150,6 @@
 			} else {
 				Swal.fire(resp);
 			}
-			
-			console.log(resp);
 		});
 	});
 </script>
