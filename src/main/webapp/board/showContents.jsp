@@ -260,8 +260,6 @@ window.onload = function() {
     let seq = "${selectboard.seq}";
     let commentsTable = $('#comments-table');
 	let cpage="${replynaviseq}";
-	
-	console.log("범인 너냐?:"+cpage)
     $.ajax({
         url: '/showReplyList.reply',
         data: { seq: seq ,
@@ -269,14 +267,11 @@ window.onload = function() {
         		},
         dataType: 'json',
     }).done(function(resp) {
-    	console.log(resp);
-    	
     	//댓글을 보여주는 반환결과
 		let replyList=resp.replyList;
-		console.log("길이:"+replyList.length);
+	
 		
        for (let i = 0; i < replyList.length; i++) {
-           console.log(replyList[i]);
            let comment = replyList[i];
 
            let commentRow = $('<tr>');
@@ -331,12 +326,6 @@ window.onload = function() {
         let recordCountPerPage = paginationData.recordCountPerPage;
         let naviCountPerPage = paginationData.naviCountPerPage;
         let currentPage = paginationData.latestPageNum;
-        
-        console.log("recordTotalCount:", recordTotalCount);
-        console.log("recordCountPerPage:", recordCountPerPage);
-        console.log("naviCountPerPage:", naviCountPerPage);
-        console.log("currentPage:", currentPage);
-    	
        
        let pageNav = $(".pageNav");
        // Calculate pagination and generate HTML 현재 네비의 개수를 확인
@@ -438,8 +427,6 @@ window.onload = function() {
             if (confirmation) {
                 let commentId = $(this).data('comment-id');
                 let parentSeq = $(this).data('parent-seq');
-                console.log(commentId);
-                console.log(parentSeq);
                 $.ajax({
                     url: '/delete.reply',
                     method: 'POST',
@@ -500,9 +487,6 @@ window.onload = function() {
 			let updateTitle = $('#title_update_value').val();
 			let updateSeq = $("#seq").val();
 			// 수정한 내용을 서버로 보내는 등의 동작을 수행할 수 있습니다.
-			console.log(updatedContent);
-			console.log(updateTitle);
-
 			$.ajax({
 				url : "/updateContents.board",
 				data : {
