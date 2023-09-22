@@ -94,7 +94,6 @@ form>.searchArea {
 
 #contents {
 	width: 100%;
-	height: 400px;
 	background-color: whitesmoke;
 }
 
@@ -128,10 +127,6 @@ form>.searchArea {
 	align-items: center;
 }
 
-#contents{
-	height: 400px; /* Adjust the height as needed */
-	overflow: auto;
-}
 </style>
 </head>
 
@@ -583,7 +578,6 @@ window.onload = function() {
       fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
          placeholder: '내용을 작성해 주세요',
          tabsize: 2,
-         height: 400,
          lang: 'ko-KR' // default: 'en-US'
      });
 </script>
