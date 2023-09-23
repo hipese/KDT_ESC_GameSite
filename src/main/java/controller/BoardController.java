@@ -140,12 +140,15 @@ public class BoardController extends HttpServlet {
 					isWriterCheck = false;
 					System.out.println("작성자와 일치하지 않은 아이디입니다.");
 				}
-
+				
+				
+				
 //				댓글 리스트 추출
 				List<ReplyDTO> replyList = rdao.selectAll();
 //				댓글이 해당 부모인지 확인하는 변수
 				boolean isParentseq = rdao.isReplyExist(seq);
 				
+				System.out.println("로그인한 놈 아이디임?:"+isWriterCheck);
 				System.out.println("댓글이 존재하는가?: "+isParentseq);
 				
 				request.setAttribute("isParentseq", isParentseq);

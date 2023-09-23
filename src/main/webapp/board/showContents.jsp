@@ -223,11 +223,20 @@ form>.searchArea {
 		</div>
 		<div class="row botton mb-4">
 			<div class="col botton d-flex justify-content-end">
-				<button type="button" class="btn btn-outline-secondary"
-					style="margin-right: 10px;" id="return">목록으로</button>
-				<button type="button" class="btn btn-outline-secondary"
-					id="updateBtn" style="margin-right: 10px;">수정하기</button>
-				<button type="button" class="btn btn-outline-secondary" id="delete">삭제하기</button>
+				<c:choose>
+					<c:when test="${isWriterCheck}">
+						<button type="button" class="btn btn-outline-secondary"
+							style="margin-right: 10px;" id="return">목록으로</button>
+						<button type="button" class="btn btn-outline-secondary"
+							id="updateBtn" style="margin-right: 10px;">수정하기</button>
+						<button type="button" class="btn btn-outline-secondary"
+							id="delete">삭제하기</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-outline-secondary"
+							style="margin-right: 10px;" id="return">목록으로</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<div class="row reply_list mb-4">
@@ -271,6 +280,7 @@ form>.searchArea {
 
 	<!-- 댓글을 생성하는 ajax 스크립트 부분 여기서 nav도 같이 출력한다. -->
 	<script>
+	let isWriterCheck=${isWriterCheck};
 window.onload = function() {
 	
     let seq = "${selectboard.seq}";
@@ -326,11 +336,13 @@ window.onload = function() {
                 'data-parent-seq': comment.parent_seq
             });
            
-           let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
+           if(isWriterCheck){
+        	   let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
 
-           commentRow.append(tdElement2);
-           commentRow.append('<td><button class="delete-btn" data-comment-id="' + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
-
+               commentRow.append(tdElement2);
+               commentRow.append('<td><button class="delete-btn" data-comment-id="' 
+            		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
+           }
            commentsTable.append(commentRow);
        }
 
@@ -522,7 +534,7 @@ window.onload = function() {
 		});
 
 		$("#delete").on("click", function() {
-			let isdelete = confirm("작성을 취소하시겠습니까?");
+			let isdelete = confirm("게시물을 삭제하시겠습니까?");
 			let deleteSeq = $("#seq").val();
 			if (isdelete) {
 				$.ajax({
@@ -531,7 +543,7 @@ window.onload = function() {
 						seq : deleteSeq
 					}
 				}).done(function(resp) {
-					window.location.href = "/showBoardList.board";
+					window.location.href = "/showBoardList.board?cpage=${latesPageNum}";
 				});
 			}
 			return;
