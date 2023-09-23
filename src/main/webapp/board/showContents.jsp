@@ -126,7 +126,6 @@ form>.searchArea {
 	justify-content: center;
 	align-items: center;
 }
-
 </style>
 </head>
 
@@ -196,13 +195,13 @@ form>.searchArea {
 		</div>
 		<div class="row suggestion_buttons mb-4">
 			<div class="col" id="suggestion_buttons">
-				<button type="button" class="btn btn-outline-primary"
-					id="update_check" style="margin-right: 10px;">
-					<i class="fa-regular fa-thumbs-up fa-lg"></i>
+				<button type="button" class="btn btn-outline-primary" id="like_btn"
+					style="margin-right: 10px;">
+					<i class="fa-regular fa-thumbs-up fa-lg"></i>${selectboard.like}
 				</button>
 				<button type="button" class="btn btn-outline-danger"
-					id="update_cancel">
-					<i class="fa-regular fa-thumbs-down fa-lg"></i>
+					id="dislike_btn">
+					<i class="fa-regular fa-thumbs-down fa-lg"></i>${selectboard.dislike}
 				</button>
 			</div>
 		</div>
@@ -541,6 +540,46 @@ window.onload = function() {
 		$("#return").on("click", function() {
 			location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText="+$("search").val();
 		})
+		
+		// Assuming you have elements with IDs like "like_btn" and "dislike_btn"
+$(document).ready(function() {
+    $('#like_btn').click(function() {
+        // Send an AJAX request to increment the likes count on the server
+        $.ajax({
+            url: '/like.board',
+            method: 'POST', // or 'GET', depending on your server-side implementation
+            data: {
+                contentId: '${selectboard.seq}', // Pass the content ID or any unique identifier
+            },
+            success: function(response) {
+                // Update the like count on the page based on the server's response
+            	 window.location.reload();
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+
+    $('#dislike_btn').click(function() {
+        // Send an AJAX request to increment the dislikes count on the server
+        $.ajax({
+            url: '/dislike.board',
+            method: 'POST', // or 'GET'
+            data: {
+                contentId: '${selectboard.seq}',
+            },
+            success: function(response) {
+                // Update the dislike count on the page based on the server's response
+            	 window.location.reload();
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+});
+
 
 	</script>
 
