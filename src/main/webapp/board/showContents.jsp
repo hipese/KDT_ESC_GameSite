@@ -94,6 +94,8 @@ form>.searchArea {
 
 #contents {
 	width: 100%;
+	height: 500px;
+	overflow:auto;
 	background-color: whitesmoke;
 }
 
@@ -125,6 +127,12 @@ form>.searchArea {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+/* Style for the current page link */
+.page-item.active .page-link {
+    background-color: #007bff; /* Change to your desired background color */
+    color: #fff; /* Change to your desired text color */
 }
 </style>
 </head>
@@ -390,25 +398,30 @@ window.onload = function() {
        }
        
        if (pageTotalCount > 0) {
-       	  let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
+    	   let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
 
-       	  paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=1&searchText=${searchText}&seq=${selectboard.seq}" aria-label="First">First</a></li>';
-       	  if (needPrev) {
-       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
-       	  }
+    	   paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=1&searchText=${searchText}&seq=${selectboard.seq}" aria-label="First">First</a></li>';
+    	   if (needPrev) {
+    	       paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
+    	   }
 
-       	  for (let i = startNavi; i <= endNavi; i++) {
-       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
-       	  }
+    	   for (let i = startNavi; i <= endNavi; i++) {
+    	       if (i === currentPage) {
+    	           // Add the "active" class to the current page
+    	           paginationHTML += '<li class="page-item active"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
+    	       } else {
+    	           paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
+    	       }
+    	   }
 
-       	  if (needNext) {
-       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
-       	  }
-       	  paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + pageTotalCount + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Last">Last</a></li>';
+    	   if (needNext) {
+    	       paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
+    	   }
+    	   paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + pageTotalCount + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Last">Last</a></li>';
 
-       	  paginationHTML += '</ul></nav>';
-       	  // Append the generated pagination HTML to the pageNav element
-       	  pageNav.append(paginationHTML);
+    	   paginationHTML += '</ul></nav>';
+
+    	   pageNav.append(paginationHTML);
        	}
        
        
@@ -488,6 +501,29 @@ window.onload = function() {
         	   }
     	});
 	 });
+	
+	$('#replyText').on('keydown', function(event){
+		let seq = "${selectboard.seq}";
+		if (event.key == "Enter"){
+			if($("#replyText").val() == ""){
+		       	alert("댓글 내용을 입력하세요");
+		       	return;
+		    	}
+		    	$.ajax({
+		    	
+		       	url : "/writeReply.reply",
+		       	data : {
+		    		  replyContents : $("#replyText").val(),
+		        	  parent_seq : seq
+		       	},
+		       	success: function() {
+		            	  window.location.reload();
+		        	   }
+		    	});
+		}
+    	
+	 });
+	
 	</script>
 
 	<script>
@@ -592,7 +628,7 @@ $(document).ready(function() {
     });
 });
 
-
+	       
 	</script>
 
 	<script>    
