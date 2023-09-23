@@ -94,6 +94,8 @@ form>.searchArea {
 
 #contents {
 	width: 100%;
+	height: 500px;
+	overflow:auto;
 	background-color: whitesmoke;
 }
 
@@ -125,6 +127,12 @@ form>.searchArea {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+/* Style for the current page link */
+.page-item.active .page-link {
+    background-color: #007bff; /* Change to your desired background color */
+    color: #fff; /* Change to your desired text color */
 }
 </style>
 </head>
@@ -223,11 +231,20 @@ form>.searchArea {
 		</div>
 		<div class="row botton mb-4">
 			<div class="col botton d-flex justify-content-end">
-				<button type="button" class="btn btn-outline-secondary"
-					style="margin-right: 10px;" id="return">목록으로</button>
-				<button type="button" class="btn btn-outline-secondary"
-					id="updateBtn" style="margin-right: 10px;">수정하기</button>
-				<button type="button" class="btn btn-outline-secondary" id="delete">삭제하기</button>
+				<c:choose>
+					<c:when test="${isWriterCheck}">
+						<button type="button" class="btn btn-outline-secondary"
+							style="margin-right: 10px;" id="return">목록으로</button>
+						<button type="button" class="btn btn-outline-secondary"
+							id="updateBtn" style="margin-right: 10px;">수정하기</button>
+						<button type="button" class="btn btn-outline-secondary"
+							id="delete">삭제하기</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-outline-secondary"
+							style="margin-right: 10px;" id="return">목록으로</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<div class="row reply_list mb-4">
@@ -271,13 +288,12 @@ form>.searchArea {
 
 	<!-- 댓글을 생성하는 ajax 스크립트 부분 여기서 nav도 같이 출력한다. -->
 	<script>
+	let isWriterCheck=${isWriterCheck};
 window.onload = function() {
 	
     let seq = "${selectboard.seq}";
     let commentsTable = $('#comments-table');
 	let cpage="${replynaviseq}";
-	
-	console.log("범인 너냐?:"+cpage)
     $.ajax({
         url: '/showReplyList.reply',
         data: { seq: seq ,
@@ -285,14 +301,11 @@ window.onload = function() {
         		},
         dataType: 'json',
     }).done(function(resp) {
-    	console.log(resp);
-    	
     	//댓글을 보여주는 반환결과
 		let replyList=resp.replyList;
-		console.log("길이:"+replyList.length);
+	
 		
        for (let i = 0; i < replyList.length; i++) {
-           console.log(replyList[i]);
            let comment = replyList[i];
 
            let commentRow = $('<tr>');
@@ -331,11 +344,13 @@ window.onload = function() {
                 'data-parent-seq': comment.parent_seq
             });
            
-           let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
+           if(isWriterCheck){
+        	   let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
 
-           commentRow.append(tdElement2);
-           commentRow.append('<td><button class="delete-btn" data-comment-id="' + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
-
+               commentRow.append(tdElement2);
+               commentRow.append('<td><button class="delete-btn" data-comment-id="' 
+            		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
+           }
            commentsTable.append(commentRow);
        }
 
@@ -347,12 +362,6 @@ window.onload = function() {
         let recordCountPerPage = paginationData.recordCountPerPage;
         let naviCountPerPage = paginationData.naviCountPerPage;
         let currentPage = paginationData.latestPageNum;
-        
-        console.log("recordTotalCount:", recordTotalCount);
-        console.log("recordCountPerPage:", recordCountPerPage);
-        console.log("naviCountPerPage:", naviCountPerPage);
-        console.log("currentPage:", currentPage);
-    	
        
        let pageNav = $(".pageNav");
        // Calculate pagination and generate HTML 현재 네비의 개수를 확인
@@ -389,25 +398,30 @@ window.onload = function() {
        }
        
        if (pageTotalCount > 0) {
-       	  let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
+    	   let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
 
-       	  paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=1&searchText=${searchText}&seq=${selectboard.seq}" aria-label="First">First</a></li>';
-       	  if (needPrev) {
-       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
-       	  }
+    	   paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=1&searchText=${searchText}&seq=${selectboard.seq}" aria-label="First">First</a></li>';
+    	   if (needPrev) {
+    	       paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
+    	   }
 
-       	  for (let i = startNavi; i <= endNavi; i++) {
-       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
-       	  }
+    	   for (let i = startNavi; i <= endNavi; i++) {
+    	       if (i === currentPage) {
+    	           // Add the "active" class to the current page
+    	           paginationHTML += '<li class="page-item active"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
+    	       } else {
+    	           paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
+    	       }
+    	   }
 
-       	  if (needNext) {
-       	      paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
-       	  }
-       	  paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + pageTotalCount + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Last">Last</a></li>';
+    	   if (needNext) {
+    	       paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
+    	   }
+    	   paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + pageTotalCount + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Last">Last</a></li>';
 
-       	  paginationHTML += '</ul></nav>';
-       	  // Append the generated pagination HTML to the pageNav element
-       	  pageNav.append(paginationHTML);
+    	   paginationHTML += '</ul></nav>';
+
+    	   pageNav.append(paginationHTML);
        	}
        
        
@@ -454,8 +468,6 @@ window.onload = function() {
             if (confirmation) {
                 let commentId = $(this).data('comment-id');
                 let parentSeq = $(this).data('parent-seq');
-                console.log(commentId);
-                console.log(parentSeq);
                 $.ajax({
                     url: '/delete.reply',
                     method: 'POST',
@@ -489,6 +501,29 @@ window.onload = function() {
         	   }
     	});
 	 });
+	
+	$('#replyText').on('keydown', function(event){
+		let seq = "${selectboard.seq}";
+		if (event.key == "Enter"){
+			if($("#replyText").val() == ""){
+		       	alert("댓글 내용을 입력하세요");
+		       	return;
+		    	}
+		    	$.ajax({
+		    	
+		       	url : "/writeReply.reply",
+		       	data : {
+		    		  replyContents : $("#replyText").val(),
+		        	  parent_seq : seq
+		       	},
+		       	success: function() {
+		            	  window.location.reload();
+		        	   }
+		    	});
+		}
+    	
+	 });
+	
 	</script>
 
 	<script>
@@ -516,9 +551,6 @@ window.onload = function() {
 			let updateTitle = $('#title_update_value').val();
 			let updateSeq = $("#seq").val();
 			// 수정한 내용을 서버로 보내는 등의 동작을 수행할 수 있습니다.
-			console.log(updatedContent);
-			console.log(updateTitle);
-
 			$.ajax({
 				url : "/updateContents.board",
 				data : {
@@ -538,7 +570,7 @@ window.onload = function() {
 		});
 
 		$("#delete").on("click", function() {
-			let isdelete = confirm("작성을 취소하시겠습니까?");
+			let isdelete = confirm("게시물을 삭제하시겠습니까?");
 			let deleteSeq = $("#seq").val();
 			if (isdelete) {
 				$.ajax({
@@ -547,7 +579,7 @@ window.onload = function() {
 						seq : deleteSeq
 					}
 				}).done(function(resp) {
-					window.location.href = "/showBoardList.board";
+					window.location.href = "/showBoardList.board?cpage=${latesPageNum}";
 				});
 			}
 			return;
@@ -596,7 +628,7 @@ $(document).ready(function() {
     });
 });
 
-
+	       
 	</script>
 
 	<script>    

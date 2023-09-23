@@ -198,6 +198,12 @@ form>.searchArea {
 	align-items: center;
 	color: white;
 }
+
+/* 현재 페이지 네비게이션 링크 스타일 */
+.page-link.active {
+    text-decoration: underline;
+    color: red; /* 현재 페이지 링크의 글자 색상을 변경 */
+}
 </style>
 </head>
 
@@ -400,6 +406,20 @@ form>.searchArea {
 
     // Append the generated pagination HTML to the pageNav element
     pageNav.append(paginationHTML);
+ 	
+    let currentPageNumber = ${latesPageNum}; // 현재 페이지 번호
+    let pageLinks = document.querySelectorAll(".page-link");
+
+    for (let i = 0; i < pageLinks.length; i++) {
+        let pageLink = pageLinks[i];
+        let pageNumber = parseInt(pageLink.textContent); // 네비게이션 링크의 페이지 번호
+
+        // 현재 페이지와 네비게이션 링크의 페이지 번호가 일치하는 경우 "active" 클래스 추가
+        if (pageNumber === currentPageNumber) {
+            pageLink.classList.add("active");
+        }
+    }
+    
 </script>
 
 
