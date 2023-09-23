@@ -95,7 +95,7 @@ form>.searchArea {
 #contents {
 	width: 100%;
 	height: 500px;
-	overflow:auto;
+	overflow: auto;
 	background-color: whitesmoke;
 }
 
@@ -131,8 +131,8 @@ form>.searchArea {
 
 /* Style for the current page link */
 .page-item.active .page-link {
-    background-color: #007bff; /* Change to your desired background color */
-    color: #fff; /* Change to your desired text color */
+	background-color: #007bff; /* Change to your desired background color */
+	color: #fff; /* Change to your desired text color */
 }
 </style>
 </head>
@@ -232,7 +232,7 @@ form>.searchArea {
 		<div class="row botton mb-4">
 			<div class="col botton d-flex justify-content-end">
 				<c:choose>
-					<c:when test="${isWriterCheck}">
+					<c:when test="${loginID eq selectboard.writer}">
 						<button type="button" class="btn btn-outline-secondary"
 							style="margin-right: 10px;" id="return">목록으로</button>
 						<button type="button" class="btn btn-outline-secondary"
@@ -288,8 +288,15 @@ form>.searchArea {
 
 	<!-- 댓글을 생성하는 ajax 스크립트 부분 여기서 nav도 같이 출력한다. -->
 	<script>
-	let isWriterCheck=${isWriterCheck};
+	//자신이 작성한 댓글만 수정 삭제 하기위한 변수
+	let replywriter="${selectboard.writer}";
+	let loginwriter="${loginID}";
+	let parentseq=${seq};
+
+	
 window.onload = function() {
+	
+	
 	
     let seq = "${selectboard.seq}";
     let commentsTable = $('#comments-table');
@@ -344,13 +351,13 @@ window.onload = function() {
                 'data-parent-seq': comment.parent_seq
             });
            
-           if(isWriterCheck){
-        	   let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
-
-               commentRow.append(tdElement2);
-               commentRow.append('<td><button class="delete-btn" data-comment-id="' 
-            		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
-           }
+        	
+            if(replywriter==loginwriter){
+            	let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
+                commentRow.append(tdElement2);
+                commentRow.append('<td><button class="delete-btn" data-comment-id="' 
+                		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
+            }
            commentsTable.append(commentRow);
        }
 
