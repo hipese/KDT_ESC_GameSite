@@ -79,7 +79,7 @@ public class BoardDAO {
 	}
 
 	public int writeWord(BoardDTO dto) throws Exception {
-		String sql = "insert into board values(null,?,?,?,?,?)";
+		String sql = "insert into board values(null,?,?,?,?,?,0,0)";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
 			pstat.setString(1, dto.getWriter());

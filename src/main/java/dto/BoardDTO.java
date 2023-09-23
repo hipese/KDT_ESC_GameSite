@@ -17,6 +17,16 @@ public class BoardDTO {
 	
 	public BoardDTO() {}
 	
+	public BoardDTO(int seq, String writer, String title, String contents, Timestamp write_date, int view_count) {
+		super();
+		this.seq = seq;
+		this.writer = writer;
+		this.title = title;
+		this.contents = contents;
+		this.write_date = write_date;
+		this.view_count = view_count;
+	}
+	
 	public BoardDTO(int seq, String writer, String title, String contents, Timestamp write_date, int view_count, int like, int dislike) {
 		super();
 		this.seq = seq;
