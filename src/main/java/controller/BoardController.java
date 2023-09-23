@@ -75,7 +75,7 @@ public class BoardController extends HttpServlet {
 				
 				System.out.println(title+" : "+contents);
 			
-				int parentseq = dao.writeWord(new BoardDTO(0, writer, title, contents, date, view_count));
+				int parentseq = dao.writeWord(new BoardDTO(0, writer, title, contents, date, view_count, 0, 0));
 
 				while (fileNames.hasMoreElements()) { // ResultSet의 next()와 같은 역할
 					String fileName = fileNames.nextElement();
@@ -245,6 +245,14 @@ public class BoardController extends HttpServlet {
 	            		sos.flush();
 	            	}
 
+			}else if (cmd.equals("/like.board")) {
+				int seq = Integer.parseInt(request.getParameter("contentId"));
+				dao.like(seq);
+				
+			}else if (cmd.equals("/dislike.board")) {
+				int seq = Integer.parseInt(request.getParameter("contentId"));
+				dao.dislike(seq);
+				
 			}
 
 		} catch (Exception e) {
