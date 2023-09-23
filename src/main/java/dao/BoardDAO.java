@@ -109,8 +109,10 @@ public class BoardDAO {
 				String contents = rs.getString(4);
 				Timestamp write_date = rs.getTimestamp(5);
 				int view_count = rs.getInt(6);
+				int like = rs.getInt(7);
+				int dislike = rs.getInt(8);
 
-				list.add(new BoardDTO(seq, writer, title, contents, write_date, view_count));
+				list.add(new BoardDTO(seq, writer, title, contents, write_date, view_count, like, dislike));
 			}
 			return list;
 		}
@@ -128,8 +130,10 @@ public class BoardDAO {
 				String contents = rs.getString(4);
 				Timestamp write_date = rs.getTimestamp(5);
 				int view_count = rs.getInt(6);
+				int like = rs.getInt(7);
+				int dislike = rs.getInt(8);
 
-				return new BoardDTO(seq2, writer, title, contents, write_date, view_count);
+				return new BoardDTO(seq2, writer, title, contents, write_date, view_count, like, dislike);
 			}
 
 		}
@@ -189,6 +193,8 @@ public class BoardDAO {
 					dto.setContents(rs.getString("contents"));
 					dto.setWrite_date(rs.getTimestamp("write_date"));
 					dto.setView_count(rs.getInt("view_count"));
+					dto.setLike(rs.getInt("like"));
+					dto.setDislike(rs.getInt("dislike"));
 					searchList.add(dto);
 				}
 				return searchList;
@@ -207,6 +213,26 @@ public class BoardDAO {
 			return rs.next();
 
 		}
+	}
+	
+	public int like(int seq) throws Exception{
+		String sql = "UPDATE board SET `like` = `like` + 1 WHERE seq = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			return pstat.executeUpdate();
+			
+		}
+		
+	}
+	
+	public int dislike(int seq) throws Exception{
+		String sql = "UPDATE board SET `dislike` = `dislike` + 1 WHERE seq = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			return pstat.executeUpdate();
+			
+		}
+		
 	}
 
 }
