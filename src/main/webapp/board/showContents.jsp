@@ -128,7 +128,14 @@ form>.searchArea {
 	justify-content: center;
 	align-items: center;
 }
-
+#searchBtn{
+	width: 100px;
+	height: 40px;
+}
+#search{
+	width: 300px;
+	height: 40px;
+}
 /* Style for the current page link */
 .page-item.active .page-link {
 	background-color: #007bff; /* Change to your desired background color */
@@ -138,8 +145,9 @@ form>.searchArea {
 </head>
 
 <body>
-	<div class="container">
-		<div class="title mb-4">
+	
+	<div class="container-fluid">
+		<div class="title">
 			<div class="titleContents">
 				<div class="left col-12 col-sm-5">✨사이트 이름✨</div>
 
@@ -154,7 +162,8 @@ form>.searchArea {
 
 			</div>
 		</div>
-
+	</div>
+	<div class="container">
 		<!-- 게시판 내용 코드 -->
 		<div class="navbox mb-4">
 			<div class="navlist bg-dark col-12 col-sm-12">
@@ -319,6 +328,7 @@ window.onload = function() {
            commentRow.append('<td>' + comment.writer + '</td>'); 
            let inputField = $('<input>', {
                type: 'text',
+               style: 'border-width: 0;',
                class: 'comment-input',
                value: comment.contents,
                size: "50",
@@ -451,8 +461,13 @@ window.onload = function() {
             let commentId = commentRow.find('.edit-btn').data('comment-id');
             let parentSeq = commentRow.find('.edit-btn').data('parent-seq');
             let contents = commentRow.find('.comment-input').val();
+            let contentsInput = commentRow.find('.comment-input');
+            
+            contentsInput.focus();
+            
             if(contents == ""){
             alert("댓글 내용을 입력하세요");
+            contentsInput.focus();
             return;
          }
 
