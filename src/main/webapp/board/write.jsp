@@ -151,6 +151,12 @@
     <script>
         /*작성 버튼을 클릭시 ajax로 board controller에 데이터를 전송 후 리스트로 돌아오는 함수 */
         $("#write_check_button").on("click", function () {
+        	
+        	if($("#title").val()==""){
+        		alert("제목을 입력하세요");
+        		return;
+        	}
+        	
             let dataToSend = new FormData(); // FormData 객체 생성
 
             // 기존 데이터 추가
