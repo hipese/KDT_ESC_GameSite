@@ -150,6 +150,7 @@ public class BoardController extends HttpServlet {
 				boolean isParentseq = rdao.isReplyExist(seq);
 				
 				
+
 				
 				System.out.println("로그인한 놈 아이디임?:"+isWriterCheck);
 				System.out.println("댓글이 존재하는가?: "+isParentseq);

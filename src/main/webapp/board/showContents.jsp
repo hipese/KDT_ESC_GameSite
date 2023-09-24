@@ -288,16 +288,9 @@ form>.searchArea {
 
 	<!-- 댓글을 생성하는 ajax 스크립트 부분 여기서 nav도 같이 출력한다. -->
 	<script>
-	//자신이 작성한 댓글만 수정 삭제 하기위한 변수
-	let replywriter="${selectboard.writer}";
-	let loginwriter="${loginID}";
-	let parentseq=${seq};
-
-	
+	let loginId="${loginID}";
 window.onload = function() {
-	
-	
-	
+	//자신이 작성한 댓글만 수정 삭제 하기위한 변수
     let seq = "${selectboard.seq}";
     let commentsTable = $('#comments-table');
 	let cpage="${replynaviseq}";
@@ -312,12 +305,13 @@ window.onload = function() {
 		let replyList=resp.replyList;
 	
 		
+		
        for (let i = 0; i < replyList.length; i++) {
            let comment = replyList[i];
-
+         
+           
            let commentRow = $('<tr>');
            
-          
            commentRow.append('<td></td>');
            commentRow.append('<td>' + comment.writer + '</td>'); 
            let inputField = $('<input>', {
@@ -352,13 +346,17 @@ window.onload = function() {
             });
            
         	
-            if(replywriter==loginwriter){
-            	let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
-                commentRow.append(tdElement2);
-                commentRow.append('<td><button class="delete-btn" data-comment-id="' 
-                		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
-            }
-           commentsTable.append(commentRow);
+           //ajax에서 보낸 서블릿이 각각의 댓글이 작성자와 일치하는지  확인한 결과값을 가져온다
+          	
+           if(comment.writer==loginId){
+        	   let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
+               commentRow.append(tdElement2);
+               commentRow.append('<td><button class="delete-btn" data-comment-id="' 
+                    		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
+           }
+           	
+            
+           	commentsTable.append(commentRow);
        }
 
        
