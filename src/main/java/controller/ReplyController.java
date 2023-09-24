@@ -84,6 +84,7 @@ public class ReplyController extends HttpServlet {
 				
 			} else if (cmd.equals("/showReplyList.reply")) { //댓글 리스트와 nav를 같이 불러오는 서블릿 
 				
+				String login = (String) request.getSession().getAttribute("loginID");
 				String cpage = request.getParameter("cpage");
 				int currentPage = cpage == null ? 1 : Integer.parseInt(cpage);
 				int seq = Integer.parseInt(request.getParameter("seq"));
@@ -100,6 +101,8 @@ public class ReplyController extends HttpServlet {
 //			    그 후 해당 댓글 리스트를 map으로 전환
 			    Map<String, Object> responseData = new HashMap<>();
 			    responseData.put("replyList", replyList);
+			    
+			    
 			    
 //			    보내야할 내용을 ajsx(JSON형식으로 보내기 위한 map 형태로 변경)
 			    Map<String, Object> paginationData = new HashMap<>();

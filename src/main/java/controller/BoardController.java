@@ -104,11 +104,13 @@ public class BoardController extends HttpServlet {
 				String searchText = request.getParameter("searchText");
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				
+				
+//				댓글에 현제 페이지를 저장하는 로직
 				String cpageParam = request.getParameter("cpage");
 				
 				System.out.println("cpageParam의 값"+cpageParam);
 				int replynaviseq;
-				
+
 				if (cpageParam == null) {
 					replynaviseq=1;
 				}else {
@@ -142,11 +144,13 @@ public class BoardController extends HttpServlet {
 				}
 				
 				
-				
 //				댓글 리스트 추출
-				List<ReplyDTO> replyList = rdao.selectAll();
+				List<ReplyDTO> replyList = rdao.selectReply(seq);
 //				댓글이 해당 부모인지 확인하는 변수
 				boolean isParentseq = rdao.isReplyExist(seq);
+				
+				
+
 				
 				System.out.println("로그인한 놈 아이디임?:"+isWriterCheck);
 				System.out.println("댓글이 존재하는가?: "+isParentseq);

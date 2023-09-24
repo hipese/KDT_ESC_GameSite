@@ -18,9 +18,7 @@
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script>
-	
-</script>
+<link rel="stylesheet" href="css/footer.css">
 <style>
 * {
 	box-sizing: border-box;
@@ -48,6 +46,8 @@
 }
 
 .body>.header {
+	border-top: 1px solid black; /* 위쪽 테두리 */
+    border-bottom: 1px solid black; /* 아래쪽 테두리 */
 	width: 100%;
 	height: 10%;
 	display: flex;
@@ -179,10 +179,6 @@ form>.searchArea {
 	margin: 5px;
 }
 
-.footer>.details {
-	
-}
-
 .footer>.buttonbox {
 	height: 50%;
 	display: flex;
@@ -197,6 +193,12 @@ form>.searchArea {
 	justify-content: center;
 	align-items: center;
 	color: white;
+}
+
+/*댓글의 내용물을 꾸미는 부분*/
+.contents{
+	border-top: 1px solid black; /* 위쪽 테두리 */
+    border-bottom: 1px solid black; /* 아래쪽 테두리 */
 }
 
 /* 현재 페이지 네비게이션 링크 스타일 */
@@ -217,8 +219,7 @@ form>.searchArea {
 	6. 검색 텍스트 기본("")
 	7. 텍스트가 존재하는지 확인하는 여부(없어도 될듯?)
 	  -->
-
-	<div class="container">
+	<div class="container-fluid">
 		<div class="title">
 			<div class="titleContents">
 				<div class="left col-12 col-sm-5">✨사이트 이름✨</div>
@@ -234,8 +235,9 @@ form>.searchArea {
 
 			</div>
 		</div>
-
-
+	</div>
+	<div class="container">
+		
 		<!-- 게시판 nav용 코드 -->
 		<div class="navbox">
 			<div class="navlist bg-dark col-12 col-sm-12 m-1">
@@ -268,8 +270,6 @@ form>.searchArea {
 				<div class="loginbox col-12 col-sm-4 bg-secondary rounded-3 m-1">
 
 					<div class="loginInputbox">
-
-
 						<div class="remember">로그인 폼을 여기에 등록</div>
 					</div>
 
@@ -323,15 +323,56 @@ form>.searchArea {
 			<div class="pageNav">
 				
 			</div>
-
-			<div class="details">
-				<div class="copyright col-12 col-sm-2 m-12 bg-secondary rounded-3">
-					여기에 footer를 꾸미는 내용을 작성</div>
-			</div>
-
-
 		</div>
+		
 	</div>
+	
+	 <div class="second-fluid">
+            <div class="row footer gx-0">
+                <div class="col-12 col-xl-4 order-4 order-xl-1">
+                    <div class="row">
+                        <div class="col-12 foottitle">
+                            <span>Team E.S.C</span>
+                        </div>
+                        <span class="footenter"> <span>팀 프로젝트로 만든 재밌는 게임들</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-3 order-3 order-xl-2">
+                    <div class="footertitle d-none d-xl-block">
+                        <span>고객센터</span>
+                    </div>
+                    <div class="row">
+                        <span class="col-12 service"> 문의 : 010-9554-7757 </span>
+                    </div>
+                    <div class="row">
+                        <span class="col-12 service"> <a target="_blank" href="https://pf.kakao.com"> 카카오톡 상담 문의
+                            </a></span>
+                    </div>
+                    <div class="row opacity-0">
+                        <br />
+                    </div>
+                    <div class="row">
+                        <span class="col-12 service"> 게임문의·단가문의·견적문의·기타문의 </span>
+                    </div>
+                    <div class="row">
+                        <span class="col-12 service"> 오픈 : 24시간 </span>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-1 order-2 order-xl-3 opacity-0"></div>
+                <div class="col-12 col-xl-2 order-1 order-xl-4">
+                    <div class="footertitle d-none d-xl-block">
+                        <span> Social</span>
+                    </div>
+                    <div class="footericon">
+                        <a target="_blank" class="instaicon" href="https://www.instagram.com"><img class="icon"
+                                src="img/instagram.svg" alt="icon" width="40px" /></a>
+                        <a target="_blank" class="youtubeicon" href="https://youtube.com"><img class="youtube"
+                                src="img/youtube.svg" alt="icon" width="40px" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
 	<script>
 		${isExistText}
 		let previousPageURL = window.location.href;

@@ -95,7 +95,7 @@ form>.searchArea {
 #contents {
 	width: 100%;
 	height: 500px;
-	overflow:auto;
+	overflow: auto;
 	background-color: whitesmoke;
 }
 
@@ -128,18 +128,26 @@ form>.searchArea {
 	justify-content: center;
 	align-items: center;
 }
-
+#searchBtn{
+	width: 100px;
+	height: 40px;
+}
+#search{
+	width: 300px;
+	height: 40px;
+}
 /* Style for the current page link */
 .page-item.active .page-link {
-    background-color: #007bff; /* Change to your desired background color */
-    color: #fff; /* Change to your desired text color */
+	background-color: #007bff; /* Change to your desired background color */
+	color: #fff; /* Change to your desired text color */
 }
 </style>
 </head>
 
 <body>
-	<div class="container">
-		<div class="title mb-4">
+	
+	<div class="container-fluid">
+		<div class="title">
 			<div class="titleContents">
 				<div class="left col-12 col-sm-5">✨사이트 이름✨</div>
 
@@ -154,7 +162,8 @@ form>.searchArea {
 
 			</div>
 		</div>
-
+	</div>
+	<div class="container">
 		<!-- 게시판 내용 코드 -->
 		<div class="navbox mb-4">
 			<div class="navlist bg-dark col-12 col-sm-12">
@@ -232,7 +241,7 @@ form>.searchArea {
 		<div class="row botton mb-4">
 			<div class="col botton d-flex justify-content-end">
 				<c:choose>
-					<c:when test="${isWriterCheck}">
+					<c:when test="${loginID eq selectboard.writer}">
 						<button type="button" class="btn btn-outline-secondary"
 							style="margin-right: 10px;" id="return">목록으로</button>
 						<button type="button" class="btn btn-outline-secondary"
@@ -249,22 +258,25 @@ form>.searchArea {
 		</div>
 		<div class="row reply_list mb-4">
 			<div class="col reply_list">
-
-				<table class="table" id="comments-table" width="700">
-					<thead>
-						<tr>
-							<td scope="col" width="10"></td>
-							<th scope="col" width="70">작성자</th>
-							<th scope="col" width="400">댓글내용</th>
-							<th scope="col" width="100">작성날짜</th>
-							<th scope="col" width="40">#</th>
-							<th scope="col" width="40">#</th>
-
-
-						</tr>
-					</thead>
-
-				</table>
+				<c:choose>
+					<c:when test="${isParentseq }">
+						<table class="table" id="comments-table" width="700">
+							<thead>
+								<tr>
+									<td scope="col" width="10"></td>
+									<th scope="col" width="70">작성자</th>
+									<th scope="col" width="400">댓글내용</th>
+									<th scope="col" width="100">작성날짜</th>
+									<th scope="col" width="40">#</th>
+									<th scope="col" width="40">#</th>
+								</tr>
+							</thead>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<div class="nonreply">댓글이 존재하지 않습니다.</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 
@@ -288,9 +300,9 @@ form>.searchArea {
 
 	<!-- 댓글을 생성하는 ajax 스크립트 부분 여기서 nav도 같이 출력한다. -->
 	<script>
-	let isWriterCheck=${isWriterCheck};
+	let loginId="${loginID}";
 window.onload = function() {
-	
+	//자신이 작성한 댓글만 수정 삭제 하기위한 변수
     let seq = "${selectboard.seq}";
     let commentsTable = $('#comments-table');
 	let cpage="${replynaviseq}";
@@ -305,16 +317,18 @@ window.onload = function() {
 		let replyList=resp.replyList;
 	
 		
+		
        for (let i = 0; i < replyList.length; i++) {
            let comment = replyList[i];
-
+         
+           
            let commentRow = $('<tr>');
            
-          
            commentRow.append('<td></td>');
            commentRow.append('<td>' + comment.writer + '</td>'); 
            let inputField = $('<input>', {
                type: 'text',
+               style: 'border-width: 0;',
                class: 'comment-input',
                value: comment.contents,
                size: "50",
@@ -344,14 +358,18 @@ window.onload = function() {
                 'data-parent-seq': comment.parent_seq
             });
            
-           if(isWriterCheck){
+        	
+           //ajax에서 보낸 서블릿이 각각의 댓글이 작성자와 일치하는지  확인한 결과값을 가져온다
+          	
+           if(comment.writer==loginId){
         	   let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
-
                commentRow.append(tdElement2);
                commentRow.append('<td><button class="delete-btn" data-comment-id="' 
-            		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
+                    		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
            }
-           commentsTable.append(commentRow);
+           	
+            
+           	commentsTable.append(commentRow);
        }
 
        
@@ -443,8 +461,13 @@ window.onload = function() {
             let commentId = commentRow.find('.edit-btn').data('comment-id');
             let parentSeq = commentRow.find('.edit-btn').data('parent-seq');
             let contents = commentRow.find('.comment-input').val();
+            let contentsInput = commentRow.find('.comment-input');
+            
+            contentsInput.focus();
+            
             if(contents == ""){
             alert("댓글 내용을 입력하세요");
+            contentsInput.focus();
             return;
          }
 
