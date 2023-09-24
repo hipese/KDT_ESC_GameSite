@@ -249,22 +249,25 @@ form>.searchArea {
 		</div>
 		<div class="row reply_list mb-4">
 			<div class="col reply_list">
-
-				<table class="table" id="comments-table" width="700">
-					<thead>
-						<tr>
-							<td scope="col" width="10"></td>
-							<th scope="col" width="70">작성자</th>
-							<th scope="col" width="400">댓글내용</th>
-							<th scope="col" width="100">작성날짜</th>
-							<th scope="col" width="40">#</th>
-							<th scope="col" width="40">#</th>
-
-
-						</tr>
-					</thead>
-
-				</table>
+				<c:choose>
+					<c:when test="${isParentseq }">
+						<table class="table" id="comments-table" width="700">
+							<thead>
+								<tr>
+									<td scope="col" width="10"></td>
+									<th scope="col" width="70">작성자</th>
+									<th scope="col" width="400">댓글내용</th>
+									<th scope="col" width="100">작성날짜</th>
+									<th scope="col" width="40">#</th>
+									<th scope="col" width="40">#</th>
+								</tr>
+							</thead>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<div class="nonreply">댓글이 존재하지 않습니다.</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 
