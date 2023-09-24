@@ -9,6 +9,9 @@ class CarScene extends Phaser.Scene {
         this.boxes = [];
         this.score = 0;
         this.coins = [];
+		this.gameoverCondition = false;
+		this.urlParams = new URLSearchParams(window.location.search);
+        this.loginID = urlParams.get("loginID");
     }
 
     preload() {
@@ -83,7 +86,9 @@ class CarScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.boxes, (boundary, box) => {
             this.accidentSound.play();
             this.bgm.stop();
+            this.gameoverCondition = true;
             this.scene.start("GameOverScene");
+            
         });
 
         this.time.addEvent({
@@ -106,6 +111,8 @@ class CarScene extends Phaser.Scene {
     }
 
     update() {
+	
+		
         this.back.tilePositionY -= 7;
 
         this.frame++;
@@ -269,5 +276,30 @@ class CarScene extends Phaser.Scene {
         if (this.cursors.right.isDown) {
             this.player.setVelocityX(300);
         }
+        
+        this.physics.add.overlap(this.player, this.boxes, (boundary, box) => {
+		    // Create a data object to send in the POST request
+		    const postData = {
+		        loginID: this.loginID,
+		        score: this.score
+		    };
+		
+		    $.ajax({
+		        url: "/CarCrashGameOver.game",
+		        type: "POST",
+		        data: postData,
+		        success: (response) => {
+		            console.log("Server response:", response);
+		            this.scene.start("GameOverScene"); // Move to the game over scene on success
+		        },
+		        error: (xhr, status, error) => {
+		            console.error("AJAX request failed:", error);
+		            // Handle the error here, such as displaying a message to the user
+		        }
+		    });
+		});
+        
+        
     }
+
 }

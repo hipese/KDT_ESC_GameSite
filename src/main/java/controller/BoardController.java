@@ -17,20 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import dto.BoardDTO;
-import dto.FilesDTO;
+//import dto.FilesDTO;
+import constants.Constants;
 import dao.BoardDAO;
 import dao.FilesDAO;
 //import dao.FilesDAO;
 import dao.ReplyDAO;
-import dto.ReplyDTO;
 import dto.BoardDTO;
-//import dto.FilesDTO;
-import constants.Constants;
+import dto.FilesDTO;
+import dto.ReplyDTO;
 
 
 @WebServlet("*.board")
