@@ -206,11 +206,13 @@ body{
 	height: 100%;
 	text-align: right;
 }
-/* Style for the current page link */
-.page-item.active .page-link {
-	background-color: #007bff; /* Change to your desired background color */
-	color: #fff; /* Change to your desired text color */
+
+.page-link.active {
+    text-decoration: underline !important;
+    color: white !important; /* 현재 페이지 링크의 글자 색상을 변경 */
+    background-color:black !important;
 }
+
 </style>
 </head>
 
@@ -572,30 +574,38 @@ window.onload = function() {
        if (pageTotalCount > 0) {
     	   let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
 
-    	   paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=1&searchText=${searchText}&seq=${selectboard.seq}" aria-label="First">First</a></li>';
     	   if (needPrev) {
-    	       paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
+    	       paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
     	   }
 
     	   for (let i = startNavi; i <= endNavi; i++) {
-    	       if (i === currentPage) {
-    	           // Add the "active" class to the current page
-    	           paginationHTML += '<li class="page-item active"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
-    	       } else {
-    	           paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
-    	       }
-    	   }
+    		    paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
+    		}
 
     	   if (needNext) {
-    	       paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
+    	       paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
     	   }
-    	   paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + pageTotalCount + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Last">Last</a></li>';
+    	 
 
     	   paginationHTML += '</ul></nav>';
 
     	   pageNav.append(paginationHTML);
        	}
-       
+       	
+       let currentPageNumber = ${replynaviseq}; // 현재 페이지 번호
+       let pageLinks = document.querySelectorAll(".page-link");
+
+       for (let i = 0; i < pageLinks.length; i++) {
+           let pageLink = pageLinks[i];
+           let pageNumber = parseInt(pageLink.textContent); // 네비게이션 링크의 페이지 번호
+
+           // 현재 페이지와 네비게이션 링크의 페이지 번호가 일치하는 경우 "active" 클래스 추가
+           if (pageNumber === currentPageNumber) {
+               pageLink.classList.add("active");
+           } else {
+               pageLink.classList.remove("active"); // 현재 페이지가 아닌 경우 "active" 클래스 제거
+           }
+       }
        
        
         $('.edit-btn').on('click', function() {
