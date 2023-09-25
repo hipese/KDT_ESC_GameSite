@@ -577,8 +577,8 @@ form>.searchArea {
 }
 
 .c:hover {
-	background-color: aquamarine;
-	color: white;
+	background-color: whitesmoke;
+	color: black;
 	font-weight: bold;
 }
 
@@ -888,7 +888,7 @@ form>.searchArea {
 								<div class="nav col-12 col-sm-4 ">
 								<a href="/showContents.board?
 								title=${i.title}&seq=${i.seq}&searchText=${searchText}" 
-								style="color: #000000; font-weight: bold;">${i.title}</a>
+								style="color: #000000;">${i.title}</a>
 								</div>
 								<div class="nav col-4 col-sm-3">${i.writer }</div>
 								<div class="nav col-4 col-sm-1">${i.view_count }</div>
