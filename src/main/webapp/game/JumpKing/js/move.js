@@ -43,6 +43,7 @@ class MoveScene extends Phaser.Scene {
         this.player.setSize(50, 50); // 충돌 영역 설정
         this.player.setScale(0.8);
         this.player.setMass(50);
+        this.player
 
 
 
