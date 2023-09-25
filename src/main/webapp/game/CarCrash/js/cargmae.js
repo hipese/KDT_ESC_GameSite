@@ -9,6 +9,9 @@ class CarScene extends Phaser.Scene {
         this.boxes = [];
         this.score = 0;
         this.coins = [];
+		this.gameoverCondition = false;
+		this.urlParams = new URLSearchParams(window.location.search);
+        this.loginID = this.urlParams.get("loginID");
     }
 
     preload() {
@@ -81,10 +84,33 @@ class CarScene extends Phaser.Scene {
         });
 
         this.physics.add.overlap(this.player, this.boxes, (boundary, box) => {
-            this.accidentSound.play();
-            this.bgm.stop();
-            this.scene.start("GameOverScene");
+            
+            
         });
+        
+        this.physics.add.overlap(this.player, this.boxes, (boundary, box) => {
+				this.accidentSound.play();
+            	this.bgm.stop();
+			    this.gameoverCondition = true;
+			    const postData = {
+			        loginID: this.loginID,
+			        score: this.score
+			    };
+			
+			    $.ajax({
+			        url: "/CarCrashGameOver.game",
+			        type: "POST",
+			        data: postData,
+			        success: (response) => {
+			            console.log("Server response:", response);
+			            this.scene.start("GameOverScene"); // Move to the game over scene on success
+			        },
+			        error: (xhr, status, error) => {
+			            console.error("AJAX request failed:", error);
+			            // Handle the error here, such as displaying a message to the user
+			        }
+			    });
+			},null,this,true);
 
         this.time.addEvent({
             delay: 10000,
@@ -106,168 +132,176 @@ class CarScene extends Phaser.Scene {
     }
 
     update() {
-        this.back.tilePositionY -= 7;
-
-        this.frame++;
-        if (this.frame % 30 == 0) {
-
-            let roadType = Phaser.Math.Between(1, 4);
-            let boxType = Phaser.Math.Between(1, 4);
-
-            let box;
-            switch (boxType) {
-                case 1:
-                    if (roadType == 1) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "bus");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(400 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 2) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "truck");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(500 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 3) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "sports_car");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(700 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 4) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "police_car");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(900 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    break;
-                case 2:
-                    if (roadType == 1) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "bus");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(400 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 2) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "truck");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(500 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 3) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "sports_car");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(700 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 4) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "police_car");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(900 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    break;
-                case 3:
-                    if (roadType == 1) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "bus");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(400 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 2) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "truck");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(500 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 3) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "sports_car");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(700 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 4) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "police_car");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(900 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    break;
-                case 4:
-                    if (roadType == 1) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(515, 630), 0, "bus");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(400 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 2) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(500, 630), 0, "truck");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(500 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 3) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(500, 630), 0, "sports_car");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(700 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    else if (roadType == 4) {
-                        box = this.physics.add.sprite(Phaser.Math.Between(500, 630), 0, "police_car");
-                        box.setOrigin(0, 0);
-                        box.setVelocityY(900 * this.speedMultiplier);
-                        this.boxes.push(box);
-                    }
-                    break;
-            }
-            let coinType = Phaser.Math.Between(1, 4);
-            let coin;
-            switch (coinType) {
-                case 1:
-                    coin = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "coin");
-                    coin.setOrigin(0, 0);
-                    coin.setVelocityY(300); // Adjust the velocity as needed
-                    this.coins.push(coin);
-                    break;
-                case 2:
-                    coin = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "coin");
-                    coin.setOrigin(0, 0);
-                    coin.setVelocityY(300); // Adjust the velocity as needed
-                    this.coins.push(coin);
-                    break;
-                case 3:
-                    coin = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "coin");
-                    coin.setOrigin(0, 0);
-                    coin.setVelocityY(300); // Adjust the velocity as needed
-                    this.coins.push(coin);
-                    break;
-                case 4:
-                    coin = this.physics.add.sprite(Phaser.Math.Between(515, 630), 0, "coin");
-                    coin.setOrigin(0, 0);
-                    coin.setVelocityY(300); // Adjust the velocity as needed
-                    this.coins.push(coin);
-                    break;
-            }
-
-        }
-
-        // if (this.frame % 60 == 0) {
-
-        //     this.count++; // 경과 시간을 1초 증가시킵니다.
-        //     this.text.setText(`Time: ${this.count}`); // 시간을 화면에 표시합니다.
-
-        // }
-
-        this.player.setVelocityX(0);
-        this.player.setVelocityY(0);
-
-        if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-300);
-        }
-
-        if (this.cursors.right.isDown) {
-            this.player.setVelocityX(300);
+		
+		if (!this.gameoverCondition) {
+		
+	        this.back.tilePositionY -= 7;
+	
+	        this.frame++;
+	        if (this.frame % 30 == 0) {
+	
+	            let roadType = Phaser.Math.Between(1, 4);
+	            let boxType = Phaser.Math.Between(1, 4);
+	
+	            let box;
+	            switch (boxType) {
+	                case 1:
+	                    if (roadType == 1) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "bus");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(400 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 2) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "truck");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(500 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 3) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "sports_car");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(700 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 4) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "police_car");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(900 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    break;
+	                case 2:
+	                    if (roadType == 1) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "bus");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(400 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 2) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "truck");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(500 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 3) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "sports_car");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(700 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 4) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "police_car");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(900 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    break;
+	                case 3:
+	                    if (roadType == 1) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "bus");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(400 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 2) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "truck");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(500 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 3) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "sports_car");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(700 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 4) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "police_car");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(900 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    break;
+	                case 4:
+	                    if (roadType == 1) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(515, 630), 0, "bus");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(400 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 2) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(500, 630), 0, "truck");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(500 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 3) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(500, 630), 0, "sports_car");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(700 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    else if (roadType == 4) {
+	                        box = this.physics.add.sprite(Phaser.Math.Between(500, 630), 0, "police_car");
+	                        box.setOrigin(0, 0);
+	                        box.setVelocityY(900 * this.speedMultiplier);
+	                        this.boxes.push(box);
+	                    }
+	                    break;
+	            }
+	            let coinType = Phaser.Math.Between(1, 4);
+	            let coin;
+	            switch (coinType) {
+	                case 1:
+	                    coin = this.physics.add.sprite(Phaser.Math.Between(150, 285), 0, "coin");
+	                    coin.setOrigin(0, 0);
+	                    coin.setVelocityY(300); // Adjust the velocity as needed
+	                    this.coins.push(coin);
+	                    break;
+	                case 2:
+	                    coin = this.physics.add.sprite(Phaser.Math.Between(285, 400), 0, "coin");
+	                    coin.setOrigin(0, 0);
+	                    coin.setVelocityY(300); // Adjust the velocity as needed
+	                    this.coins.push(coin);
+	                    break;
+	                case 3:
+	                    coin = this.physics.add.sprite(Phaser.Math.Between(400, 515), 0, "coin");
+	                    coin.setOrigin(0, 0);
+	                    coin.setVelocityY(300); // Adjust the velocity as needed
+	                    this.coins.push(coin);
+	                    break;
+	                case 4:
+	                    coin = this.physics.add.sprite(Phaser.Math.Between(515, 630), 0, "coin");
+	                    coin.setOrigin(0, 0);
+	                    coin.setVelocityY(300); // Adjust the velocity as needed
+	                    this.coins.push(coin);
+	                    break;
+	            }
+	
+	        }
+	
+	        // if (this.frame % 60 == 0) {
+	
+	        //     this.count++; // 경과 시간을 1초 증가시킵니다.
+	        //     this.text.setText(`Time: ${this.count}`); // 시간을 화면에 표시합니다.
+	
+	        // }
+	
+	        this.player.setVelocityX(0);
+	        this.player.setVelocityY(0);
+	
+	        if (this.cursors.left.isDown) {
+	            this.player.setVelocityX(-300);
+	        }
+	
+	        if (this.cursors.right.isDown) {
+	            this.player.setVelocityX(300);
+	        }
+	        
+	        
+        
         }
     }
+
 }

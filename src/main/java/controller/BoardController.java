@@ -17,20 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import dto.BoardDTO;
-import dto.FilesDTO;
+//import dto.FilesDTO;
+import constants.Constants;
 import dao.BoardDAO;
 import dao.FilesDAO;
 //import dao.FilesDAO;
 import dao.ReplyDAO;
-import dto.ReplyDTO;
 import dto.BoardDTO;
-//import dto.FilesDTO;
-import constants.Constants;
+import dto.FilesDTO;
+import dto.ReplyDTO;
 
 
 @WebServlet("*.board")
@@ -75,7 +73,7 @@ public class BoardController extends HttpServlet {
 				
 				System.out.println(title+" : "+contents);
 			
-				int parentseq = dao.writeWord(new BoardDTO(0, writer, title, contents, date, view_count));
+				int parentseq = dao.writeWord(new BoardDTO(0, writer, title, contents, date, view_count, 0, 0));
 
 				while (fileNames.hasMoreElements()) { // ResultSet의 next()와 같은 역할
 					String fileName = fileNames.nextElement();
@@ -104,11 +102,13 @@ public class BoardController extends HttpServlet {
 				String searchText = request.getParameter("searchText");
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				
+				
+//				댓글에 현제 페이지를 저장하는 로직
 				String cpageParam = request.getParameter("cpage");
 				
 				System.out.println("cpageParam의 값"+cpageParam);
 				int replynaviseq;
-				
+
 				if (cpageParam == null) {
 					replynaviseq=1;
 				}else {
@@ -140,12 +140,17 @@ public class BoardController extends HttpServlet {
 					isWriterCheck = false;
 					System.out.println("작성자와 일치하지 않은 아이디입니다.");
 				}
-
+				
+				
 //				댓글 리스트 추출
-				List<ReplyDTO> replyList = rdao.selectAll();
+				List<ReplyDTO> replyList = rdao.selectReply(seq);
 //				댓글이 해당 부모인지 확인하는 변수
 				boolean isParentseq = rdao.isReplyExist(seq);
 				
+				
+
+				
+				System.out.println("로그인한 놈 아이디임?:"+isWriterCheck);
 				System.out.println("댓글이 존재하는가?: "+isParentseq);
 				
 				request.setAttribute("isParentseq", isParentseq);
@@ -245,6 +250,14 @@ public class BoardController extends HttpServlet {
 	            		sos.flush();
 	            	}
 
+			}else if (cmd.equals("/like.board")) {
+				int seq = Integer.parseInt(request.getParameter("contentId"));
+				dao.like(seq);
+				
+			}else if (cmd.equals("/dislike.board")) {
+				int seq = Integer.parseInt(request.getParameter("contentId"));
+				dao.dislike(seq);
+				
 			}
 
 		} catch (Exception e) {
