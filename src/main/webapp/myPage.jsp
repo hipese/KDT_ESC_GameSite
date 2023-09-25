@@ -35,7 +35,7 @@
 <body>
 	<form action="/update.members">
 		<div id="mypagediv" align="center" class="card">
-			<img src="profile.jpg" class="card-img-top" alt="...">
+			<img src="files/${sys_name}" id="profile" class="card-img-top" alt="...">
 			<div id="iddiv" class="card-body" align="center">
 				<h5 class="card-title">${dto.id }</h5>
 			</div>
@@ -121,4 +121,9 @@
 				</div>
 	</form>
 </body>
+<script>
+	if(${sys_name} == "0") {
+		$("#profile").attr("src","/img/쥐돌이.png");
+	}
+</script>
 </html>
