@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import dao.CarCrashDAO;
+import dao.DinoGameDAO;
+import dao.JumpkingDAO;
+import dao.RoadOfSamuraiDAO;
+import dao.SkeletonSurvivorDAO;
 
 
 @WebServlet("*.game")
@@ -32,6 +36,58 @@ public class GameController extends HttpServlet {
 			}else if(cmd.equals("/CarCrashGameOver.game")) {
 				Gson gson = new Gson();
 				CarCrashDAO dao = CarCrashDAO.getInstance();
+				String loginID = request.getParameter("loginID");
+				int score = Integer.parseInt(request.getParameter("score"));
+				int result = dao.writeGameResult(loginID,score);
+				PrintWriter pw = response.getWriter();
+				pw.append(gson.toJson(result));
+			}else if(cmd.equals("/SkeletonSurvivorStart.game")) {
+				String loginID = request.getParameter("loginID");
+			    String gameURL = "/game/SkeletonSurvivor/skeletonsurvivor.jsp?loginID=" + loginID;
+			    PrintWriter pw = response.getWriter();
+			    pw.append(gameURL);
+			}else if(cmd.equals("/SkeletonSurvivorGameOver.game")) {
+				Gson gson = new Gson();
+				SkeletonSurvivorDAO dao = SkeletonSurvivorDAO.getInstance();
+				String loginID = request.getParameter("loginID");
+				int score = Integer.parseInt(request.getParameter("score"));
+				int result = dao.writeGameResult(loginID,score);
+				PrintWriter pw = response.getWriter();
+				pw.append(gson.toJson(result));
+			}else if(cmd.equals("/DinoGameStart.game")) {
+				String loginID = request.getParameter("loginID");
+			    String gameURL = "/game/DinoGame/dinogame.jsp?loginID=" + loginID;
+			    PrintWriter pw = response.getWriter();
+			    pw.append(gameURL);
+			}else if(cmd.equals("/DinoGameOver.game")) {
+				Gson gson = new Gson();
+				DinoGameDAO dao = DinoGameDAO.getInstance();
+				String loginID = request.getParameter("loginID");
+				int score = Integer.parseInt(request.getParameter("score"));
+				int result = dao.writeGameResult(loginID,score);
+				PrintWriter pw = response.getWriter();
+				pw.append(gson.toJson(result));
+			}else if(cmd.equals("/JumpkingStart.game")) {
+				String loginID = request.getParameter("loginID");
+			    String gameURL = "/game/JumpKing/jumpking.jsp?loginID=" + loginID;
+			    PrintWriter pw = response.getWriter();
+			    pw.append(gameURL);
+			}else if(cmd.equals("/JumpkingGameOver.game")) {
+				Gson gson = new Gson();
+				JumpkingDAO dao = JumpkingDAO.getInstance();
+				String loginID = request.getParameter("loginID");
+				int score = (int)Double.parseDouble(request.getParameter("score"));
+				int result = dao.writeGameResult(loginID,score);
+				PrintWriter pw = response.getWriter();
+				pw.append(gson.toJson(result));
+			}else if(cmd.equals("/RoadOfSamuraiStart.game")) {
+				String loginID = request.getParameter("loginID");
+			    String gameURL = "/game/RoadOfSamurai/roadofsamurai.jsp?loginID=" + loginID;
+			    PrintWriter pw = response.getWriter();
+			    pw.append(gameURL);
+			}else if(cmd.equals("/RoadOfSamuraiGameOver.game")) {
+				Gson gson = new Gson();
+				RoadOfSamuraiDAO dao = RoadOfSamuraiDAO.getInstance();
 				String loginID = request.getParameter("loginID");
 				int score = Integer.parseInt(request.getParameter("score"));
 				int result = dao.writeGameResult(loginID,score);

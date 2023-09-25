@@ -970,14 +970,46 @@
             let loginID = "${sessionScope.loginID}";
             // 베너 이미지 클릭시 게임 페이지로 이동
             $(".game1").on("click", function () {
-                window.open("game/JumpKing/jumpking.jsp");
-            })
+            	$.ajax({
+			        url: "/JumpkingStart.game",
+			        type: "GET",
+			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+			        success: function (gameURL) {
+			            window.open(gameURL, "_blank");
+			        },
+			        error: function () {
+			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+			        }
+			    });
+            });
             $(".game2").on("click", function () {
-                window.open("game/SkeletonSurvivor/skeletonsurvivor.jsp");
-            })
+            	$.ajax({
+			        url: "/SkeletonSurvivorStart.game",
+			        type: "GET",
+			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+			        success: function (gameURL) {
+			           
+			            window.open(gameURL, "_blank");
+			        },
+			        error: function () {
+			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+			        }
+			    });
+            });
             $(".game3").on("click", function () {
-                window.open("game/DinoGame/dinogame.jsp");
-            })
+            	$.ajax({
+			        url: "/DinoGameStart.game",
+			        type: "GET",
+			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+			        success: function (gameURL) {
+			           
+			            window.open(gameURL, "_blank");
+			        },
+			        error: function () {
+			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+			        }
+			    });
+            });
             $(".game4").on("click", function () {
 			    $.ajax({
 			        url: "/CarCrashStart.game",
@@ -993,7 +1025,18 @@
 			    });
 			});
             $(".game5").on("click", function () {
-                window.open("game/RoadOfSamurai/roadofsamurai.jsp");
+            	$.ajax({
+			        url: "/RoadOfSamuraiStart.game",
+			        type: "GET",
+			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+			        success: function (gameURL) {
+			           
+			            window.open(gameURL, "_blank");
+			        },
+			        error: function () {
+			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+			        }
+			    });
             })
             $(".game6").on("click", function () {
                 window.open("game/RaiseDragon/raisedragon.jsp");
