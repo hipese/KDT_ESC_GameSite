@@ -153,6 +153,9 @@
         
 </body>
 <script>
+	if(${sys_name} == "0") {
+		$("#profile").attr("src","/img/쥐돌이.png");
+	}
 	function displayImage() {
 	    var fileInput = document.getElementById('fileInput');
 	    var imagePreview = document.getElementById('preview');

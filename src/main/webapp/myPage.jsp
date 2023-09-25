@@ -122,6 +122,8 @@
 	</form>
 </body>
 <script>
-	
+	if(${sys_name} == "0") {
+		$("#profile").attr("src","/img/쥐돌이.png");
+	}
 </script>
 </html>

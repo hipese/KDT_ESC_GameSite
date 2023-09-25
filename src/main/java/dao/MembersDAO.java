@@ -29,7 +29,7 @@ public class MembersDAO {
 		return ds.getConnection();
 	}
 	public int insert(MembersDTO dto) throws Exception{
-        String sql = "insert into members values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into members values(?,?,?,?,?,?,?,?,?,?)";
         try(Connection con = this.getConnection();
                 PreparedStatement pstat = con.prepareStatement(sql);){
             pstat.setString(1, dto.getId());
@@ -41,6 +41,7 @@ public class MembersDAO {
             pstat.setString(7, dto.getAddress1());
             pstat.setString(8, dto.getAddress2());
             pstat.setTimestamp(9, dto.getSignup_date());
+            pstat.setString(10, "쥐돌이.png");
             int result = pstat.executeUpdate();
             return result;
         }

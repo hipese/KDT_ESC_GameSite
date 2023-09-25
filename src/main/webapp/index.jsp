@@ -773,7 +773,7 @@
 		                        <div class="col-12 g-0">
 		                            <div class="loginbox3">
 		                                <div class="imgbox">
-		                                    <img src="files/${sys_name}" class="img" />
+		                                    <img src="files/${sys_name}" id="profile" class="img" />
 		                                </div>
 		                                <div class="mpname">${name}</div>
 		                                <div class="mpemail">${email}</div>
@@ -922,6 +922,12 @@
             </div>
         </div>
         <script>
+        	if(${sys_name} == null) {
+        		$("#profile").attr("src","/img/쥐돌이.png");
+        	} else {
+        		$("#profile").attr("src","files/"+${sys_name});
+        	}
+        	
             // 게임 박스 마우스 오버시 효과)(hover)
             $(".game").on("mouseover", function () {
                 $(this).css("transform", "scale(1.1)");

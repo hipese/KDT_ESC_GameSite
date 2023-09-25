@@ -14,6 +14,8 @@ class GameScene extends Phaser.Scene {
         this.enemiesKilledToLevelUp = 10; // 레벨 업을 위한 처치 적 수
         this.playerCollisionCount = 0; // 플레이어와 적의 충돌 횟수
         this.playerHealth = 5; // 게임 오버 조건: 충돌 횟수가 이 값 이상이면 게임 오버
+        this.urlParams = new URLSearchParams(window.location.search);
+        this.loginID = this.urlParams.get("loginID");
     }
 
     preload() {
@@ -456,6 +458,23 @@ class GameScene extends Phaser.Scene {
 
         // 생명력이 0 이하로 떨어진 경우 또는 충돌 횟수가 임계값에 도달하면 게임 오버
         if (this.playerCollisionCount >= this.playerHealth) {
+			const postData = {
+		        loginID: this.loginID,
+		        score: this.score
+		    };
+		
+		    $.ajax({
+		        url: "/SkeletonSurvivorGameOver.game",
+		        type: "POST",
+		        data: postData,
+		        success: (response) => {
+		            console.log("Server response:", response);
+		        },
+		        error: (xhr, status, error) => {
+		            console.error("AJAX request failed:", error);
+		            // 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
+		        }
+		    });
             this.gameOver();
         } else {
             player.setTint(0xff0000); // 빨간색
@@ -477,6 +496,7 @@ class GameScene extends Phaser.Scene {
 
         // 게임 일시 정지
         this.scene.pause();
+        
 
         this.registry.set("score", this.score);
         this.scene.start("GameOverScene");
