@@ -583,6 +583,20 @@
                 .service>a {
                     text-decoration-line: none;
                 }
+                .headerul2 {
+					list-style: none;
+					display: flex;
+					justify-content: end;
+					align-content: center;
+					margin: 0px;
+					position: absolute;
+					right: 60px;
+					cursor: pointer;
+				}
+				
+				.headerul2 li:hover {
+					color: pink;
+				}
             </style>
         </head>
 
@@ -790,7 +804,18 @@
                                     <div class="col-12 g-0">
                                         <div class="loginbox3">
                                             <div class="imgbox">
-                                                <img src="img/쥐돌이.png" class="img" />
+                                            	<c:choose>
+	                                            	<c:when test="${sys_name}">
+	                                                	<img src="img/쥐돌이.png" class="img" />
+	                                                	<script>
+	                                                		console.log("${sys_name}");
+	                                                	</script>
+	                                                </c:when>
+	                                                <c:otherwise>
+	                                                	<img src="files/${sys_name}" class="img" />
+	                                                </c:otherwise>
+
+                                                </c:choose>
                                             </div>
                                             <div class="mpname">${name}</div>
                                             <div class="mpemail">${email}</div>
@@ -1148,12 +1173,6 @@
                     $(".headerlogin2").show();
                     $(".membership2").show();
                 }
-
-
-
-
-
-
 
                 let scrollPosition = 0;
                 scrollPosition = "${ scrollPosition }";
