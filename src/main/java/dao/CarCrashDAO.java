@@ -32,7 +32,7 @@ public class CarCrashDAO {
 	}
 	
 	public int writeGameResult(String player, int score) throws Exception {
-		String sql = "insert into carcrash value(null,?,?,null)";
+		String sql = "insert into carcrash value(null,?,?,default)";
 		try(Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1,player);
 			pstat.setInt(2,score);
