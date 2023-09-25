@@ -18,6 +18,7 @@ import dao.RoadOfSamuraiDAO;
 import dao.SkeletonSurvivorDAO;
 
 
+
 @WebServlet("*.game")
 public class GameController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
