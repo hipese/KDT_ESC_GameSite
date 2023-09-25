@@ -211,8 +211,9 @@ a.black-text-link {
     color: gray;
 }
 
-.boardheader{
-	/*여기에 css를 작성*/
+.replyheader{
+	font-size: 20px;
+	font-weight: bold;
 }
 
 .page-link.active {
@@ -378,10 +379,10 @@ a.black-text-link {
 						
 						<div class="boardheader col-12 col-sm-12" id="comments-table">
 							<div class="row">
-								<div class="col-12 col-sm-2 d-none d-sm-block">작성자</div>
-								<div class="col-12 col-sm-5 ">댓글내용</div>
-								<div class="col-12 col-sm-3 d-none d-sm-block">작성날짜</div>
-								<div class="col-12 col-sm-2 d-none d-sm-block" style="text-align: center">수정, 삭제</div>
+								<div class="col-12 col-sm-2 d-none d-sm-block replyheader">작성자</div>
+								<div class="col-12 col-sm-5 replyheader">댓글내용</div>
+								<div class="col-12 col-sm-3 d-none d-sm-block replyheader">작성날짜</div>
+								<div class="col-12 col-sm-2 d-none d-sm-block replyheader" style="text-align: center">수정, 삭제</div>
 							</div>
 						</div>
 						
@@ -399,7 +400,7 @@ a.black-text-link {
 			</div>
 		</div>
 		<div class="row reply_write mb-4">
-			<div class="col-3" id="reply_title">댓글쓰기</div>
+			<div class="col-3 replyheader" id="reply_title">댓글쓰기</div>
 			<div class="col-9" id="reply_input">
 				<input type="text" name="reply_write" value=""
 					placeholder="서로를 배려하는 깨끗한 인터넷 문화를 만듭시다." id="replyText">
@@ -586,8 +587,6 @@ window.onload = function() {
     	    	    commentDiv.append(buttonColumn);
     	    	   
     	    }
-    	   
-
     	    commentsTable.append(commentDiv);
     	}
        
