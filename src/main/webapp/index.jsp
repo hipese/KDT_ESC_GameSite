@@ -564,7 +564,6 @@
 
                 .footericon {
                     padding-top: 5px;
-                    padding-left: 10px;
                 }
 
                 .icon {
