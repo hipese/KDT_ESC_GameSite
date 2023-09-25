@@ -45,6 +45,9 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="css/footer.css">
+<link href="https://fonts.googleapis.com/earlyaccess/nanumpenscript.css"
+	rel="stylesheet" />
 <style>
 /* div {
             border: 1px solid black;
@@ -92,6 +95,14 @@ form>.searchArea {
 	display: flex;
 }
 
+#title_update_value{
+	width: 100%;
+}
+
+#view_count{
+	text-align: right;
+}
+
 #contents {
 	width: 100%;
 	height: 500px;
@@ -128,13 +139,30 @@ form>.searchArea {
 	justify-content: center;
 	align-items: center;
 }
-#searchBtn{
+
+#searchBtn {
 	width: 100px;
 	height: 40px;
 }
-#search{
+
+#search {
 	width: 300px;
 	height: 40px;
+}
+
+#title_search {
+	text-align: right;
+}
+
+#date {
+	text-align: right;
+}
+#replyText{
+	width: 100%;
+}
+
+#replyChkBtn{
+	text-align: right;
 }
 /* Style for the current page link */
 .page-item.active .page-link {
@@ -145,55 +173,38 @@ form>.searchArea {
 </head>
 
 <body>
-	
-	<div class="container-fluid">
-		<div class="title">
-			<div class="titleContents">
-				<div class="left col-12 col-sm-5">✨사이트 이름✨</div>
-
-				<!-- 검색시 정보를 controller로 전송 -->
-				<form action="/showBoardList.board" method="get"
-					class="col-12 col-7">
-					<div class="searchArea">
-						<input type="text" id="search" name="searchText">
-						<button id="searchBtn" class="btn btn-primary col-12 col-sm-2 m-2">검색</button>
-					</div>
-				</form>
-
-			</div>
-		</div>
-	</div>
 	<div class="container">
 		<!-- 게시판 내용 코드 -->
-		<div class="navbox mb-4">
-			<div class="navlist bg-dark col-12 col-sm-12">
-				<ul class="nav navbar-dark bg-dark">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Active</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-				</ul>
+		<div class="row header mb-4">
+			<div class="col-md-7">
+				<!-- 다른 내용을 추가하거나 빈 공간으로 남길 수 있습니다. -->
+			</div>
+			<div class="col-md-5">
+				<form action="/showBoardList.board" method="get" class="col-12">
+					<div class="searchArea">
+						<input type="text" id="search" name="searchText">
+						<button id="searchBtn" class="btn btn-primary m-2">검색</button>
+					</div>
+				</form>
 			</div>
 		</div>
 		<div class="row header mb-4">
-			<div class="col-md-11">
+			<div class="col-md-10">
 				<!-- 제목 칸과 넓이를 동일하게 하기 위해 col 제거 -->
 				<div class="title" id="title_update" style="display: none;">
-					<input type="text" id="title_update_value" name="title_update"
-						size=100 value="${selectboard.title}" placeholder=""><input
+					<input type="text" id="title_update_value" name="title_update" value="${selectboard.title}" placeholder=""><input
 						type="hidden" name="seq" id="seq" readonly>
 				</div>
 				<div class="title" id="contents_title">${selectboard.title}</div>
 			</div>
-			<div class="col-md-1">
-				<div class="row">날짜 : ${selectboard.formedSignupData}</div>
-				<div class="row">조회수 : ${selectboard.view_count}</div>
+			<div class="col-md-2" id="view_count">
+				조회수 : ${selectboard.view_count}
 			</div>
 		</div>
-
+		<div class="row header mb-4">
+			<div class="col-md-12" id="date">날짜 :
+				${selectboard.formedSignupData}</div>
+		</div>
 		<div class="row contents mb-4">
 			<div class="col contents justify-content-end" id="contentContainer">
 				<div id="contents" name="contents">${selectboard.contents}</div>
@@ -260,15 +271,15 @@ form>.searchArea {
 			<div class="col reply_list">
 				<c:choose>
 					<c:when test="${isParentseq }">
-						<table class="table" id="comments-table" width="700">
+						<table class="table" id="comments-table">
 							<thead>
 								<tr>
-									<td scope="col" width="10"></td>
-									<th scope="col" width="70">작성자</th>
-									<th scope="col" width="400">댓글내용</th>
-									<th scope="col" width="100">작성날짜</th>
-									<th scope="col" width="40">#</th>
-									<th scope="col" width="40">#</th>
+									<td scope="col"></td>
+									<th scope="col">작성자</th>
+									<th scope="col">댓글내용</th>
+									<th scope="col">작성날짜</th>
+									<th scope="col">#</th>
+									<th scope="col">#</th>
 								</tr>
 							</thead>
 						</table>
@@ -287,12 +298,60 @@ form>.searchArea {
 		</div>
 
 		<div class="row reply_write mb-4">
-			<div class="col reply_input">
-				<div class="d-flex justify-content-between align-items-center">
-					댓글쓰기<br> <input type="text" name="reply_write" size=100
-						value="" placeholder="서로를 배려하는 깨끗한 인터넷 문화를 만듭시다." id="replyText">
-					<button type="button" class="btn btn-outline-secondary"
-						id="wirte_reply">입력</button>
+			<div class="col-md-2">댓글쓰기</div>
+			<div class="col-md-8">
+				<input type="text" name="reply_write" value=""
+					placeholder="서로를 배려하는 깨끗한 인터넷 문화를 만듭시다." id="replyText">
+			</div>
+			<div class="col-md-2 text-right" id="replyChkBtn">
+				<button type="button" class="btn btn-outline-secondary"
+					id="write_reply">입력</button>
+			</div>
+		</div>
+	</div>
+	<div class="second-fluid">
+		<div class="row footer gx-0">
+			<div class="col-12 col-xl-4 order-4 order-xl-1">
+				<div class="row">
+					<div class="col-12 foottitle">
+						<span>Team E.S.C</span>
+					</div>
+					<span class="footenter"> <span>팀 프로젝트로 만든 재밌는 게임들</span>
+					</span>
+				</div>
+			</div>
+			<div class="col-12 col-xl-3 order-3 order-xl-2">
+				<div class="footertitle d-none d-xl-block">
+					<span>고객센터</span>
+				</div>
+				<div class="row">
+					<span class="col-12 service"> 문의 : 010-9554-7757 </span>
+				</div>
+				<div class="row">
+					<span class="col-12 service"> <a target="_blank"
+						href="https://pf.kakao.com"> 카카오톡 상담 문의 </a></span>
+				</div>
+				<div class="row opacity-0">
+					<br />
+				</div>
+				<div class="row">
+					<span class="col-12 service"> 게임문의·단가문의·견적문의·기타문의 </span>
+				</div>
+				<div class="row">
+					<span class="col-12 service"> 오픈 : 24시간 </span>
+				</div>
+			</div>
+			<div class="col-12 col-xl-1 order-2 order-xl-3 opacity-0"></div>
+			<div class="col-12 col-xl-2 order-1 order-xl-4">
+				<div class="footertitle d-none d-xl-block">
+					<span> Social</span>
+				</div>
+				<div class="footericon">
+					<a target="_blank" class="instaicon"
+						href="https://www.instagram.com"><img class="icon"
+						src="img/instagram.svg" alt="icon" width="40px" /></a> <a
+						target="_blank" class="youtubeicon" href="https://youtube.com"><img
+						class="youtube" src="img/youtube.svg" alt="icon" width="40px" /></a>
 				</div>
 			</div>
 		</div>
