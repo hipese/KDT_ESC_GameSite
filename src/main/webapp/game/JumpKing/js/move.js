@@ -65,7 +65,7 @@ class MoveScene extends Phaser.Scene {
 		        loginID: this.loginID,
 		        score: this.timer
 		    };
-		
+			console.log(postData);
 		    $.ajax({
 		        url: "/JumpkingGameOver.game",
 		        type: "POST",
