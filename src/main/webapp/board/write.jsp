@@ -96,6 +96,10 @@ form>.searchArea {
 	margin-top: 70px;
 }
 
+#title{
+	width: 100%;
+}
+
 </style>
 </head>
 
@@ -162,7 +166,7 @@ form>.searchArea {
 			<div class="col-md-11" id="write_area">
 				<!-- 제목 칸과 넓이를 동일하게 하기 위해 col 제거 -->
 				<div class="title" id="contents_title">
-					<input type="text" placeholder="제목을 입력하세요" size=100 id="title">
+					<input type="text" placeholder="제목을 입력하세요" id="title">
 				</div>
 			</div>
 		</div>
