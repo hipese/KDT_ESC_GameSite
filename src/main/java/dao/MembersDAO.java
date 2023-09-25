@@ -29,7 +29,7 @@ public class MembersDAO {
 		return ds.getConnection();
 	}
 	public int insert(MembersDTO dto) throws Exception{
-        String sql = "insert into members values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into members values(?,?,?,?,?,?,?,?,?,?)";
         try(Connection con = this.getConnection();
                 PreparedStatement pstat = con.prepareStatement(sql);){
             pstat.setString(1, dto.getId());
@@ -41,6 +41,7 @@ public class MembersDAO {
             pstat.setString(7, dto.getAddress1());
             pstat.setString(8, dto.getAddress2());
             pstat.setTimestamp(9, dto.getSignup_date());
+            pstat.setString(10, "쥐돌이.png");
             int result = pstat.executeUpdate();
             return result;
         }
@@ -85,10 +86,11 @@ public class MembersDAO {
 					String address1 = rs.getString("address1");
 					String address2 = rs.getString("address2");
 					Timestamp signup_date = rs.getTimestamp("signup_date");
-					return new MembersDTO(ids,pw,name,phone,email,zipcode,address1,address2,signup_date);
+					String profile = rs.getString("profile");
+					return new MembersDTO(ids,pw,name,phone,email,zipcode,address1,address2,signup_date,profile);
 				}
 				
-			}return new MembersDTO("0","0","0","0","0","0","0","0",null);
+			}return new MembersDTO("0","0","0","0","0","0","0","0",null,"0");
 		}
 	}
 
@@ -159,6 +161,15 @@ public class MembersDAO {
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, pw2);
 			pstat.setString(2, pw1);
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public int uploadProfile(String profile, String id) throws Exception {
+		String sql = "update members set profile = ? where id = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, profile);
+			pstat.setString(2, id);
 			return pstat.executeUpdate();
 		}
 	}

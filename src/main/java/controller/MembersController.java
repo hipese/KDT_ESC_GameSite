@@ -1,8 +1,10 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import commons.EmailService;
 import commons.EncryptionUtils;
 import dao.MembersDAO;
+import dto.FilesDTO;
 import dto.MembersDTO;
 
 @WebServlet("*.members")
@@ -66,47 +71,81 @@ public class MembersController extends HttpServlet {
 					MembersDTO dto = dao.mypage(id);
 					request.setAttribute("name",dto.getName());
 					request.setAttribute("email",dto.getEmail());
-					request.getRequestDispatcher("/").forward(request,response);
+					request.setAttribute("sys_name", dto.getProfile());
+					request.getRequestDispatcher("/index.jsp").forward(request,response);
 				}else {
 					response.sendRedirect(url);
 				}
 			}
 			else if(cmd.equals("/logout.members")) {
 				request.getSession().invalidate();
-				response.sendRedirect("/"); // 로그아웃시 어디로 이동할지
+				response.sendRedirect("/index.jsp"); // 로그아웃시 어디로 이동할지
 			}
 			else if(cmd.equals("/mypage.members")) {
 				String id = (String)request.getSession().getAttribute("loginID");
 				MembersDTO dto = dao.mypage(id);
 				request.setAttribute("dto", dto);
+				String filePath = request.getServletContext().getRealPath("files");
+				//dto에서 프로필 이름 가져오기
+				String sys_name = dto.getProfile();
+				request.setAttribute("filePath", filePath);
+				request.setAttribute("sys_name", sys_name);
+				System.out.println(filePath + "/" + sys_name);
+				
 				request.getRequestDispatcher("/myPage.jsp").forward(request,response);
 			} else if (cmd.equals("/update.members")) {
-				response.sendRedirect("/updateMyPage.jsp");
+				String id = (String)request.getSession().getAttribute("loginID");
+				MembersDTO dto = dao.mypage(id);
+				String sys_name = dto.getProfile();
+				request.setAttribute("sys_name", sys_name);
+				request.getRequestDispatcher("/updateMyPage.jsp").forward(request,response);
 			} else if (cmd.equals("/updateComplete.members")) {
 				request.setCharacterEncoding("UTF-8");
+				String uploadPath = request.getServletContext().getRealPath("files");
+				File filesPath = new File(uploadPath);
+				if(!filesPath.exists()) {
+					filesPath.mkdir();
+				}
+				int maxSize = 1024 * 1024 * 10; //10mb
+				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf8", new DefaultFileRenamePolicy());
 				String id = (String)request.getSession().getAttribute("loginID");
-				String name = request.getParameter("name");
-				String phone1 = request.getParameter("phone1");
-				String phone2 = request.getParameter("phone2");
+				String name = multi.getParameter("name");
+				String phone1 = multi.getParameter("phone1");
+				String phone2 = multi.getParameter("phone2");
 				String phone = "010"+phone1 + phone2;
-				String email1 = request.getParameter("email1");
-				String email2 = request.getParameter("email2");
+				String email1 = multi.getParameter("email1");
+				String email2 = multi.getParameter("email2");
 				String email = email1 + "@" + email2;
-				String zipcode = request.getParameter("zipcode");
-				String address1 = request.getParameter("address1");
-				String address2 = request.getParameter("address2");
+				String zipcode = multi.getParameter("zipcode");
+				String address1 = multi.getParameter("address1");
+				String address2 = multi.getParameter("address2");
 				String address = address1 + " " +address2;
-				String address3 = request.getParameter("address3");
+				String address3 = multi.getParameter("address3");
+				
+				System.out.println("RealPath : "+request.getServletContext().getRealPath(""));
 
+				Enumeration<String> fileNames = multi.getFileNames();
+				while(fileNames.hasMoreElements()) { // resultset의 next같은 것
+					String fileName = fileNames.nextElement();
+					
+					if(multi.getFile(fileName) != null) {
+						String ori_name = multi.getOriginalFileName(fileName);
+						String sys_name = multi.getFilesystemName(fileName);
+						dao.uploadProfile(ori_name,id);
+					}
+					
+				}
+				
 				dao.update(id, name, phone, email, zipcode, address, address3);
 				MembersDTO dto = dao.mypage(id);
 				request.setAttribute("dto", dto);
-				request.getRequestDispatcher("/myPage.jsp").forward(request, response);
+				request.getRequestDispatcher("/mypage.members").forward(request, response);
 			} else if(cmd.equals("/updateBack.members")) {
 				String id = (String)request.getSession().getAttribute("loginID");
 				MembersDTO dto = dao.mypage(id);
 				request.setAttribute("name",dto.getName());
 				request.setAttribute("email",dto.getEmail());
+				request.setAttribute("sys_name", dto.getProfile());
 				request.getRequestDispatcher("/index.jsp").forward(request,response);
 			} else if(cmd.equals("/findMemberId.members")) {
 				Gson gson = new Gson();
