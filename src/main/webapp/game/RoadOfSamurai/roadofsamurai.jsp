@@ -10,9 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"
         integrity="sha512-YQL0GVx/Too3vZjBl9plePRIYsRnd1s8N6QOvXPdZ+JMH2mtRTLQXGUDGjNW6zr1HUgcOIury67IvWe91oeEwQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="./js/GameOverScene.js"></script>
-        <script src="./js/playerScene.js"></script>
-        <script src="./js/title.js"></script>
+    <script src="./js/GameOverScene.js"></script>
+    <script src="./js/playerScene.js"></script>
+    <script src="./js/title.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <title>Document</title>
 </head>
     <style>
@@ -59,7 +60,7 @@
             scene: [titleScene,playScene,GameOverScene]
         };
 
-        let gama = new Phaser.Game(option);
+        let game = new Phaser.Game(option);
 
 
 

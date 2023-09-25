@@ -20,6 +20,8 @@
         #container {
             width: 1024px;
             height: 768px;
+            position: relative;
+            margin: auto;
         }
     </style>
 </head>
