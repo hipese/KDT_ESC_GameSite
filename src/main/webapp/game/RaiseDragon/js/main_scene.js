@@ -12,12 +12,12 @@ class MainScene extends Phaser.Scene{
     }
 
     preload(){
-        this.load.spritesheet("egg","./image/egg.png",{frameWidth:90,frameHeight:175});
-        this.load.spritesheet("runSheet","./image/char.png",{frameWidth:60,frameHeight:60});
-        this.load.image("bgg","./image/room.jpg")
-        this.load.image("potal","./image/potal.gif")
-        this.load.image("baby","./image/babydragon.png")
-        this.load.spritesheet("dragon","./image/dragon.png",{frameWidth:191,frameHeight:161});
+        this.load.spritesheet("egg","image/egg.png",{frameWidth:90,frameHeight:175});
+        this.load.spritesheet("runSheet","image/char.png",{frameWidth:60,frameHeight:60});
+        this.load.image("bgg","image/room.jpg")
+        this.load.image("potal","image/potal.gif")
+        this.load.image("baby","image/babydragon.png")
+        this.load.spritesheet("dragon","image/dragon.png",{frameWidth:191,frameHeight:161});
     }
     create(){
         console.log(this.stage)
@@ -64,7 +64,7 @@ class MainScene extends Phaser.Scene{
         let scoreboard = this.add.text(
             this.cameras.main.width-150,
             30,
-            "점수 : "+(this.score-1),
+            "점수 : "+(this.score),
             {fontSize:"20px"}
 
         ).setOrigin(0.5).setInteractive().setPadding(5);// Interactive 추가로 이벤트 추가 가능
@@ -129,6 +129,8 @@ class MainScene extends Phaser.Scene{
             this.dragon.setCollideWorldBounds(true);
             this.dragon.play("dragon");
             this.dragon.setVelocityX(500);
+            
+               
         }
         
        
@@ -185,5 +187,6 @@ class MainScene extends Phaser.Scene{
             this.scene.start("EndScene",dataToPass)
         })
         }
+       
     }
  }

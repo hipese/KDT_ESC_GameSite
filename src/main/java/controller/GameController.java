@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import dao.CarCrashDAO;
 import dao.DinoGameDAO;
 import dao.JumpkingDAO;
+import dao.RaiseDragonDAO;
 import dao.RoadOfSamuraiDAO;
 import dao.SkeletonSurvivorDAO;
 
@@ -89,6 +90,19 @@ public class GameController extends HttpServlet {
 			}else if(cmd.equals("/RoadOfSamuraiGameOver.game")) {
 				Gson gson = new Gson();
 				RoadOfSamuraiDAO dao = RoadOfSamuraiDAO.getInstance();
+				String loginID = request.getParameter("loginID");
+				int score = Integer.parseInt(request.getParameter("score"));
+				int result = dao.writeGameResult(loginID,score);
+				PrintWriter pw = response.getWriter();
+				pw.append(gson.toJson(result));
+			}else if(cmd.equals("/RaiseDragonStart.game")) {
+				String loginID = request.getParameter("loginID");
+			    String gameURL = "/game/RaiseDragon/raisedragon.jsp?loginID=" + loginID;
+			    PrintWriter pw = response.getWriter();
+			    pw.append(gameURL);
+			}else if(cmd.equals("/RaiseDragonGameOver.game")) {
+				Gson gson = new Gson();
+				RaiseDragonDAO dao = RaiseDragonDAO.getInstance();
 				String loginID = request.getParameter("loginID");
 				int score = Integer.parseInt(request.getParameter("score"));
 				int result = dao.writeGameResult(loginID,score);

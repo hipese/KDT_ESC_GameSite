@@ -6,14 +6,16 @@ class BallScene extends Phaser.Scene{
     init(data){
         this.frame=0;
         this.ballboxes=[];
-        this.score=data.score;
+        this.scoreboard=data.score;
+        this.urlParams = new URLSearchParams(window.location.search);
+        this.loginID = this.urlParams.get("loginID");
     }
 
     preload(){
         this.cursors =this.input.keyboard.createCursorKeys(); // 방향키를 통제할 수 있음
-        this.load.spritesheet("runSheet","./image/char.png",{frameWidth:60,frameHeight:60});
-        this.load.image("bg","./image/bounce.jpg")
-        this.load.image("ball","./image/ball.png")
+        this.load.spritesheet("runSheet","image/char.png",{frameWidth:60,frameHeight:60});
+        this.load.image("bg","image/bounce.jpg")
+        this.load.image("ball","image/ball.png")
     }
     create(){
         this.back = this.add.tileSprite(0,-145,1000,700,"bg");
@@ -85,6 +87,25 @@ class BallScene extends Phaser.Scene{
             this.ball.setSize(120,120)
             this.ball.body.velocity.set(400,  400);
             this.ballboxes.push(this.ball);
+            this.physics.add.overlap(this.player,this.ballboxes,(player,ball)=>{
+				const postData = {
+			        loginID: this.loginID,
+			        score: this.scoreboard
+			    };
+	            $.ajax({
+			        url: "/RaiseDragonGameOver.game",
+			        type: "POST",
+			        data: postData,
+			        success: (response) => {
+			            console.log("Server response:", response);
+			        },
+			        error: (xhr, status, error) => {
+			            console.error("AJAX request failed:", error);
+			            // 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
+			        }
+			    });
+            
+        	})
     }
     update(){
         this.frame++;
@@ -92,6 +113,7 @@ class BallScene extends Phaser.Scene{
         
         if(this.frame%60==0){
             this.textSecond.setText('목표 : '+this.second+" / 30초");
+            this.scoreboard+=40
         }
 
         this.player.setVelocityX(0);
@@ -111,13 +133,14 @@ class BallScene extends Phaser.Scene{
 
         let dataToPass = {
             stage: 3,
-            score: this.score + this.second*500 + 1
+            score: this.scoreboard
         };
         if(this.second==30){
             this.scene.start("MainScene", dataToPass);
         }
         this.physics.add.overlap(this.player,this.ballboxes,(player,ball)=>{
-            this.scene.start("GameOverScene")
+			ball.destroy();
+            this.scene.start("GameOverScene", dataToPass)
             
         })
         
