@@ -12,6 +12,25 @@ public class MembersDTO {
 	private String address1;
 	private String address2;
 	private Timestamp signup_date;
+	private String profile;
+	
+	public MembersDTO(String id, String pw, String name, String phone, String email, String zipcode, String address1,
+			String address2, Timestamp signup_date, String profile) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.signup_date = signup_date;
+		this.profile = profile;
+	}
+
+	
+
 	public MembersDTO(String id, String pw, String name, String phone, String email, String zipcode, String address1,
 			String address2, Timestamp signup_date) {
 		super();
@@ -87,5 +106,12 @@ public class MembersDTO {
 	}
 	public void setSignup_date(Timestamp signup_date) {
 		this.signup_date = signup_date;
+	}
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 }

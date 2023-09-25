@@ -189,87 +189,6 @@
                             scale(1);
                     }
                 }
-<<<<<<< HEAD
-            }
-            window.addEventListener('load', adjustBannerMargin);
-            window.addEventListener('resize', adjustBannerMargin);
-			
-            let loginID = "${sessionScope.loginID}";
-            // 베너 이미지 클릭시 게임 페이지로 이동
-            $(".game1").on("click", function () {
-            	$.ajax({
-			        url: "/JumpkingStart.game",
-			        type: "GET",
-			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-			        success: function (gameURL) {
-			            window.open(gameURL, "_blank");
-			        },
-			        error: function () {
-			            alert("게임을 시작하는 데 문제가 발생했습니다.");
-			        }
-			    });
-            });
-            $(".game2").on("click", function () {
-            	$.ajax({
-			        url: "/SkeletonSurvivorStart.game",
-			        type: "GET",
-			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-			        success: function (gameURL) {
-			           
-			            window.open(gameURL, "_blank");
-			        },
-			        error: function () {
-			            alert("게임을 시작하는 데 문제가 발생했습니다.");
-			        }
-			    });
-            });
-            $(".game3").on("click", function () {
-            	$.ajax({
-			        url: "/DinoGameStart.game",
-			        type: "GET",
-			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-			        success: function (gameURL) {
-			           
-			            window.open(gameURL, "_blank");
-			        },
-			        error: function () {
-			            alert("게임을 시작하는 데 문제가 발생했습니다.");
-			        }
-			    });
-            });
-            $(".game4").on("click", function () {
-			    $.ajax({
-			        url: "/CarCrashStart.game",
-			        type: "GET",
-			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-			        success: function (gameURL) {
-			           
-			            window.open(gameURL, "_blank");
-			        },
-			        error: function () {
-			            alert("게임을 시작하는 데 문제가 발생했습니다.");
-			        }
-			    });
-			});
-            $(".game5").on("click", function () {
-            	$.ajax({
-			        url: "/RoadOfSamuraiStart.game",
-			        type: "GET",
-			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-			        success: function (gameURL) {
-			           
-			            window.open(gameURL, "_blank");
-			        },
-			        error: function () {
-			            alert("게임을 시작하는 데 문제가 발생했습니다.");
-			        }
-			    });
-            })
-            $(".game6").on("click", function () {
-                window.open("game/RaiseDragon/raisedragon.jsp");
-            })
-=======
->>>>>>> 38725bf0e628fea628eec0ae2d38c38630f51930
 
                 @keyframes close-modal-animation {
                     0% {
@@ -871,7 +790,14 @@
                                     <div class="col-12 g-0">
                                         <div class="loginbox3">
                                             <div class="imgbox">
-                                                <img src="img/쥐돌이.png" class="img" />
+                                            	<c:choose>
+	                                            	<c:when test="${empty sys_name}}">
+	                                                	<img src="img/쥐돌이.png" class="img" />
+	                                                </c:when>
+	                                                <c:otherwise>
+	                                                	<img src="files/${sys_name}" class="img" />
+	                                                </c:otherwise>
+                                                </c:choose>
                                             </div>
                                             <div class="mpname">${name}</div>
                                             <div class="mpemail">${email}</div>
@@ -1229,12 +1155,6 @@
                     $(".headerlogin2").show();
                     $(".membership2").show();
                 }
-
-
-
-
-
-
 
                 let scrollPosition = 0;
                 scrollPosition = "${ scrollPosition }";
