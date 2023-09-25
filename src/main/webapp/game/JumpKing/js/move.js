@@ -47,6 +47,7 @@ class MoveScene extends Phaser.Scene {
         this.player.setMass(50);
 
 
+
         let box = this.physics.add.sprite(250, 100, "box");
         box.setVelocityY(100);
         box.setScale(0.3);
@@ -65,7 +66,6 @@ class MoveScene extends Phaser.Scene {
 		        loginID: this.loginID,
 		        score: this.timer
 		    };
-		
 		    $.ajax({
 		        url: "/JumpkingGameOver.game",
 		        type: "POST",

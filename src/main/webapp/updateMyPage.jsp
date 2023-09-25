@@ -81,13 +81,13 @@
 </style>
 </head>
 <body>
-	<form id="frm" action="/updateComplete.members" method="post" novalidate>
+	<form id="frm" action="/updateComplete.members" method="post" enctype="multipart/form-data" novalidate>
 	<div class="container">
 		<div class="card" id="updatemypage">
         <div class="row g-0">
           <div class="col-12 col-md-4">
-            <img src="profile.jpg" class="img-fluid rounded-start" alt="...">
-            <input class="form-control" type="file" id="formFile">
+            <img src="files/${sys_name}" id="preview" class="img-fluid rounded-start" alt="..." style="max-width: 350px; max-height: 350px;">
+            <input class="form-control" type="file" id="fileInput" onchange="displayImage()" accept="image/*" name="profile">
           </div>
           <div class="col-12 col-md-8" id="changes">
             <div class="card-body" id="changesdiv">
@@ -153,6 +153,22 @@
         
 </body>
 <script>
+	if(${sys_name} == "0") {
+		$("#profile").attr("src","/img/쥐돌이.png");
+	}
+	function displayImage() {
+	    var fileInput = document.getElementById('fileInput');
+	    var imagePreview = document.getElementById('preview');
+	    
+	    if (fileInput.files && fileInput.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function(e) {
+	            imagePreview.src = e.target.result;
+	        };
+	        reader.readAsDataURL(fileInput.files[0]);
+	    }
+	}
+	
     // 무조건 마지막에 숫자 나오게 하기
     let regexname = /^[가-힣]{2,5}$/;
     let regexphone1 = /^[\d]{4}$/;
