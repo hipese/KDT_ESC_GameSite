@@ -834,8 +834,8 @@ form>.searchArea {
                                             <div class="imgbox">
                                                 <img src="img/쥐돌이.png" class="img" />
                                             </div>
-                                            <div class="mpname">${name}</div>
-                                            <div class="mpemail">${email}</div>
+                                            <div class="mpname">${loginmember.id}</div>
+                                            <div class="mpemail">${loginmember.email}</div>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <a href="/logout.members"><button type="button"
