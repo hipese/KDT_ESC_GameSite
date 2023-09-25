@@ -8,8 +8,8 @@ class EndScene extends Phaser.Scene{
     }
    
     preload() {
-        this.load.spritesheet("dragon","./image/dragon.png",{frameWidth:191,frameHeight:161});
-        this.load.image("sky","./image/sky.jpg")
+        this.load.spritesheet("dragon","image/dragon.png",{frameWidth:191,frameHeight:161});
+        this.load.image("sky","image/sky.jpg")
     }
     create(){
         this.back = this.add.tileSprite(0,0,1700,550,"sky");

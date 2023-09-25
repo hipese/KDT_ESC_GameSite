@@ -3,12 +3,22 @@ class GameOverScene extends Phaser.Scene{
     constructor(){
         super({key:"GameOverScene"});
     }
+    init(data){
+        this.scoreboard=data.score
+        console.log(data.score);
+    }   
 
     preload(){
 
     }
     create(){
-		
+        this.add.text(
+            this.cameras.main.width/2,
+            this.cameras.main.height/3,
+            "점수 : " + this.scoreboard,
+            {font:"60px"}
+            ).setOrigin(0.5).setPadding(15);
+
         this.add.text(
             this.cameras.main.width/2,
             this.cameras.main.height/2,
@@ -35,7 +45,7 @@ class GameOverScene extends Phaser.Scene{
 
             let dataToPass = {
                 stage: 1,
-                score:1
+                score:0
             };
 
             restartBtn.on("pointerdown",() => {
