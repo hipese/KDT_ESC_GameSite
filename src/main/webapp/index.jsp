@@ -773,7 +773,7 @@
 		                        <div class="col-12 g-0">
 		                            <div class="loginbox3">
 		                                <div class="imgbox">
-		                                    <img src="img/쥐돌이.png" class="img" />
+		                                    <img src="files/${sys_name}" class="img" />
 		                                </div>
 		                                <div class="mpname">${name}</div>
 		                                <div class="mpemail">${email}</div>
