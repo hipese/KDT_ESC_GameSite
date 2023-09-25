@@ -11,13 +11,13 @@ class RunScene extends Phaser.Scene{
     }
    
     preload() {
-        this.load.image("bg","./image/bounce.jpg")
-        this.load.image("random1","./image/up.png")
-        this.load.image("random2","./image/down.png")
-        this.load.image("random3","./image/left.png")
-        this.load.image("random4","./image/right.png")
-        this.load.spritesheet("runSheet","./image/char.png",{frameWidth:60,frameHeight:60});
-        this.load.image("meat","./image/meat.png")
+        this.load.image("bg","image/bounce.jpg")
+        this.load.image("random1","image/up.png")
+        this.load.image("random2","image/down.png")
+        this.load.image("random3","image/left.png")
+        this.load.image("random4","image/right.png")
+        this.load.spritesheet("runSheet","image/char.png",{frameWidth:60,frameHeight:60});
+        this.load.image("meat","image/meat.png")
        
     }
     create(){
@@ -108,11 +108,10 @@ class RunScene extends Phaser.Scene{
             }
         })
         
-        if(this.second==13){
-            this.scene.start("GameOverScene")
-        }
+        
         if(this.cursors.left.isDown){
             if(this.randombox[0].texture.key=="random3"){
+                this.scoreboard+=50;
                 this.player.y-=100;
                 this.player.anims.play('left', true);
                 this.randombox[0].destroy();
@@ -121,6 +120,7 @@ class RunScene extends Phaser.Scene{
         }
         else if(this.cursors.up.isDown){
             if(this.randombox[0].texture.key=="random1"){
+                this.scoreboard+=50;
                 this.player.y-=100;
                 this.player.anims.play('left', true);
                 this.randombox[0].destroy();
@@ -129,6 +129,7 @@ class RunScene extends Phaser.Scene{
         }
         else if(this.cursors.down.isDown){
             if(this.randombox[0].texture.key=="random2"){
+                this.scoreboard+=50;
                 this.player.y-=100;
                 this.player.anims.play('left', true);
                 this.randombox[0].destroy();
@@ -137,6 +138,7 @@ class RunScene extends Phaser.Scene{
         }
         else if(this.cursors.right.isDown){
             if(this.randombox[0].texture.key=="random4"){
+                this.scoreboard+=50;
                 this.player.y-=100;
                 this.player.anims.play('left', true);
                 this.randombox[0].destroy();
@@ -145,8 +147,11 @@ class RunScene extends Phaser.Scene{
         }
         let dataToPass = {
             stage: 4,
-            score: this.scoreboard - (this.frame)+1
+            score: this.scoreboard 
         };
+        if(this.second==13){
+            this.scene.start("GameOverScene",dataToPass)
+        }
         if(this.score==10){
             this.scene.start("MainScene",dataToPass)
         }
