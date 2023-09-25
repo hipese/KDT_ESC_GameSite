@@ -510,17 +510,53 @@ window.onload = function() {
     	    contentsColumn.append(inputField);
     	    commentDiv.append(contentsColumn);
 
-    	    // 작성날짜 열
-    	    let writeDateColumn = $('<div>', {
-    	        class: 'col-12 col-sm-3 d-none d-sm-block',
-    	        text: comment.write_date,
-    	    });
-    	    commentDiv.append(writeDateColumn);
+    	 // 작성날짜 열
+            let writeDateColumn = $('<div>', {
+                class: 'col-12 col-sm-3 d-none d-sm-block',
+                text: formatWriteDate(comment.write_date), // 클라이언트 측에서 작성날짜를 형식화하여 표시
+                
+            });
+            commentDiv.append(writeDateColumn);
+            
+            function formatWriteDate(writeDate) {
+                let currentTime = new Date().getTime();
+                let signup;
 
+                // 입력된 날짜 문자열에서 "년", "월", "일", "시", "분", "초"를 제거하고 공백을 추가하여 ISO 8601 형식으로 변환
+                let writeDateStr = writeDate.replace("년 ", "-").replace("월 ", "-").replace("일 ", "T").replace(/시 |분 |초/g, " ");
+
+                // JavaScript Date 객체로 변환
+                writeDate = new Date(writeDateStr);
+
+                if (!isNaN(writeDate.getTime())) {
+                    // Date 객체를 timestamp로 변환
+                    signup = writeDate.getTime();
+                } 
+
+                let gapTime = currentTime - signup-(12 * 60 * 60 * 1000); //이유는 잘 모르겠는데 12시간이 차이남... 나중에 알면 고치겠습니다.
+				
+                //이놈도 원인 찾으면 바꾸겠습니다.
+                if(gapTime<0){
+                	gapTime=0;
+                }
+				
+                if (gapTime < 60000) {
+                    return Math.floor(gapTime / 1000) + "초 전";
+                } else if (gapTime < 60000 * 60) {
+                    return Math.floor(gapTime / 60000) + "분 전";
+                } else if (gapTime < 60000 * 60 * 24) {
+                    return Math.floor(gapTime / (60000 * 60)) + "시간 전";
+                } else {
+                    let date = new Date(writeDate);
+                    return date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일";
+                }
+            }
+            
     	    // 수정, 확인, 취소 버튼 열
     	    let buttonColumn = $('<div>', {
-    	        class: 'col-12 col-sm-1 button-column'
-    	    });
+    			class: 'col-12 col-sm-2 button-column mx-auto',
+    			style: 'display: flex; justify-content: center; align-items: center;'
+			});
     	    let confirmButton = $('<button>', {
     	        class: 'updateChkBtn mpbtn',
     	        text: '확인'
@@ -535,23 +571,20 @@ window.onload = function() {
     	        'data-comment-id': comment.seq,
     	        'data-parent-seq': comment.parent_seq
     	    });
-    	    
+    	 // 삭제 버튼 열
+    	    let deleteColumn = $('<div>', {
+    	        class: 'col-12 col-sm-1 delete-column'
+    	    });
+    	    let deleteButton = $('<button>', {
+    	        class: 'delete-btn mpbtn',
+    	        'data-comment-id': comment.seq,
+    	        'data-parent-seq': comment.parent_seq,
+    	        text: '삭제'
+    	    });
     	    if(comment.writer==loginId){
-    	    	 buttonColumn.append(editButton, confirmButton, cancelButton);
+    	    	 buttonColumn.append(editButton, confirmButton, cancelButton,deleteButton);
     	    	    commentDiv.append(buttonColumn);
-
-    	    	    // 삭제 버튼 열
-    	    	    let deleteColumn = $('<div>', {
-    	    	        class: 'col-12 col-sm-1 delete-column'
-    	    	    });
-    	    	    let deleteButton = $('<button>', {
-    	    	        class: 'delete-btn mpbtn',
-    	    	        'data-comment-id': comment.seq,
-    	    	        'data-parent-seq': comment.parent_seq,
-    	    	        text: '삭제'
-    	    	    });
-    	    	    deleteColumn.append(deleteButton);
-    	    	    commentDiv.append(deleteColumn);
+    	    	   
     	    }
     	   
 

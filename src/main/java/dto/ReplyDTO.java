@@ -43,8 +43,6 @@ public class ReplyDTO {
 	}
 	
 	
-	
-	
 	public int getSeq() {
 		return seq;
 	}
