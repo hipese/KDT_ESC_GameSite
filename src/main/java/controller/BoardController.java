@@ -169,6 +169,9 @@ public class BoardController extends HttpServlet {
 
 			} else if (cmd.equals("/showBoardList.board")) {
 				
+				String login = (String) request.getSession().getAttribute("loginID");
+				
+				System.out.println("아이디"+login);
 				String searchText = null;
 				String cpage = request.getParameter("cpage");
 				searchText = request.getParameter("searchText");
@@ -198,6 +201,7 @@ public class BoardController extends HttpServlet {
 				
 				request.getSession().setAttribute("latesPageNum", currentPage);
 				request.setAttribute("boardlist", boardlist);
+				request.setAttribute("login", login);
 				request.setAttribute("recordTotalCount", totalRecordCount);
 				request.setAttribute("recordCountPerPge", Constants.RECORD_COUNT_PER_PAGE);
 				request.setAttribute("NaviCountPerPage", Constants.NAVI_COUNT_PER_PAGE);
