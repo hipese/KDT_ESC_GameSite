@@ -8,7 +8,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Jump King</title>
-            <link rel="bigcut icon" href="img/game.png" />
+            <link rel="bigcut icon" href="img/elf.png" />
             <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"
                 integrity="sha512-YQL0GVx/Too3vZjBl9plePRIYsRnd1s8N6QOvXPdZ+JMH2mtRTLQXGUDGjNW6zr1HUgcOIury67IvWe91oeEwQ=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>

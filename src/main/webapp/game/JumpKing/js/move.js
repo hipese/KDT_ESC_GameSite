@@ -40,11 +40,11 @@ class MoveScene extends Phaser.Scene {
         this.player.setCollideWorldBounds(true);
         this.physics.world.setBounds(0, 0, 500, 500); // 화면 밖으로 나가지 못하게 설정
         this.player.body.gravity.y = 1000;
-        this.player.play("playerdown");
         this.player.setSize(50, 50); // 충돌 영역 설정
         this.player.setScale(0.8);
         this.player.setMass(50);
-        this.player.play("run");
+        this.player
+
 
 
         let box = this.physics.add.sprite(250, 100, "box");

@@ -66,14 +66,14 @@ public class MembersController extends HttpServlet {
 					MembersDTO dto = dao.mypage(id);
 					request.setAttribute("name",dto.getName());
 					request.setAttribute("email",dto.getEmail());
-					request.getRequestDispatcher("/index.jsp").forward(request,response);
+					request.getRequestDispatcher("/").forward(request,response);
 				}else {
 					response.sendRedirect(url);
 				}
 			}
 			else if(cmd.equals("/logout.members")) {
 				request.getSession().invalidate();
-				response.sendRedirect("/index.jsp"); // 로그아웃시 어디로 이동할지
+				response.sendRedirect("/"); // 로그아웃시 어디로 이동할지
 			}
 			else if(cmd.equals("/mypage.members")) {
 				String id = (String)request.getSession().getAttribute("loginID");
