@@ -45,6 +45,18 @@ class GameOverScene extends Phaser.Scene{
         backBtn.on('pointerdown', () => {
             this.scene.start('GameStartScene');
         });
+
+        // 시간 기록을 ajax로 서버에 전송
+        $.ajax({
+            url: '/jumpking.record',
+            type: 'POST',
+            data: {
+                record: timer 
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
         
     }
     formatTime(milliseconds) {

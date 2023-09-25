@@ -42,7 +42,7 @@
                 .back {
                     position: fixed;
                     top: 30px;
-                    left: 100px;
+                    left: 5px;
                     z-index: 9999;
                     cursor: pointer;
                 }
