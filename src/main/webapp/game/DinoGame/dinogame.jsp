@@ -84,7 +84,11 @@
                     debug:false
                 }
             },
-            scene:[GameStartScene,UserRun] // 클래스 이름 쓰기 - 게임 장면 하나하나 보여주는데 그게 scene - 순서 중요
+            scene:[GameStartScene,UserRun], // 클래스 이름 쓰기 - 게임 장면 하나하나 보여주는데 그게 scene - 순서 중요
+            fps: {
+                target: 60, // 원하는 FPS 설정 (기본값은 60)
+                forceSetTimeOut: true // 브라우저 지원이 안 되는 경우에 setTimeout 사용
+            }
         };
 
         let game = new Phaser.Game(option); // 게임 판 열기

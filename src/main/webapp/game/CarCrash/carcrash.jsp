@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Car</title>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
         <link rel="preload" as="font" href="./font/PressStart2P.ttf" type="font/ttf" crossorigin="anonymous" />
         <link rel="preload" as="font" href="./font/Sam3KRFont.ttf" type="font/ttf" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"
@@ -62,6 +63,10 @@
                 }
             };
             let game = new Phaser.Game(option);
+            
+            
+           
+            
 
         </script>
 

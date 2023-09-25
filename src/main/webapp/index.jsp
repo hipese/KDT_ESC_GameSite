@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -591,15 +592,24 @@
                 <div class="col-2 ">E.S.C</div>
                 <div class="col-8 d-sm-block d-none">
                     <ul class="headerul">
-                        <li class="headerli headerlogin">
-                            <div class="login" id="login-button">로그인</div>
-                        </li>
-                        <li class="headerli membership"><a href="/Membership.members">회원가입</a>
-                        </li>
-                        <li class="headerli headerlogout"><a href="/logout.members">로그아웃</a>
-                        </li>
-                        <li class="headerli"><a href="/showBoardList.board?cpage=1">게시판</a></li>
-                        <li class="headerli headerboard"><a href="/mypage.members">마이페이지</a></li>
+                    	<c:choose>
+                    		<c:when test="${empty sessionScope.loginID}">
+		                    	<li class="headerli headerlogin">
+		                            <div class="login" id="login-button">로그인</div>
+		                        </li>
+		                        <li class="headerli membership"><a href="/Membership.members">회원가입</a>
+		                        </li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li class="headerli headerlogout"><a href="/logout.members">로그아웃</a>
+		                        </li>
+		                        <li class="headerli"><a href="/showBoardList.board?cpage=1">게시판</a></li>
+		                        <li class="headerli headerboard"><a href="/mypage.members">마이페이지</a></li>
+                    		</c:otherwise>
+                    		
+                    	</c:choose>
+                        
+                        
                     </ul>
                 </div>
                 <div class="col-1 d-md-block d-none"></div>
@@ -719,58 +729,64 @@
                 </div>
                 <div class="col-xl-3 d-none d-xl-block loginbox2">
                     <div class="row">
-                        <div class="col-12 g-0 trueable">
-                            <form action="/login.members" method="post">
-                                <div class="loginbox">
-                                    <div class="idlogin">
-                                        <i class="fa-regular fa-user"></i> <input type="text" placeholder="아이디" id="id"
-                                            class="inputlogin" name="id" />
-                                    </div>
-
-                                    <div class="pwlogin">
-                                        <i class="fa-solid fa-lock"></i> <input type="password" placeholder="비밀번호"
-                                            class="inputpw" name="pw" />
-                                    </div>
-                                    <input type="url" class="url" name="url" style="display: none;" />
-                                    <div class="check">
-                                        <label for="chk"> <input type="checkbox" id="chk" /> <i class="circle"></i>
-                                            <span class="text">로그인 상태 유지</span>
-                                        </label>
-                                    </div>
-                                    <input type="submit" value="로그인" class="loginbtn" />
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <ul class="findelement">
-                                                <a href="findMyId.jsp">
-                                                    <li>아이디 찾기</li>
-                                                </a>
-                                                <a href="findMyPw.jsp">
-                                                    <li>비밀번호 찾기</li>
-                                                </a>
-                                                <a href="/Membership.members">
-                                                    <li>회원가입</li>
-                                                </a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-12 g-0 falseable">
-                            <div class="loginbox3">
-                                <div class="imgbox">
-                                    <img src="img/쥐돌이.png" class="img" />
-                                </div>
-                                <div class="mpname">${name }</div>
-                                <div class="mpemail">${email }</div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a href="/logout.members"><button type="button" class="mpbtn">로그아웃</button></a>
-                                        <a href="/mypage.members"><button type="button" class="mpbtn">마이페이지</button></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    	<c:choose>
+                    		<c:when test="${empty sessionScope.loginID}">
+		                        <div class="col-12 g-0">
+		                            <form action="/login.members" method="post">
+		                                <div class="loginbox">
+		                                    <div class="idlogin">
+		                                        <i class="fa-regular fa-user"></i> <input type="text" placeholder="아이디" id="id"
+		                                            class="inputlogin" name="id" />
+		                                    </div>
+		
+		                                    <div class="pwlogin">
+		                                        <i class="fa-solid fa-lock"></i> <input type="password" placeholder="비밀번호"
+		                                            class="inputpw" name="pw" />
+		                                    </div>
+		                                    <input type="url" class="url" name="url" style="display: none;" />
+		                                    <div class="check">
+		                                        <label for="chk"> <input type="checkbox" id="chk" /> <i class="circle"></i>
+		                                            <span class="text">로그인 상태 유지</span>
+		                                        </label>
+		                                    </div>
+		                                    <input type="submit" value="로그인" class="loginbtn" />
+		                                    <div class="row">
+		                                        <div class="col-12">
+		                                            <ul class="findelement">
+		                                                <a href="findMyId.jsp">
+		                                                    <li>아이디 찾기</li>
+		                                                </a>
+		                                                <a href="findMyPw.jsp">
+		                                                    <li>비밀번호 찾기</li>
+		                                                </a>
+		                                                <a href="/Membership.members">
+		                                                    <li>회원가입</li>
+		                                                </a>
+		                                            </ul>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </form>
+		                        </div>
+	                        </c:when>
+	                        <c:otherwise>
+		                        <div class="col-12 g-0">
+		                            <div class="loginbox3">
+		                                <div class="imgbox">
+		                                    <img src="img/쥐돌이.png" class="img" />
+		                                </div>
+		                                <div class="mpname">${name}</div>
+		                                <div class="mpemail">${email}</div>
+		                                <div class="row">
+		                                    <div class="col-12">
+		                                        <a href="/logout.members"><button type="button" class="mpbtn">로그아웃</button></a>
+		                                        <a href="/mypage.members"><button type="button" class="mpbtn">마이페이지</button></a>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+	                        </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
@@ -791,7 +807,7 @@
                                 <li>랭킹보기</li>
                             </a>
                             <a href="shop.jsp">
-                                <li>상점</li>
+                                <li>블랙잭</li>
                             </a>
                         </ul>
                     </div>
@@ -924,8 +940,20 @@
                 const windowWidth = window.innerWidth;
                 const banner = document.querySelector('.banner');
                 const loginbox = document.querySelector('.loginbox');
+                const loginbox3 = document.querySelector('.loginbox3');
 
                 if (loginbox) {
+                    // loginbox가 있는 경우
+                    if (windowWidth > 1200) {
+                        banner.style.marginLeft = '50px';
+                        banner.style.marginRight = '30px';
+                    } else {
+                        banner.style.marginLeft = '0px';
+                        banner.style.marginRight = '0px';
+                    }
+                }
+                
+                if (loginbox3) {
                     // loginbox가 있는 경우
                     if (windowWidth > 1200) {
                         banner.style.marginLeft = '50px';
@@ -938,7 +966,8 @@
             }
             window.addEventListener('load', adjustBannerMargin);
             window.addEventListener('resize', adjustBannerMargin);
-
+			
+            let loginID = "${sessionScope.loginID}";
             // 베너 이미지 클릭시 게임 페이지로 이동
             $(".game1").on("click", function () {
                 window.open("game/JumpKing/jumpking.jsp");
@@ -950,8 +979,19 @@
                 window.open("game/DinoGame/dinogame.jsp");
             })
             $(".game4").on("click", function () {
-                window.open("game/CarCrash/carcrash.jsp");
-            })
+			    $.ajax({
+			        url: "/CarCrashStart.game",
+			        type: "GET",
+			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+			        success: function (gameURL) {
+			           
+			            window.open(gameURL, "_blank");
+			        },
+			        error: function () {
+			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+			        }
+			    });
+			});
             $(".game5").on("click", function () {
                 window.open("game/RoadOfSamurai/roadofsamurai.jsp");
             })
@@ -978,23 +1018,8 @@
                 }
             }
 
-            let sessionScope = "${sessionScope.loginID}";
+            
 
-            if (sessionScope != "") {
-                $(".headerlogin").hide();
-                $(".membership").hide();
-                $(".headerlogout").show();
-                $(".trueable").hide();
-                $(".falseable").show();
-                $(".headerboard").show();
-            } else {
-                $(".headerlogin").show();
-                $(".membership").show();
-                $(".headerlogout").hide();
-                $(".trueable").show();
-                $(".falseable").hide();
-                $(".headerboard").hide();
-            }
             const loginButton = document.getElementById("login-button");
             const loginModal = document.getElementById("login-modal");
             const closeButton = document.querySelector(".close-button");
