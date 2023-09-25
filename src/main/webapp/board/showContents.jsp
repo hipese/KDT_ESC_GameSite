@@ -207,6 +207,14 @@ body{
 	text-align: right;
 }
 
+a.black-text-link {
+    color: gray;
+}
+
+.boardheader{
+	/*여기에 css를 작성*/
+}
+
 .page-link.active {
     text-decoration: underline !important;
     color: white !important; /* 현재 페이지 링크의 글자 색상을 변경 */
@@ -337,8 +345,7 @@ body{
 					<c:choose>
 						<c:when test="${innerFiles.size() != 0}">
 							<c:forEach var="i" items="${innerFiles }">
-								<a
-									href="/download.file?sysname=${i.sys_name }&oriname=${i.ori_name}">${i.ori_name }</a>
+								<a href="/download.file?sysname=${i.sys_name }&oriname=${i.ori_name}" class="black-text-link">${i.ori_name }</a>
 								<br>
 							</c:forEach>
 						</c:when>
@@ -368,18 +375,16 @@ body{
 			<div class="col reply_list">
 				<c:choose>
 					<c:when test="${isParentseq }">
-						<table class="table" id="comments-table">
-							<thead>
-								<tr>
-									<td scope="col"></td>
-									<th scope="col">작성자</th>
-									<th scope="col">댓글내용</th>
-									<th scope="col">작성날짜</th>
-									<th scope="col">#</th>
-									<th scope="col">#</th>
-								</tr>
-							</thead>
-						</table>
+						
+						<div class="boardheader col-12 col-sm-12" id="comments-table">
+							<div class="row">
+								<div class="col-12 col-sm-2 d-none d-sm-block">작성자</div>
+								<div class="col-12 col-sm-5 ">댓글내용</div>
+								<div class="col-12 col-sm-3 d-none d-sm-block">작성날짜</div>
+								<div class="col-12 col-sm-2 d-none d-sm-block" style="text-align: center">수정, 삭제</div>
+							</div>
+						</div>
+						
 					</c:when>
 					<c:otherwise>
 						<div class="nonreply">댓글이 존재하지 않습니다.</div>
@@ -471,62 +476,89 @@ window.onload = function() {
     }).done(function(resp) {
     	//댓글을 보여주는 반환결과
 		let replyList=resp.replyList;
-	
-		
-		
+       
        for (let i = 0; i < replyList.length; i++) {
-           let comment = replyList[i];
-         
-           
-           let commentRow = $('<tr>');
-           
-           commentRow.append('<td></td>');
-           commentRow.append('<td>' + comment.writer + '</td>'); 
-           let inputField = $('<input>', {
-               type: 'text',
-               style: 'border-width: 0;',
-               class: 'comment-input',
-               value: comment.contents,
-               size: "50",
-               readonly: true
-           });
+    	    let comment = replyList[i];
 
-           let tdElement = $('<td>').append(inputField);
-           
-           commentRow.append(tdElement);
-           
-           commentRow.append('<td>' + comment.write_date + '</td>'); 
+    	    let commentDiv = $('<div>', {
+    	        class: 'row comment-row'
+    	    }).css({
+    	        padding: '5px', // 패딩 크기
+    	        'border-top': '1px solid black', /* 위쪽 테두리 */
+    	        'border-bottom': '1px solid black' /* 아래쪽 테두리 */
+    	    });
 
-           let confirmButton = $('<button>', {
-               class: 'updateChkBtn',
-               text: '확인'
-           }).hide();
+    	    // 작성자 열 (작성자 이름을 보여줄 열)
+    	    let writerColumn = $('<div>', {
+    	        class: 'col-12 col-sm-2 d-none d-sm-block',
+    	        text: comment.writer
+    	    });
+    	    commentDiv.append(writerColumn);
 
-           let cancelButton = $('<button>', {
-               class: 'updateCancelBtn',
-               text: '취소'
-           }).hide();
-           
-           let editButton = $('<button>', {
-                class: 'edit-btn',
-                text: '수정',
-                'data-comment-id': comment.seq,
-                'data-parent-seq': comment.parent_seq
-            });
-           
-        	
-           //ajax에서 보낸 서블릿이 각각의 댓글이 작성자와 일치하는지  확인한 결과값을 가져온다
-          	
-           if(comment.writer==loginId){
-        	   let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
-               commentRow.append(tdElement2);
-               commentRow.append('<td><button class="delete-btn" data-comment-id="' 
-                    		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
-           }
-           	
-            
-           	commentsTable.append(commentRow);
-       }
+    	    // 댓글 내용 열
+    	    let contentsColumn = $('<div>', {
+    	        class: 'col-12 col-sm-5 comment-contents'
+    	    });
+    	    let inputField = $('<input>', {
+    	        type: 'text',
+    	        style: 'border-width: 0;',
+    	        class: 'comment-input',
+    	        value: comment.contents,
+    	        size: '50',
+    	        readonly: true
+    	    });
+    	    contentsColumn.append(inputField);
+    	    commentDiv.append(contentsColumn);
+
+    	    // 작성날짜 열
+    	    let writeDateColumn = $('<div>', {
+    	        class: 'col-12 col-sm-3 d-none d-sm-block',
+    	        text: comment.write_date,
+    	    });
+    	    commentDiv.append(writeDateColumn);
+
+    	    // 수정, 확인, 취소 버튼 열
+    	    let buttonColumn = $('<div>', {
+    	        class: 'col-12 col-sm-1 button-column'
+    	    });
+    	    let confirmButton = $('<button>', {
+    	        class: 'updateChkBtn mpbtn',
+    	        text: '확인'
+    	    }).hide();
+    	    let cancelButton = $('<button>', {
+    	        class: 'updateCancelBtn mpbtn',
+    	        text: '취소'
+    	    }).hide();
+    	    let editButton = $('<button>', {
+    	        class: 'edit-btn mpbtn',
+    	        text: '수정',
+    	        'data-comment-id': comment.seq,
+    	        'data-parent-seq': comment.parent_seq
+    	    });
+    	    
+    	    if(comment.writer==loginId){
+    	    	 buttonColumn.append(editButton, confirmButton, cancelButton);
+    	    	    commentDiv.append(buttonColumn);
+
+    	    	    // 삭제 버튼 열
+    	    	    let deleteColumn = $('<div>', {
+    	    	        class: 'col-12 col-sm-1 delete-column'
+    	    	    });
+    	    	    let deleteButton = $('<button>', {
+    	    	        class: 'delete-btn mpbtn',
+    	    	        'data-comment-id': comment.seq,
+    	    	        'data-parent-seq': comment.parent_seq,
+    	    	        text: '삭제'
+    	    	    });
+    	    	    deleteColumn.append(deleteButton);
+    	    	    commentDiv.append(deleteColumn);
+    	    }
+    	   
+
+    	    commentsTable.append(commentDiv);
+    	}
+       
+       
 
        
        //navi를 보여주는 반환결과
@@ -608,20 +640,20 @@ window.onload = function() {
        }
        
        
-        $('.edit-btn').on('click', function() {
-            $(this).closest('tr').find('.comment-input').removeAttr('readonly');
+       $('.edit-btn').on('click', function() {
+    	    $(this).closest('.comment-row').find('.comment-input').removeAttr('readonly');
 
-            $(this).closest('tr').find('.updateChkBtn').show();
-            $(this).closest('tr').find('.updateCancelBtn').show();
-            $(this).closest('tr').find('.edit-btn').hide();
-        });
+    	    $(this).closest('.comment-row').find('.updateChkBtn').show();
+    	    $(this).closest('.comment-row').find('.updateCancelBtn').show();
+    	    $(this).closest('.comment-row').find('.edit-btn').hide();
+    	});
        
         $('.updateCancelBtn').on('click', function() {
            window.location.reload();
         });
         
         $('.updateChkBtn').on('click', function() {
-            let commentRow = $(this).closest('tr');
+            let commentRow = $(this).closest('.comment-row');
             let commentId = commentRow.find('.edit-btn').data('comment-id');
             let parentSeq = commentRow.find('.edit-btn').data('parent-seq');
             let contents = commentRow.find('.comment-input').val();

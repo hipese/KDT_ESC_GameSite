@@ -37,7 +37,7 @@ public class ReplyDTO {
 		} else if (gapTime < 60000 * 60 * 24) {
 			return gapTime / (60000 * 60) + "시간 전";
 		} else {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
 			return sdf.format(getWrite_date());
 		}
 	}
