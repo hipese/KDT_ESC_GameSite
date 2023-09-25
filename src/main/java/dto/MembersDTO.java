@@ -13,7 +13,9 @@ public class MembersDTO {
 	private String address2;
 	private Timestamp signup_date;
 	private String profile;
-	
+
+
+
 	public MembersDTO(String id, String pw, String name, String phone, String email, String zipcode, String address1,
 			String address2, Timestamp signup_date, String profile) {
 		super();
@@ -28,8 +30,6 @@ public class MembersDTO {
 		this.signup_date = signup_date;
 		this.profile = profile;
 	}
-
-	
 
 	public MembersDTO(String id, String pw, String name, String phone, String email, String zipcode, String address1,
 			String address2, Timestamp signup_date) {
