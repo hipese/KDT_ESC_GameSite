@@ -2,15 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -48,6 +44,7 @@
 <link rel="stylesheet" href="css/footer.css">
 <link href="https://fonts.googleapis.com/earlyaccess/nanumpenscript.css"
 	rel="stylesheet" />
+<link rel="stylesheet" href="css/header.css">
 <style>
 /* div {
             border: 1px solid black;
@@ -95,23 +92,53 @@ form>.searchArea {
 	display: flex;
 }
 
-#title_update_value{
-	width: 100%;
+.mpbtn {
+	background-color: #000000;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	padding: 7px;
+	font-size: 13px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-left: 5px;
 }
 
-#view_count{
-	text-align: right;
+.mpbtn:hover {
+	background-color: #ffffff;
+	color: rgb(0, 0, 0);
+	border: 1px solid #000000;
 }
 
-#contents {
-	width: 100%;
-	height: 500px;
-	overflow: auto;
+body{
 	background-color: whitesmoke;
 }
 
 #contents_title {
-	background-color: whitesmoke;
+	font-size: 30px;
+	font-weight: bold;
+	border-radius: 10px;
+}
+
+#title_update_value {
+	width: 100%;
+}
+
+#view_count {
+	text-align: right;
+	border-radius: 10px;
+	background-color: white;
+	font-weight: bold;
+}
+
+#contents {
+	width: 100%;
+	background-color: white;
+	border-radius: 10px;
+}
+
+#contents_title {
+	background-color: white;
 }
 
 /* input 요소와 textarea 요소의 테두리 없애기 */
@@ -157,11 +184,26 @@ form>.searchArea {
 #date {
 	text-align: right;
 }
-#replyText{
-	width: 100%;
+
+#replyText {
+	width: 80%;
 }
 
-#replyChkBtn{
+#reply_title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#reply_input {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#replyChkBtn {
+	width: 100%;
+	height: 100%;
 	text-align: right;
 }
 /* Style for the current page link */
@@ -172,10 +214,67 @@ form>.searchArea {
 </style>
 </head>
 
-<body>
+<body class="bg-light">
+	<div class="container-fluid">
+		<div class="row header">
+			<div class="col-1 d-sm-block d-none"></div>
+			<div class="col-2 ">E.S.C</div>
+			<div class="col-8 d-sm-block d-none">
+				<ul class="headerul">
+					<c:choose>
+						<c:when test="${empty sessionScope.loginID}">
+							<li class="headerli headerlogin">
+								<div class="login" id="login-button">로그인</div>
+							</li>
+							<li class="headerli membership"><a
+								href="/Membership.members">회원가입</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="headerli headerlogout"><a href="/logout.members">로그아웃</a>
+							</li>
+							<li class="headerli"><a href="/showBoardList.board?cpage=1">게시판</a></li>
+							<li class="headerli headerboard"><a href="/mypage.members">마이페이지</a></li>
+						</c:otherwise>
+
+					</c:choose>
+
+
+				</ul>
+			</div>
+			<div class="col-1 d-md-block d-none"></div>
+			<div class="col-1 d-block d-sm-none">
+				<ul class="headerul2">
+					<c:choose>
+						<c:when test="${empty sessionScope.loginID}">
+							<li class="headerli headerlogin2">
+								<div class="login" id="login-button2">로그인</div>
+							</li>
+							<li class="headerli membership2"><a
+								href="/Membership.members">회원가입</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="headerli headerlogout2"><a href="/logout.members">로그아웃</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+				<input type="checkbox" id="active"> <label for="active"
+					class="menu-btn"><span></span></label> <label for="active"
+					class="close"></label>
+				<div class="wrapper">
+					<ul>
+						<li><a href="#">Board</a></li>
+						<li><a href="/mypage.members">MyPage</a></li>
+						<li><a href="#">Rank</a></li>
+						<li><a href="#">Shop</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<!-- 게시판 내용 코드 -->
-		<div class="row header mb-4">
+		<div class="row mb-4">
 			<div class="col-md-7">
 				<!-- 다른 내용을 추가하거나 빈 공간으로 남길 수 있습니다. -->
 			</div>
@@ -188,22 +287,18 @@ form>.searchArea {
 				</form>
 			</div>
 		</div>
-		<div class="row header mb-4">
+		<div class="row mb-4">
 			<div class="col-md-10">
 				<!-- 제목 칸과 넓이를 동일하게 하기 위해 col 제거 -->
 				<div class="title" id="title_update" style="display: none;">
-					<input type="text" id="title_update_value" name="title_update" value="${selectboard.title}" placeholder=""><input
+					<input type="text" id="title_update_value" name="title_update"
+						value="${selectboard.title}" placeholder=""><input
 						type="hidden" name="seq" id="seq" readonly>
 				</div>
 				<div class="title" id="contents_title">${selectboard.title}</div>
 			</div>
-			<div class="col-md-2" id="view_count">
-				조회수 : ${selectboard.view_count}
-			</div>
-		</div>
-		<div class="row header mb-4">
-			<div class="col-md-12" id="date">날짜 :
-				${selectboard.formedSignupData}</div>
+			<div class="col-md-2" id="view_count">조회수 :
+				${selectboard.view_count}<br><i class="fa-regular fa-calendar"></i>${selectboard.formedSignupData}</div>
 		</div>
 		<div class="row contents mb-4">
 			<div class="col contents justify-content-end" id="contentContainer">
@@ -215,9 +310,9 @@ form>.searchArea {
 		</div>
 		<div class="row update_buttons mb-4" style="display: none;">
 			<div class="col botton d-flex justify-content-end">
-				<button type="button" class="btn btn-outline-secondary"
+				<button type="button" class="mpbtn btn-outline-secondary"
 					id="update_check" style="margin-right: 10px;">확인</button>
-				<button type="button" class="btn btn-outline-secondary"
+				<button type="button" class="mpbtn btn-outline-secondary"
 					id="update_cancel">취소</button>
 			</div>
 		</div>
@@ -253,15 +348,15 @@ form>.searchArea {
 			<div class="col botton d-flex justify-content-end">
 				<c:choose>
 					<c:when test="${loginID eq selectboard.writer}">
-						<button type="button" class="btn btn-outline-secondary"
+						<button type="button" class="mpbtn btn-outline-secondary"
 							style="margin-right: 10px;" id="return">목록으로</button>
-						<button type="button" class="btn btn-outline-secondary"
+						<button type="button" class="mpbtn btn-outline-secondary"
 							id="updateBtn" style="margin-right: 10px;">수정하기</button>
-						<button type="button" class="btn btn-outline-secondary"
+						<button type="button" class="mpbtn btn-outline-secondary"
 							id="delete">삭제하기</button>
 					</c:when>
 					<c:otherwise>
-						<button type="button" class="btn btn-outline-secondary"
+						<button type="button" class="mpbtn btn-outline-secondary"
 							style="margin-right: 10px;" id="return">목록으로</button>
 					</c:otherwise>
 				</c:choose>
@@ -296,18 +391,18 @@ form>.searchArea {
 
 			</div>
 		</div>
-
 		<div class="row reply_write mb-4">
-			<div class="col-md-2">댓글쓰기</div>
-			<div class="col-md-8">
+			<div class="col-3" id="reply_title">댓글쓰기</div>
+			<div class="col-9" id="reply_input">
 				<input type="text" name="reply_write" value=""
 					placeholder="서로를 배려하는 깨끗한 인터넷 문화를 만듭시다." id="replyText">
-			</div>
-			<div class="col-md-2 text-right" id="replyChkBtn">
-				<button type="button" class="btn btn-outline-secondary"
-					id="write_reply">입력</button>
+				<button type="button" class="mpbtn btn-outline-secondary"
+					id="write_reply">
+					<i class="fa-solid fa-reply"></i>입력
+				</button>
 			</div>
 		</div>
+
 	</div>
 	<div class="second-fluid">
 		<div class="row footer gx-0">
@@ -565,7 +660,7 @@ window.onload = function() {
        	 	});
     	});
 	}
-	$('#wirte_reply').on('click', function(){
+	$('#write_reply').on('click', function(){
 		let seq = "${selectboard.seq}";
     	if($("#replyText").val() == ""){
        	alert("댓글 내용을 입력하세요");
@@ -760,6 +855,232 @@ $(document).ready(function() {
              }
      });
 </script>
+
+	<script>
+                // 게임 박스 마우스 오버시 효과)(hover)
+                $(".game").on("mouseover", function () {
+                    $(this).css("transform", "scale(1.1)");
+                    $(this).css("transition", "all 0.5s");
+                    $(this).css("cursor", "pointer");
+                    $(this).css("box-shadow", "0px 0px 10px 2px rgba(0, 0, 0, 0.5)");
+                });
+                $(".game").on("mouseleave", function () {
+                    $(this).css("transform", "scale(1)");
+                    $(this).css("transition", "all 0.5s");
+                    $(this).css("box-shadow", "none");
+                });
+
+                // 베너 크기가 변할 때마다 margin 조정
+                function adjustBannerMargin() {
+                    const windowWidth = window.innerWidth;
+                    const banner = document.querySelector('.banner');
+                    const loginbox = document.querySelector('.loginbox');
+                    const loginbox3 = document.querySelector('.loginbox3');
+
+                    if (loginbox) {
+                        // loginbox가 있는 경우
+                        if (windowWidth > 1200) {
+                            banner.style.marginLeft = '50px';
+                            banner.style.marginRight = '30px';
+                        } else {
+                            banner.style.marginLeft = '0px';
+                            banner.style.marginRight = '0px';
+                        }
+                    }
+
+                    if (loginbox3) {
+                        // loginbox가 있는 경우
+                        if (windowWidth > 1200) {
+                            banner.style.marginLeft = '50px';
+                            banner.style.marginRight = '30px';
+                        } else {
+                            banner.style.marginLeft = '0px';
+                            banner.style.marginRight = '0px';
+                        }
+                    }
+                }
+                window.addEventListener('load', adjustBannerMargin);
+                window.addEventListener('resize', adjustBannerMargin);
+
+                let loginID = "${sessionScope.loginID}";
+                // 베너 이미지 클릭시 게임 페이지로 이동
+                $(".game1").on("click", function () {
+                	$.ajax({
+    			        url: "/JumpkingStart.game",
+    			        type: "GET",
+    			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+    			        success: function (gameURL) {
+    			            window.open(gameURL, "_blank");
+    			        },
+    			        error: function () {
+    			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+    			        }
+    			    });
+                });
+                $(".game2").on("click", function () {
+                	$.ajax({
+    			        url: "/SkeletonSurvivorStart.game",
+    			        type: "GET",
+    			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+    			        success: function (gameURL) {
+    			           
+    			            window.open(gameURL, "_blank");
+    			        },
+    			        error: function () {
+    			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+    			        }
+    			    });
+                });
+                $(".game3").on("click", function () {
+                	$.ajax({
+    			        url: "/DinoGameStart.game",
+    			        type: "GET",
+    			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+    			        success: function (gameURL) {
+    			           
+    			            window.open(gameURL, "_blank");
+    			        },
+    			        error: function () {
+    			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+    			        }
+    			    });
+                });
+                $(".game4").on("click", function () {
+    			    $.ajax({
+    			        url: "/CarCrashStart.game",
+    			        type: "GET",
+    			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+    			        success: function (gameURL) {
+    			           
+    			            window.open(gameURL, "_blank");
+    			        },
+    			        error: function () {
+    			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+    			        }
+    			    });
+    			});
+                $(".game5").on("click", function () {
+                	$.ajax({
+    			        url: "/RoadOfSamuraiStart.game",
+    			        type: "GET",
+    			        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+    			        success: function (gameURL) {
+    			           
+    			            window.open(gameURL, "_blank");
+    			        },
+    			        error: function () {
+    			            alert("게임을 시작하는 데 문제가 발생했습니다.");
+    			        }
+    			    });
+                })
+                $(".game6").on("click", function () {
+                    window.open("game/RaiseDragon/raisedragon.jsp");
+                })
+
+                // 로그인을 실행했을때 넣을 속성들이 사라지면서 error가 나기 때문에
+                // 로그인을 성공하기 전에만 실행하고, 로그인을 성공하면 error가 나지 않도록 제어
+                if (loginID == "") {
+                    // 쿠키 생성해서 아이디 저장
+                    let inputID = document.getElementById("id");
+                    let remID = document.getElementById("chk");
+
+                    let userID = Cookies.get("remID");
+                    if (userID) {
+                        inputID.value = userID;
+                        remID.checked = true;
+                    }
+                    remID.onchange = function () {
+                        if (remID.checked) {
+                            Cookies.set("remID", inputID.value, {
+                                expires: 7
+                            }); // 7일간 저장
+                        } else {
+                            Cookies.remove("remID"); // 쿠키 삭제
+                        }
+                    }
+                    const loginButton = document.getElementById("login-button");
+                    const loginButton2 = document.getElementById("login-button2");
+                    const loginModal = document.getElementById("login-modal");
+                    const closeButton = document.querySelector(".close-button");
+
+                    loginButton.addEventListener("click", function () {
+                        loginModal.style.display = "block";
+                    });
+                    loginButton2.addEventListener("click", function () {
+                        loginModal.style.display = "block";
+                    });
+
+                    closeButton.addEventListener("click", function () {
+                        loginModal.style.display = "none";
+                    });
+
+                    window.addEventListener("click", function (event) {
+                        if (event.target === loginModal) {
+                            loginModal.style.display = "none";
+                        }
+                    });
+                    // 로그인 모달 관련
+                    const modal = document.getElementById('login-modal');
+                    const openButton = document.getElementById('login-button');
+                    const openButton2 = document.getElementById('login-button2');
+                    const body = document.body;
+                    $(".url").val(window.location.href);
+
+                    // 모달 열기
+                    openButton.onclick = function () {
+                        modal.style.display = 'block';
+                        body.style.overflow = 'hidden'; // 배경 스크롤 막기
+                        $(".scroll").val(scrollY);
+                    };
+                    openButton2.onclick = function () {
+                        modal.style.display = 'block';
+                        body.style.overflow = 'hidden'; // 배경 스크롤 막기
+                        $(".scroll").val(scrollY);
+                    };
+
+                    // 모달 닫기
+                    function closeModal() {
+                        modal.style.display = 'none';
+                        body.style.overflow = 'auto'; // 배경 스크롤 다시 활성화
+                        $(".scroll").val("");
+                    }
+
+                    closeButton.onclick = closeModal;
+
+                    // 모달 외부 클릭 시 모달 닫기
+                    window.onclick = function (event) {
+                        if (event.target === modal) {
+                            closeModal();
+                        }
+                    };
+                }
+
+                if (loginID != "") {
+                    $(".headerlogout2").show();
+                    $(".headerlogin2").hide();
+                    $(".membership2").hide();
+                } else {
+                    $(".headerlogout2").hide();
+                    $(".headerlogin2").show();
+                    $(".membership2").show();
+                }
+
+                let scrollPosition = 0;
+                scrollPosition = "${ scrollPosition }";
+                window.scrollTo(0, scrollPosition);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/scrollout.members",
+                    data: {
+                        action: scrollY
+                    },
+                }).done(function (response) {
+                    // console.log(response);
+                    // window.scrollTo(0, response);
+                });
+
+            </script>
 
 </body>
 </html>
