@@ -9,6 +9,8 @@ class UserRun extends Phaser.Scene {
         this.cactusvel = -200;
         this.gameover = false;
         this.score = 0;
+        this.urlParams = new URLSearchParams(window.location.search);
+        this.loginID = this.urlParams.get("loginID");
     }
 
     preload() {
@@ -49,7 +51,7 @@ class UserRun extends Phaser.Scene {
         this.anims.create({
             key: "movedino",
             frames: this.anims.generateFrameNumbers("rundino", { start: 0, end: 3}),
-            frameRate: 10,
+            frameRate: 10,  
             repeat: -1
         });
         this.anims.create({
@@ -71,6 +73,25 @@ class UserRun extends Phaser.Scene {
             let text = this.add.text(200, 40, '다시 플레이 하려면 스페이스바를 누르세요', { fontFamily: '폰트', fontSize: 30, color: '색상' });
             this.dino.play("stopdino");
             this.gameover = true;
+            this.score = Math.floor(this.frame / 10);
+            // 게임 오버 상황에서만 Ajax 요청을 보냅니다.
+            const postData = {
+                loginID: this.loginID,
+                score: this.score
+            };
+
+            $.ajax({
+                url: "/DinoGameOver.game",
+                type: "POST",
+                data: postData,
+                success: (response) => {
+                    console.log("Server response:", response);
+                },
+                error: (xhr, status, error) => {
+                    console.error("AJAX request failed:", error);
+                    // 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
+                }
+            });
         });
         
     }
@@ -84,12 +105,13 @@ class UserRun extends Phaser.Scene {
         }
         this.scoreText = this.add.text(850, 10, "score : "+ Math.floor(this.frame/10) , { fontFamily: '폰트', fontSize: 20, color: '색상' });
         
-        if(this.gameover) {
+        // 게임 오버 처리
+        if (this.gameover) {
             this.back.tilePositionX = 0;
             this.cactuses.forEach(cactus => {
-                cactus.setVelocityX(0);
+                cactus.destroy();
             });
-            this.score = Math.floor(this.frame/10);
+            
         } else {
             this.back.tilePositionX += 1;
         }
