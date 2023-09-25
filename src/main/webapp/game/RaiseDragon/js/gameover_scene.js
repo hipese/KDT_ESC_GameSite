@@ -8,6 +8,7 @@ class GameOverScene extends Phaser.Scene{
 
     }
     create(){
+		
         this.add.text(
             this.cameras.main.width/2,
             this.cameras.main.height/2,

@@ -9,6 +9,8 @@ class MoveScene extends Phaser.Scene {
         this.doubleJump = true;
         this.count = 0;
         this.box = [];
+        this.urlParams = new URLSearchParams(window.location.search);
+        this.loginID = this.urlParams.get("loginID");
     }
     preload() {
         this.load.image("box", "img/ballpan.png");
@@ -60,6 +62,24 @@ class MoveScene extends Phaser.Scene {
         bottomLine.body.immovable = true; // 충돌 시 움직이지 않게 설정
         this.physics.add.overlap(bottomLine, this.player, () => {
             this.scene.start('GameOverScene', { timer: this.timer });
+            const postData = {
+		        loginID: this.loginID,
+		        score: this.timer
+		    };
+		
+		    $.ajax({
+		        url: "/JumpkingGameOver.game",
+		        type: "POST",
+		        data: postData,
+		        success: (response) => {
+		            console.log("Server response:", response);
+		        },
+		        error: (xhr, status, error) => {
+		            console.error("AJAX request failed:", error);
+		            // 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
+		        }
+		    });
+            
         });
         this.physics.add.overlap(bottomLine, this.box, (line, box) => {
             box.destroy();
