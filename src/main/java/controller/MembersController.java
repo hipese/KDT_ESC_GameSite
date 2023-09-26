@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +20,16 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import commons.EmailService;
 import commons.EncryptionUtils;
+import dao.CarCrashDAO;
+import dao.DinoGameDAO;
+import dao.GameInfoDAO;
+import dao.JumpkingDAO;
 import dao.MembersDAO;
+import dao.RaiseDragonDAO;
+import dao.RoadOfSamuraiDAO;
+import dao.SkeletonSurvivorDAO;
 import dto.FilesDTO;
+import dto.GameInfoDTO;
 import dto.MembersDTO;
 
 @WebServlet("*.members")
@@ -49,7 +58,7 @@ public class MembersController extends HttpServlet {
 				String address2 = request.getParameter("address2");
 				Timestamp regdate = new Timestamp(currentTime);
 				dao.insert(new MembersDTO(id, shapw, name, phone, email, zipcode, address1, address2, regdate));
-				response.sendRedirect("/index.jsp");
+				response.sendRedirect("/");
 			}
 			else if(cmd.equals("/idcheck.members")){ // 아이디 중복체크 ajax
 				Gson gson = new Gson();
@@ -63,6 +72,7 @@ public class MembersController extends HttpServlet {
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				String url = request.getParameter("url");
+				System.out.println(url);
 				String scroll = request.getParameter("scroll");
 				request.getSession().setAttribute("scrollPosition", scroll);
 				pw = EncryptionUtils.getSHA512(pw);
@@ -70,14 +80,32 @@ public class MembersController extends HttpServlet {
 				if(success) {
 					request.getSession().setAttribute("loginID",id);
 					MembersDTO dto = dao.mypage(id);
-					request.setAttribute("name",dto.getName());
-					request.setAttribute("email",dto.getEmail());
-					request.setAttribute("sys_name", dto.getProfile());
+					request.getSession().setAttribute("name",dto.getName());
+					request.getSession().setAttribute("email",dto.getEmail());
+					request.getSession().setAttribute("sys_name", dto.getProfile());
 					if(dto.isAdmin()) {
+						Gson gson = new Gson();
+						CarCrashDAO ccdao = CarCrashDAO.getInstance();
+						DinoGameDAO dgdao = DinoGameDAO.getInstance();
+						JumpkingDAO jkdao = JumpkingDAO.getInstance();
+						RaiseDragonDAO rddao = RaiseDragonDAO.getInstance();
+						RoadOfSamuraiDAO rsdao = RoadOfSamuraiDAO.getInstance();
+						SkeletonSurvivorDAO ssdao = SkeletonSurvivorDAO.getInstance();
+						
+						GameInfoDAO gamesdao = GameInfoDAO.getInstance();
+						List<GameInfoDTO> gamesDataList =
+								gamesdao.getGamesInfo(
+										new GameInfoDTO("CarCrash",ccdao.countWeekPlay(),ccdao.countTodayPlay()),
+										new GameInfoDTO("DinoGame",dgdao.countWeekPlay(),dgdao.countTodayPlay()),
+										new GameInfoDTO("Jumpking",jkdao.countWeekPlay(),jkdao.countTodayPlay()),
+										new GameInfoDTO("RaiseDragon",rddao.countWeekPlay(),rddao.countTodayPlay()),
+										new GameInfoDTO("RoadOfSamurai",rsdao.countWeekPlay(),rsdao.countTodayPlay()),
+										new GameInfoDTO("SkeletonSurvivor",ssdao.countWeekPlay(),ssdao.countTodayPlay()));
+						String gamesDataJson = gson.toJson(gamesDataList);
+						request.setAttribute("gamesData", gamesDataJson);
 						request.getRequestDispatcher("/admin.jsp").forward(request,response);
 					}else {
-						System.out.println("관리자아님");
-						request.getRequestDispatcher("/index.jsp").forward(request,response);
+						response.sendRedirect(url);
 					}
 				}else {
 					response.sendRedirect(url);
@@ -85,7 +113,7 @@ public class MembersController extends HttpServlet {
 			}
 			else if(cmd.equals("/logout.members")) {
 				request.getSession().invalidate();
-				response.sendRedirect("/index.jsp"); // 로그아웃시 어디로 이동할지
+				response.sendRedirect("/"); // 로그아웃시 어디로 이동할지
 			}
 			else if(cmd.equals("/mypage.members")) {
 				String id = (String)request.getSession().getAttribute("loginID");
@@ -99,13 +127,19 @@ public class MembersController extends HttpServlet {
 				System.out.println(filePath + "/" + sys_name);
 				
 				request.getRequestDispatcher("/myPage.jsp").forward(request,response);
-			} else if (cmd.equals("/update.members")) {
+			} 
+			
+			
+			else if (cmd.equals("/update.members")) {
 				String id = (String)request.getSession().getAttribute("loginID");
 				MembersDTO dto = dao.mypage(id);
 				String sys_name = dto.getProfile();
 				request.setAttribute("sys_name", sys_name);
 				request.getRequestDispatcher("/updateMyPage.jsp").forward(request,response);
-			} else if (cmd.equals("/updateComplete.members")) {
+			} 
+			
+			
+			else if (cmd.equals("/updateComplete.members")) {
 				request.setCharacterEncoding("UTF-8");
 				String uploadPath = request.getServletContext().getRealPath("files");
 				File filesPath = new File(uploadPath);
@@ -145,13 +179,15 @@ public class MembersController extends HttpServlet {
 				MembersDTO dto = dao.mypage(id);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("/mypage.members").forward(request, response);
-			} else if(cmd.equals("/updateBack.members")) {
+			} 
+			
+			else if(cmd.equals("/updateBack.members")) {
 				String id = (String)request.getSession().getAttribute("loginID");
 				MembersDTO dto = dao.mypage(id);
-				request.setAttribute("name",dto.getName());
-				request.setAttribute("email",dto.getEmail());
-				request.setAttribute("sys_name", dto.getProfile());
-				request.getRequestDispatcher("/index.jsp").forward(request,response);
+				request.getSession().setAttribute("name",dto.getName());
+				request.getSession().setAttribute("email",dto.getEmail());
+				request.getSession().setAttribute("sys_name", dto.getProfile());
+				response.sendRedirect("/");
 			} else if(cmd.equals("/findMemberId.members")) {
 				Gson gson = new Gson();
 				String name = request.getParameter("name");
@@ -161,7 +197,11 @@ public class MembersController extends HttpServlet {
 				PrintWriter pw = response.getWriter();
 				pw.append(json);
 				
-			} else if(cmd.equals("/tempPwRelease.members")) {
+			} 
+			
+			
+			
+			else if(cmd.equals("/tempPwRelease.members")) {
 				EmailService es = new EmailService();
 				Gson gson = new Gson();
 				String name = request.getParameter("name");
@@ -176,9 +216,14 @@ public class MembersController extends HttpServlet {
 					String json = gson.toJson(null);
 					pw.append(json);
 				}
-			} else if(cmd.equals("/delete.members")) {
+			} 
+			
+			else if(cmd.equals("/delete.members")) {
 				response.sendRedirect("/deleteMembers.jsp");
-			} else if(cmd.equals("/deleteComplete.members")) {
+			} 
+			
+			
+			else if(cmd.equals("/deleteComplete.members")) {
 				String id = request.getParameter("id");
 				String id2 = (String)request.getSession().getAttribute("loginID");
 				String pw = request.getParameter("pw");
@@ -192,14 +237,19 @@ public class MembersController extends HttpServlet {
 					PrintWriter check = response.getWriter();
 					check.append("아이디 또는 비밀번호를 다시 확인해주세요.");
 				}
-			} else if(cmd.equals("/realDelete.members")) {
+			} 
+			
+			else if(cmd.equals("/realDelete.members")) {
 				String id = (String)request.getSession().getAttribute("loginID");
 				dao.delete(id);
 				request.getSession().invalidate();
-				response.sendRedirect("/index.jsp");
+				response.sendRedirect("/");
 			} else if(cmd.equals("/changePW.members")) {
 				response.sendRedirect("/changePW.jsp");
-			} else if(cmd.equals("/changeCompletePW.members")) {
+			} 
+			
+			
+			else if(cmd.equals("/changeCompletePW.members")) {
 				String id1 = request.getParameter("id");
 				String pw1 = request.getParameter("pw1");
 				String pw2 = request.getParameter("pw2");
@@ -216,7 +266,10 @@ public class MembersController extends HttpServlet {
 					PrintWriter check = response.getWriter();
 					check.append("아이디 또는 비밀번호를 다시 확인해주세요.");
 				}
-			} else if(cmd.equals("/scrollout.members")){
+			} 
+			
+			
+			else if(cmd.equals("/scrollout.members")){
 				request.getSession().removeAttribute("scrollPosition");
 				Gson gson = new Gson();
 				String action = request.getParameter("action");

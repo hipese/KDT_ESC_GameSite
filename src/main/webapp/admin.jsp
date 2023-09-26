@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +13,7 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <style>
         * {
                 box-sizing: border-box;
@@ -81,7 +83,7 @@
             </div>
             <div id="menudiv" class="col-9 g-0"></div>
             <div class="col-1 g-0">
-                <a href="/logout.admin" id="logoutdiv">로그아웃</a>
+                <a href="/logout.members" id="logoutdiv">로그아웃</a>
             </div>
         </div>
     </div>
@@ -194,5 +196,6 @@
         }
         }
     });
+    console.log(${gamesData});
 </script>
 </html>
