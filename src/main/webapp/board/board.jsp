@@ -880,7 +880,7 @@ form>.searchArea {
             	 	 <div class="searchresultText">자유게시판</div>
             	</c:when>
             	<c:otherwise>
-            		  <div class="searchresultText">${searchText} : 검색 결과</div>
+            		  <div class="searchresultText">검색 결과: ${searchText}</div>
             	</c:otherwise>
             </c:choose>
             
