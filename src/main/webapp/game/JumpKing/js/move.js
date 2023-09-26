@@ -76,8 +76,10 @@ class MoveScene extends Phaser.Scene {
                 });
             }else {
                 // 로그인을 하지 않았다면 로그인을 할 수 있는 모달창을 띄운다.
-                $('#loginModal').modal('show');
-                
+                const modal = document.getElementById('login-modal');
+                modal.style.display = "block";
+                body.style.overflow = "hidden";
+                $(".scroll").val(scrollY);
             }
             
         });

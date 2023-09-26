@@ -63,6 +63,8 @@ public class MembersController extends HttpServlet {
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				String url = request.getParameter("url");
+				
+				System.out.println(url);
 				String scroll = request.getParameter("scroll");
 				request.getSession().setAttribute("scrollPosition", scroll);
 				pw = EncryptionUtils.getSHA512(pw);
@@ -73,7 +75,7 @@ public class MembersController extends HttpServlet {
 					request.setAttribute("name",dto.getName());
 					request.setAttribute("email",dto.getEmail());
 					request.setAttribute("sys_name", dto.getProfile());
-					request.getRequestDispatcher("/index.jsp").forward(request,response);
+					request.getRequestDispatcher(url).forward(request,response);
 				}else {
 					response.sendRedirect(url);
 				}

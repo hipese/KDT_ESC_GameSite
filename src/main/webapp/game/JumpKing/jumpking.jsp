@@ -470,8 +470,6 @@
                         <label for="active" class="close"></label>
                         <div class="wrapper">
                             <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Login</a></li>
                                 <li><a href="#">Board</a></li>
                                 <li><a href="#">MyPage</a></li>
                                 <li><a href="#">Rank</a></li>
@@ -576,9 +574,9 @@
 
 
             <script>
-                let sessionScope = "${sessionScope.loginID}";
+                let loginID = "${sessionScope.loginID}";
 
-                if (sessionScope != "") {
+                if (loginID != "") {
                     $(".headerlogin").hide();
                     $(".headerlogout").show();
                     $(".trueable").hide();
@@ -592,23 +590,63 @@
                     $(".headerboard").hide();
                 }
 
-                const loginButton = document.getElementById("login-button");
-                const loginModal = document.getElementById("login-modal");
-                const closeButton = document.querySelector(".close-button");
+                if (loginID == "") {
+                    const loginButton = document.getElementById("login-button");
+                    const loginButton2 = document.getElementById("login-button2");
+                    const loginModal = document.getElementById("login-modal");
+                    const closeButton = document.querySelector(".close-button");
 
-                loginButton.addEventListener("click", function () {
-                    loginModal.style.display = "block";
-                });
+                    loginButton.addEventListener("click", function () {
+                        loginModal.style.display = "block";
+                    });
+                    loginButton2.addEventListener("click", function () {
+                        loginModal.style.display = "block";
+                    });
 
-                closeButton.addEventListener("click", function () {
-                    loginModal.style.display = "none";
-                });
-
-                window.addEventListener("click", function (event) {
-                    if (event.target === loginModal) {
+                    closeButton.addEventListener("click", function () {
                         loginModal.style.display = "none";
+                    });
+
+                    window.addEventListener("click", function (event) {
+                        if (event.target === loginModal) {
+                            loginModal.style.display = "none";
+                        }
+                    });
+                    // 로그인 모달 관련
+                    const modal = document.getElementById('login-modal');
+                    const openButton = document.getElementById('login-button');
+                    const openButton2 = document.getElementById('login-button2');
+                    const body = document.body;
+                    $(".url").val(window.location.href);
+
+                    // 모달 열기
+                    openButton.onclick = function () {
+                        modal.style.display = 'block';
+                        body.style.overflow = 'hidden'; // 배경 스크롤 막기
+                        $(".scroll").val(scrollY);
+                    };
+                    openButton2.onclick = function () {
+                        modal.style.display = 'block';
+                        body.style.overflow = 'hidden'; // 배경 스크롤 막기
+                        $(".scroll").val(scrollY);
+                    };
+
+                    // 모달 닫기
+                    function closeModal() {
+                        modal.style.display = 'none';
+                        body.style.overflow = 'auto'; // 배경 스크롤 다시 활성화
+                        $(".scroll").val("");
                     }
-                });
+
+                    closeButton.onclick = closeModal;
+
+                    // 모달 외부 클릭 시 모달 닫기
+                    window.onclick = function (event) {
+                        if (event.target === modal) {
+                            closeModal();
+                        }
+                    };
+                }
 
 
                 let option = {
