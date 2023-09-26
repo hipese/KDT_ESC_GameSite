@@ -943,10 +943,18 @@ form>.searchArea {
 				<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
 					id="back">돌아가기</button>
 			</div>
-
-			<div class="pageNav">
+			<c:choose>
+				<c:when test="${boardlist.size() == 0 || !isExistText}">
+					<div class="pageNav" style="display: none;">
 				
-			</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="pageNav">
+				
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		
 	</div>
