@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,5 +82,34 @@ public class JumpkingDAO {
 				return list;
 			}
 		}
+	}
+	public List<Integer> countWeekPlay() throws SQLException, Exception {
+		String sql = "SELECT DATE(played_time) AS play_date, COUNT(*) AS play_count "
+				+ "FROM jumpking "
+				+ "GROUP BY play_date "
+				+ "ORDER BY play_date "
+				+ "limit 7";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			try (ResultSet rs = pstat.executeQuery()){
+				List<Integer> list = new ArrayList<>();
+				while(rs.next()) {
+					list.add(rs.getInt(2)); 
+				}
+				return list;
+			}
+		}
+	}
+	
+	public int countTodayPlay() throws Exception {
+	    String sql = "SELECT COUNT(*) AS countTodayDate FROM jumpking WHERE DATE(played_time) = CURDATE()";
+	    try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+	        try (ResultSet rs = pstat.executeQuery()){
+	            if (rs.next()) {
+	                return rs.getInt("countTodayDate");
+	            } else {
+	                return 0; 
+	            }
+	        }
+	    }
 	}
 }
