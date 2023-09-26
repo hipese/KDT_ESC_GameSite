@@ -89,6 +89,7 @@ class CarScene extends Phaser.Scene {
         });
         
         this.physics.add.overlap(this.player, this.boxes, (boundary, box) => {
+				box.destroy();
 				this.accidentSound.play();
             	this.bgm.stop();
 			    this.gameoverCondition = true;
@@ -96,7 +97,7 @@ class CarScene extends Phaser.Scene {
 			        loginID: this.loginID,
 			        score: this.score
 			    };
-			
+				
 			    $.ajax({
 			        url: "/CarCrashGameOver.game",
 			        type: "POST",
