@@ -55,7 +55,7 @@
 
                 .banner {
                     height: 300px;
-                    margin-top: 70px;
+                    margin-top: 80px;
                     background-color: white;
                     border-radius: 20px;
                     cursor: pointer;
@@ -224,7 +224,6 @@
 
                 .footericon {
                     padding-top: 5px;
-                    padding-left: 10px;
                 }
 
                 .icon {
@@ -259,39 +258,35 @@
                     color: pink;
                 }
 
-                .ranktable {
+                .margintop {
                     margin-top: 70px;
-
                 }
 
-                /* 첫 번째 tbody 자식 */
-                .row>.ranktable tr:nth-child(1) td {
-                    background-color: gold;
+                h2 {
+                    text-align: start;
+                    margin-left: 5px;
                 }
 
-                /* 두 번째 tbody 자식 */
-                .row>.ranktable tr:nth-child(2) td {
-                    background-color: silver;
+                .RankHeader {
+                    margin-top: 15px;
+                    font-size: 20px;
+                    font-weight: bold;
+                    border-top: 2px solid black;
+                    border-bottom: 1px solid black;
+                    padding: 10px 0 10px 0;
+                    margin-left: 3px;
+                    margin-right: 3px;
                 }
 
-                /* 세 번째 tbody 자식 */
-                .row>.ranktable tr:nth-child(3) td {
-                    background-color: #DA8A67;
-                    /* 동색으로 설정, 원하는 색상으로 변경 가능 */
+                .RankBody {
+                    border-bottom: 1px solid black;
+                    padding: 5px 0 5px 0;
+                    margin-left: 3px;
+                    margin-right: 3px;
                 }
 
-                @media (max-width: 768px) {
-                    .ranktable {
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: center;
-                    }
-
-                    .ranktable .col-md-6 {
-                        width: 100%;
-                        /* 화면이 작을 때, 테이블을 한 열로 표시 */
-                        margin-bottom: 20px;
-                    }
+                .RankBody:hover {
+                    background-color: #e9ecef;
                 }
             </style>
         </head>
@@ -354,250 +349,95 @@
                 </div>
             </div>
 
-            <div class="container bodycontainer">
 
-                <div class="row">
-                    <div class="col-md-12 g-0 ranktable">
-                        <div class="col-md-6">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>ID</th>
-                                        <th>Score</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+
+
+
+
+
+            <div class="container">
+                <div class="row text-center RankTop">
+                    <div class="col-12 col-md-6 margintop">
+                        <h2>JumpKing</h2>
+                        <div class="row RankHeader">
+                            <div class="col-3">
+                                RANK
+                            </div>
+                            <div class="col-3">
+                                ID
+                            </div>
+                            <div class="col-3">
+                                SCORE
+                            </div>
+                            <div class="col-3">
+                                DATE
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>ID</th>
-                                        <th>Score</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row RankBody">
+                            <div class="col-3">
+                                test
+                            </div>
+                            <div class="col-3">
+                                test
+                            </div>
+                            <div class="col-3">
+                                test
+                            </div>
+                            <div class="col-3">
+                                test
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-12 g-0 ranktable">
-                        <div class="col-md-6">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>ID</th>
-                                        <th>Score</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-12 col-md-6 margintop">
+                        <h2>Vampire Survivor</h2>
+                        <div class="row RankHeader">
+                            <div class="col-3">
+                                RANK
+                            </div>
+                            <div class="col-3">
+                                ID
+                            </div>
+                            <div class="col-3">
+                                SCORE
+                            </div>
+                            <div class="col-3">
+                                DATE
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>ID</th>
-                                        <th>Score</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row RankBody">
+                            <div class="col-3">
+                                test
+                            </div>
+                            <div class="col-3">
+                                test
+                            </div>
+                            <div class="col-3">
+                                test
+                            </div>
+                            <div class="col-3">
+                                test
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 g-0 ranktable">
-                        <div class="col-md-6">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>ID</th>
-                                        <th>Score</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>ID</th>
-                                        <th>Score</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
                     </div>
                 </div>
-
             </div>
 
 
 
 
+
+
+
+
+
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 opacity-0 pdbottom"></div>
+                </div>
+            </div>
             <div class="second-fluid">
                 <div class="row footer gx-0">
                     <div class="col-12 col-md-4 order-4 order-md-1">
@@ -663,7 +503,7 @@
 
         </body>
         <script>
-
+            // ajax를 통해서 랭킹 불러오기
         </script>
 
         </html>

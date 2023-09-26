@@ -582,20 +582,21 @@
                 .service>a {
                     text-decoration-line: none;
                 }
+
                 .headerul2 {
-					list-style: none;
-					display: flex;
-					justify-content: end;
-					align-content: center;
-					margin: 0px;
-					position: absolute;
-					right: 60px;
-					cursor: pointer;
-				}
-				
-				.headerul2 li:hover {
-					color: pink;
-				}
+                    list-style: none;
+                    display: flex;
+                    justify-content: end;
+                    align-content: center;
+                    margin: 0px;
+                    position: absolute;
+                    right: 60px;
+                    cursor: pointer;
+                }
+
+                .headerul2 li:hover {
+                    color: pink;
+                }
             </style>
         </head>
 
@@ -672,8 +673,7 @@
                                                 <strong>Jump King</strong>
                                             </div>
                                             <br> 떨어지면 죽을 것을 알기에<br> 끝없이 위를 향해 뛰어야만하는<br>
-                                            안타까운 엘프의 이야기<br> <br> <a href="game/JumpKing/jumpking.jsp"
-                                                target="_blank"><button class="playbutton">Play</button></a>
+                                            안타까운 엘프의 이야기<br> <br> <div class="game1"><button class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -687,8 +687,7 @@
                                                 <strong>Skeleton Survivor</strong>
                                             </div>
                                             <br> 죽어서도 악마들을 퇴치하는 <br> 뼈다귀 마법사의 처절한 이야기<br><br>
-                                            <br> <a href="game/SkeletonSurvivor/skeletonsurvivor.jsp"
-                                                target="_blank"><button class="playbutton">Play</button></a>
+                                            <br> <div class="game2"><button class="playbutton">Play</button></div>
 
                                         </div>
                                     </div>
@@ -703,8 +702,8 @@
                                                 <strong>Dino Game</strong>
                                             </div>
                                             <br> 404 Not Found가<br> 반가운 공룡의 이야기<br><br>
-                                            <br> <a href="game/DinoGame/dinogame.jsp" target="_blank"><button
-                                                    class="playbutton">Play</button></a>
+                                            <br> <div class="game3"><button
+                                                    class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -718,8 +717,8 @@
                                                 <strong>Drive Safely!</strong>
                                             </div>
                                             <br> 안전운전을 하고 싶지만 <br> 역주행 하는 차들을 피해 <br> 돈을 버는 가장의 이야기 <br>
-                                            <br> <a href="game/CarCrash/carcrash.jsp" target="_blank"><button
-                                                    class="playbutton">Play</button></a>
+                                            <br> <div class="game4"><button
+                                                    class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -733,8 +732,8 @@
                                                 <strong>Samurai Game</strong>
                                             </div>
                                             <br> 조국을 지키기 위해서 <br> 백만 대군도 물리칠 수 있는 <br> 용감한 사무라이! <br>
-                                            <br> <a href="game/RoadOfSamurai/roadofsamurai.jsp" target="_blank"><button
-                                                    class="playbutton">Play</button></a>
+                                            <br> <div class="game5"><button
+                                                    class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -748,8 +747,7 @@
                                                 <strong>RaiseDragon</strong>
                                             </div>
                                             <br> 드래곤의 알을 구해서 <br> 열심히 키워가지고 펫을 삼으려는 <br> 아름다운 여전사의 이야기 <br>
-                                            <br> <a href="game/RaiseDragon/raisedragon.jsp" target="_blank"><button
-                                                    class="playbutton">Play</button></a>
+                                            <br> <div class="game6"><button class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -803,16 +801,16 @@
                                     <div class="col-12 g-0">
                                         <div class="loginbox3">
                                             <div class="imgbox">
-                                            	<c:choose>
-	                                            	<c:when test="${sys_name}">
-	                                                	<img src="img/쥐돌이.png" class="img" />
-	                                                	<script>
-	                                                		console.log("${sys_name}");
-	                                                	</script>
-	                                                </c:when>
-	                                                <c:otherwise>
-	                                                	<img src="files/${sys_name}" class="img" />
-	                                                </c:otherwise>
+                                                <c:choose>
+                                                    <c:when test="${sys_name}">
+                                                        <img src="img/쥐돌이.png" class="img" />
+                                                        <script>
+                                                            console.log("${sys_name}");
+                                                        </script>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img src="files/${sys_name}" class="img" />
+                                                    </c:otherwise>
 
                                                 </c:choose>
                                             </div>
@@ -1013,81 +1011,81 @@
                 let loginID = "${sessionScope.loginID}";
                 // 베너 이미지 클릭시 게임 페이지로 이동
                 $(".game1").on("click", function () {
-                   $.ajax({
-                     url: "/JumpkingStart.game",
-                     type: "GET",
-                     data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-                     success: function (gameURL) {
-                         window.open(gameURL, "_blank");
-                     },
-                     error: function () {
-                         alert("게임을 시작하는 데 문제가 발생했습니다.");
-                     }
-                 });
+                    $.ajax({
+                        url: "/JumpkingStart.game",
+                        type: "GET",
+                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        success: function (gameURL) {
+                            window.open(gameURL, "_blank");
+                        },
+                        error: function () {
+                            alert("게임을 시작하는 데 문제가 발생했습니다.");
+                        }
+                    });
                 });
                 $(".game2").on("click", function () {
-                   $.ajax({
-                     url: "/SkeletonSurvivorStart.game",
-                     type: "GET",
-                     data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-                     success: function (gameURL) {
-                        
-                         window.open(gameURL, "_blank");
-                     },
-                     error: function () {
-                         alert("게임을 시작하는 데 문제가 발생했습니다.");
-                     }
-                 });
+                    $.ajax({
+                        url: "/SkeletonSurvivorStart.game",
+                        type: "GET",
+                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        success: function (gameURL) {
+
+                            window.open(gameURL, "_blank");
+                        },
+                        error: function () {
+                            alert("게임을 시작하는 데 문제가 발생했습니다.");
+                        }
+                    });
                 });
                 $(".game3").on("click", function () {
-                   $.ajax({
-                     url: "/DinoGameStart.game",
-                     type: "GET",
-                     data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-                     success: function (gameURL) {
-                        
-                         window.open(gameURL, "_blank");
-                     },
-                     error: function () {
-                         alert("게임을 시작하는 데 문제가 발생했습니다.");
-                     }
-                 });
+                    $.ajax({
+                        url: "/DinoGameStart.game",
+                        type: "GET",
+                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        success: function (gameURL) {
+
+                            window.open(gameURL, "_blank");
+                        },
+                        error: function () {
+                            alert("게임을 시작하는 데 문제가 발생했습니다.");
+                        }
+                    });
                 });
                 $(".game4").on("click", function () {
-                 $.ajax({
-                     url: "/CarCrashStart.game",
-                     type: "GET",
-                     data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-                     success: function (gameURL) {
-                        
-                         window.open(gameURL, "_blank");
-                     },
-                     error: function () {
-                         alert("게임을 시작하는 데 문제가 발생했습니다.");
-                     }
-                 });
-             });
+                    $.ajax({
+                        url: "/CarCrashStart.game",
+                        type: "GET",
+                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        success: function (gameURL) {
+
+                            window.open(gameURL, "_blank");
+                        },
+                        error: function () {
+                            alert("게임을 시작하는 데 문제가 발생했습니다.");
+                        }
+                    });
+                });
                 $(".game5").on("click", function () {
-                   $.ajax({
-                     url: "/RoadOfSamuraiStart.game",
-                     type: "GET",
-                     data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
-                     success: function (gameURL) {
-                        
-                         window.open(gameURL, "_blank");
-                     },
-                     error: function () {
-                         alert("게임을 시작하는 데 문제가 발생했습니다.");
-                     }
-                 });
+                    $.ajax({
+                        url: "/RoadOfSamuraiStart.game",
+                        type: "GET",
+                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        success: function (gameURL) {
+
+                            window.open(gameURL, "_blank");
+                        },
+                        error: function () {
+                            alert("게임을 시작하는 데 문제가 발생했습니다.");
+                        }
+                    });
                 })
                 $(".game6").on("click", function () {
-                	$.ajax({
+                    $.ajax({
                         url: "/RaiseDragonStart.game",
                         type: "GET",
                         data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
                         success: function (gameURL) {
-                           
+
                             window.open(gameURL, "_blank");
                         },
                         error: function () {
