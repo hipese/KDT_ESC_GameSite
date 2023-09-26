@@ -841,7 +841,7 @@
                         <div class="leftbox">
                             <div class="list">목록</div>
                             <ul>
-                                <a href="/showBoardList.board?cpage=1">
+                                <a href="/showBoardList.board?cpage=1&searchText=">
                                     <li>게시판</li>
                                 </a>
                                 <a href="/mypage.members?id=${id }">
