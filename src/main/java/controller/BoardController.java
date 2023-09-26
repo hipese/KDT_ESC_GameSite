@@ -29,8 +29,8 @@ import dao.MembersDAO;
 import dao.ReplyDAO;
 import dto.BoardDTO;
 import dto.FilesDTO;
-import dto.ReplyDTO;
 import dto.MembersDTO;
+import dto.ReplyDTO;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
@@ -204,6 +204,7 @@ public class BoardController extends HttpServlet {
 
 				System.out.println("현재 페이지 확인: " + currentPage);
 				System.out.println(boardlist.size());
+				
 				
 				request.getSession().setAttribute("latesPageNum", currentPage);
 				request.setAttribute("boardlist", boardlist);
