@@ -834,8 +834,8 @@ form>.searchArea {
                                             <div class="imgbox">
                                                 <img src="img/쥐돌이.png" class="img" />
                                             </div>
-                                            <div class="mpname">${name}</div>
-                                            <div class="mpemail">${email}</div>
+                                            <div class="mpname">${loginmember.id}</div>
+                                            <div class="mpemail">${loginmember.email}</div>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <a href="/logout.members"><button type="button"
@@ -886,9 +886,7 @@ form>.searchArea {
 							<div class="row contents">
 								<div class="nav col-4 col-sm-1 d-none d-sm-block">${i.seq }</div>
 								<div class="nav col-12 col-sm-4 ">
-								<a href="/showContents.board?
-								title=${i.title}&seq=${i.seq}&searchText=${searchText}" 
-								style="color: #000000;">${i.title}</a>
+								<a href="/showContents.board?title=${i.title}&seq=${i.seq}&searchText=${searchText}" style="color: #000000;">${i.title}</a>
 								</div>
 								<div class="nav col-4 col-sm-3">${i.writer }</div>
 								<div class="nav col-4 col-sm-1">${i.view_count }</div>

@@ -206,11 +206,22 @@ body{
 	height: 100%;
 	text-align: right;
 }
-/* Style for the current page link */
-.page-item.active .page-link {
-	background-color: #007bff; /* Change to your desired background color */
-	color: #fff; /* Change to your desired text color */
+
+a.black-text-link {
+    color: gray;
 }
+
+.replyheader{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.page-link.active {
+    text-decoration: underline !important;
+    color: white !important; /* 현재 페이지 링크의 글자 색상을 변경 */
+    background-color:black !important;
+}
+
 </style>
 </head>
 
@@ -335,8 +346,7 @@ body{
 					<c:choose>
 						<c:when test="${innerFiles.size() != 0}">
 							<c:forEach var="i" items="${innerFiles }">
-								<a
-									href="/download.file?sysname=${i.sys_name }&oriname=${i.ori_name}">${i.ori_name }</a>
+								<a href="/download.file?sysname=${i.sys_name }&oriname=${i.ori_name}" class="black-text-link">${i.ori_name }</a>
 								<br>
 							</c:forEach>
 						</c:when>
@@ -366,18 +376,16 @@ body{
 			<div class="col reply_list">
 				<c:choose>
 					<c:when test="${isParentseq }">
-						<table class="table" id="comments-table">
-							<thead>
-								<tr>
-									<td scope="col"></td>
-									<th scope="col">작성자</th>
-									<th scope="col">댓글내용</th>
-									<th scope="col">작성날짜</th>
-									<th scope="col">#</th>
-									<th scope="col">#</th>
-								</tr>
-							</thead>
-						</table>
+						
+						<div class="boardheader col-12 col-sm-12" id="comments-table">
+							<div class="row">
+								<div class="col-12 col-sm-2 d-none d-sm-block replyheader">작성자</div>
+								<div class="col-12 col-sm-5 replyheader">댓글내용</div>
+								<div class="col-12 col-sm-3 d-none d-sm-block replyheader">작성날짜</div>
+								<div class="col-12 col-sm-2 d-none d-sm-block replyheader" style="text-align: center">수정, 삭제</div>
+							</div>
+						</div>
+						
 					</c:when>
 					<c:otherwise>
 						<div class="nonreply">댓글이 존재하지 않습니다.</div>
@@ -392,7 +400,7 @@ body{
 			</div>
 		</div>
 		<div class="row reply_write mb-4">
-			<div class="col-3" id="reply_title">댓글쓰기</div>
+			<div class="col-3 replyheader" id="reply_title">댓글쓰기</div>
 			<div class="col-9" id="reply_input">
 				<input type="text" name="reply_write" value=""
 					placeholder="서로를 배려하는 깨끗한 인터넷 문화를 만듭시다." id="replyText">
@@ -469,62 +477,120 @@ window.onload = function() {
     }).done(function(resp) {
     	//댓글을 보여주는 반환결과
 		let replyList=resp.replyList;
-	
-		
-		
+       
        for (let i = 0; i < replyList.length; i++) {
-           let comment = replyList[i];
-         
-           
-           let commentRow = $('<tr>');
-           
-           commentRow.append('<td></td>');
-           commentRow.append('<td>' + comment.writer + '</td>'); 
-           let inputField = $('<input>', {
-               type: 'text',
-               style: 'border-width: 0;',
-               class: 'comment-input',
-               value: comment.contents,
-               size: "50",
-               readonly: true
-           });
+    	    let comment = replyList[i];
 
-           let tdElement = $('<td>').append(inputField);
-           
-           commentRow.append(tdElement);
-           
-           commentRow.append('<td>' + comment.write_date + '</td>'); 
+    	    let commentDiv = $('<div>', {
+    	        class: 'row comment-row'
+    	    }).css({
+    	        padding: '5px', // 패딩 크기
+    	        'border-top': '1px solid black', /* 위쪽 테두리 */
+    	        'border-bottom': '1px solid black' /* 아래쪽 테두리 */
+    	    });
 
-           let confirmButton = $('<button>', {
-               class: 'updateChkBtn',
-               text: '확인'
-           }).hide();
+    	    // 작성자 열 (작성자 이름을 보여줄 열)
+    	    let writerColumn = $('<div>', {
+    	        class: 'col-12 col-sm-2 d-none d-sm-block',
+    	        text: comment.writer
+    	    });
+    	    commentDiv.append(writerColumn);
 
-           let cancelButton = $('<button>', {
-               class: 'updateCancelBtn',
-               text: '취소'
-           }).hide();
-           
-           let editButton = $('<button>', {
-                class: 'edit-btn',
-                text: '수정',
-                'data-comment-id': comment.seq,
-                'data-parent-seq': comment.parent_seq
+    	    // 댓글 내용 열
+    	    let contentsColumn = $('<div>', {
+    	        class: 'col-12 col-sm-5 comment-contents'
+    	    });
+    	    let inputField = $('<input>', {
+    	        type: 'text',
+    	        style: 'border-width: 0;',
+    	        class: 'comment-input',
+    	        value: comment.contents,
+    	        size: '50',
+    	        readonly: true
+    	    });
+    	    contentsColumn.append(inputField);
+    	    commentDiv.append(contentsColumn);
+
+    	 // 작성날짜 열
+            let writeDateColumn = $('<div>', {
+                class: 'col-12 col-sm-3 d-none d-sm-block',
+                text: formatWriteDate(comment.write_date), // 클라이언트 측에서 작성날짜를 형식화하여 표시
+                
             });
-           
-        	
-           //ajax에서 보낸 서블릿이 각각의 댓글이 작성자와 일치하는지  확인한 결과값을 가져온다
-          	
-           if(comment.writer==loginId){
-        	   let tdElement2 = $('<td>').append(editButton, confirmButton, cancelButton);
-               commentRow.append(tdElement2);
-               commentRow.append('<td><button class="delete-btn" data-comment-id="' 
-                    		   + comment.seq + '" data-parent-seq="' + comment.parent_seq + '">삭제</button></td>');
-           }
-           	
+            commentDiv.append(writeDateColumn);
             
-           	commentsTable.append(commentRow);
-       }
+            function formatWriteDate(writeDate) {
+                let currentTime = new Date().getTime();
+                let signup;
+
+                // 입력된 날짜 문자열에서 "년", "월", "일", "시", "분", "초"를 제거하고 공백을 추가하여 ISO 8601 형식으로 변환
+                let writeDateStr = writeDate.replace("년 ", "-").replace("월 ", "-").replace("일 ", "T").replace(/시 |분 |초/g, " ");
+
+                // JavaScript Date 객체로 변환
+                writeDate = new Date(writeDateStr);
+
+                if (!isNaN(writeDate.getTime())) {
+                    // Date 객체를 timestamp로 변환
+                    signup = writeDate.getTime();
+                } 
+
+                let gapTime = currentTime - signup-(12 * 60 * 60 * 1000); //이유는 잘 모르겠는데 12시간이 차이남... 나중에 알면 고치겠습니다.
+				
+                //이놈도 원인 찾으면 바꾸겠습니다.
+                if(gapTime<0){
+                	gapTime=0;
+                }
+				
+                if (gapTime < 60000) {
+                    return Math.floor(gapTime / 1000) + "초 전";
+                } else if (gapTime < 60000 * 60) {
+                    return Math.floor(gapTime / 60000) + "분 전";
+                } else if (gapTime < 60000 * 60 * 24) {
+                    return Math.floor(gapTime / (60000 * 60)) + "시간 전";
+                } else {
+                    let date = new Date(writeDate);
+                    return date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일";
+                }
+            }
+            
+    	    // 수정, 확인, 취소 버튼 열
+    	    let buttonColumn = $('<div>', {
+    			class: 'col-12 col-sm-2 button-column mx-auto',
+    			style: 'display: flex; justify-content: center; align-items: center;'
+			});
+    	    let confirmButton = $('<button>', {
+    	        class: 'updateChkBtn mpbtn',
+    	        text: '확인'
+    	    }).hide();
+    	    let cancelButton = $('<button>', {
+    	        class: 'updateCancelBtn mpbtn',
+    	        text: '취소'
+    	    }).hide();
+    	    let editButton = $('<button>', {
+    	        class: 'edit-btn mpbtn',
+    	        text: '수정',
+    	        'data-comment-id': comment.seq,
+    	        'data-parent-seq': comment.parent_seq
+    	    });
+    	 // 삭제 버튼 열
+    	    let deleteColumn = $('<div>', {
+    	        class: 'col-12 col-sm-1 delete-column'
+    	    });
+    	    let deleteButton = $('<button>', {
+    	        class: 'delete-btn mpbtn',
+    	        'data-comment-id': comment.seq,
+    	        'data-parent-seq': comment.parent_seq,
+    	        text: '삭제'
+    	    });
+    	    if(comment.writer==loginId){
+    	    	 buttonColumn.append(editButton, confirmButton, cancelButton,deleteButton);
+    	    	    commentDiv.append(buttonColumn);
+    	    	   
+    	    }
+    	    commentsTable.append(commentDiv);
+    	}
+       
+       
 
        
        //navi를 보여주는 반환결과
@@ -572,46 +638,54 @@ window.onload = function() {
        if (pageTotalCount > 0) {
     	   let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
 
-    	   paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=1&searchText=${searchText}&seq=${selectboard.seq}" aria-label="First">First</a></li>';
     	   if (needPrev) {
-    	       paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
+    	       paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showContents.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Previous">&laquo;</a></li>';
     	   }
 
     	   for (let i = startNavi; i <= endNavi; i++) {
-    	       if (i === currentPage) {
-    	           // Add the "active" class to the current page
-    	           paginationHTML += '<li class="page-item active"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
-    	       } else {
-    	           paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
-    	       }
-    	   }
+    		    paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showContents.board?cpage=' + i + '&searchText=${searchText}&seq=${selectboard.seq}">' + i + '</a></li>';
+    		}
 
     	   if (needNext) {
-    	       paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
+    	       paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showContents.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Next">&raquo;</a></li>';
     	   }
-    	   paginationHTML += '<li class="page-item"><a class="page-link" href="/showContents.board?cpage=' + pageTotalCount + '&searchText=${searchText}&seq=${selectboard.seq}" aria-label="Last">Last</a></li>';
+    	 
 
     	   paginationHTML += '</ul></nav>';
 
     	   pageNav.append(paginationHTML);
        	}
-       
-       
-       
-        $('.edit-btn').on('click', function() {
-            $(this).closest('tr').find('.comment-input').removeAttr('readonly');
+       	
+       let currentPageNumber = ${replynaviseq}; // 현재 페이지 번호
+       let pageLinks = document.querySelectorAll(".page-link");
 
-            $(this).closest('tr').find('.updateChkBtn').show();
-            $(this).closest('tr').find('.updateCancelBtn').show();
-            $(this).closest('tr').find('.edit-btn').hide();
-        });
+       for (let i = 0; i < pageLinks.length; i++) {
+           let pageLink = pageLinks[i];
+           let pageNumber = parseInt(pageLink.textContent); // 네비게이션 링크의 페이지 번호
+
+           // 현재 페이지와 네비게이션 링크의 페이지 번호가 일치하는 경우 "active" 클래스 추가
+           if (pageNumber === currentPageNumber) {
+               pageLink.classList.add("active");
+           } else {
+               pageLink.classList.remove("active"); // 현재 페이지가 아닌 경우 "active" 클래스 제거
+           }
+       }
+       
+       
+       $('.edit-btn').on('click', function() {
+    	    $(this).closest('.comment-row').find('.comment-input').removeAttr('readonly');
+
+    	    $(this).closest('.comment-row').find('.updateChkBtn').show();
+    	    $(this).closest('.comment-row').find('.updateCancelBtn').show();
+    	    $(this).closest('.comment-row').find('.edit-btn').hide();
+    	});
        
         $('.updateCancelBtn').on('click', function() {
            window.location.reload();
         });
         
         $('.updateChkBtn').on('click', function() {
-            let commentRow = $(this).closest('tr');
+            let commentRow = $(this).closest('.comment-row');
             let commentId = commentRow.find('.edit-btn').data('comment-id');
             let parentSeq = commentRow.find('.edit-btn').data('parent-seq');
             let contents = commentRow.find('.comment-input').val();
