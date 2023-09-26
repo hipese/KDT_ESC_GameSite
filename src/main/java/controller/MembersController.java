@@ -73,7 +73,12 @@ public class MembersController extends HttpServlet {
 					request.setAttribute("name",dto.getName());
 					request.setAttribute("email",dto.getEmail());
 					request.setAttribute("sys_name", dto.getProfile());
-					request.getRequestDispatcher("/index.jsp").forward(request,response);
+					if(dto.isAdmin()) {
+						request.getRequestDispatcher("/admin.jsp").forward(request,response);
+					}else {
+						System.out.println("관리자아님");
+						request.getRequestDispatcher("/index.jsp").forward(request,response);
+					}
 				}else {
 					response.sendRedirect(url);
 				}
@@ -133,8 +138,7 @@ public class MembersController extends HttpServlet {
 						String ori_name = multi.getOriginalFileName(fileName);
 						String sys_name = multi.getFilesystemName(fileName);
 						dao.uploadProfile(ori_name,id);
-					}
-					
+					}	
 				}
 				
 				dao.update(id, name, phone, email, zipcode, address, address3);
