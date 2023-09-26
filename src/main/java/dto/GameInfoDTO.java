@@ -4,17 +4,19 @@ import java.util.List;
 
 public class GameInfoDTO {
 	private String gameName;
-	private List<Integer> weekData;
-	private int todayData;
+	private List<WeekCounts> weekCounts;
+	private int todayCounts;
+	private int allCounts;
 	
 	public GameInfoDTO() {
 		super();
 	}
-	public GameInfoDTO(String gameName, List<Integer> weekData, int todayData) {
+	public GameInfoDTO(String gameName, List<WeekCounts> weekCounts, int todayCounts, int allCounts) {
 		super();
 		this.gameName = gameName;
-		this.weekData = weekData;
-		this.todayData = todayData;
+		this.weekCounts = weekCounts;
+		this.todayCounts = todayCounts;
+		this.allCounts = allCounts;
 	}
 	public String getGameName() {
 		return gameName;
@@ -22,17 +24,23 @@ public class GameInfoDTO {
 	public void setGameName(String gameName) {
 		this.gameName = gameName;
 	}
-	public List<Integer> getWeekData() {
-		return weekData;
+	public List<WeekCounts> getWeekCounts() {
+		return weekCounts;
 	}
-	public void setWeekData(List<Integer> weekData) {
-		this.weekData = weekData;
+	public void setWeekCounts(List<WeekCounts> weekCounts) {
+		this.weekCounts = weekCounts;
 	}
-	public int getTodayData() {
-		return todayData;
+	public int getTodayCounts() {
+		return todayCounts;
 	}
-	public void setTodayData(int todayData) {
-		this.todayData = todayData;
+	public void setTodayCounts(int todayCounts) {
+		this.todayCounts = todayCounts;
+	}
+	public int getAllCounts() {
+		return allCounts;
+	}
+	public void setAllCounts(int allCounts) {
+		this.allCounts = allCounts;
 	}
 	
 	

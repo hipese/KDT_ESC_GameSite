@@ -27,5 +27,4 @@ public class GameInfoDAO {
 		return list;
 	}
 
-
 }
