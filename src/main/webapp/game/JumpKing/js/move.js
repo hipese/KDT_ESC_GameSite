@@ -18,12 +18,14 @@ class MoveScene extends Phaser.Scene {
     }
 
     create() {
-        this.anims.create({
-            key: "playerdown",
-            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 9 }),
-            frameRate: 10,
-            repeat: -1
-        });
+        if (!this.anims.exists("playerdown")) {
+	        this.anims.create({
+	            key: "playerdown",
+	            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 9 }),
+	            frameRate: 10,
+	            repeat: -1
+	        });
+	    }
         this.anims.create({
             key: "left",
             frames: this.anims.generateFrameNumbers('player', { start: 10, end: 19 }),
@@ -63,21 +65,22 @@ class MoveScene extends Phaser.Scene {
         this.physics.add.overlap(bottomLine, this.player, () => {
             this.scene.start('GameOverScene', { timer: this.timer });
             const postData = {
-		        loginID: this.loginID,
-		        score: this.timer
-		    };
-		    $.ajax({
-		        url: "/JumpkingGameOver.game",
-		        type: "POST",
-		        data: postData,
-		        success: (response) => {
-		            console.log("Server response:", response);
-		        },
-		        error: (xhr, status, error) => {
-		            console.error("AJAX request failed:", error);
-		            // 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
-		        }
-		    });
+                loginID: this.loginID,
+                score: this.timer
+            };
+            if (this.loginID != "") { // 로그인을 했을 때만 점수를 저장한다.
+                $.ajax({
+                    url: "/JumpkingGameOver.game",
+                    type: "POST",
+                    data: postData,
+                });
+            }else {
+                // 로그인을 하지 않았다면 로그인을 할 수 있는 모달창을 띄운다.
+                const modal = document.getElementById('login-modal');
+                modal.style.display = "block";
+                body.style.overflow = "hidden";
+                $(".scroll").val(scrollY);
+            }
             
         });
         this.physics.add.overlap(bottomLine, this.box, (line, box) => {
@@ -132,7 +135,7 @@ class MoveScene extends Phaser.Scene {
         }
         if (!this.cursor.left.isDown && !this.cursor.right.isDown) {
             this.player.setVelocityX(0);
-            this.player.play("playerdown", true);
+            this.player.anims.play("playerdown", true);
         }
     }
 }

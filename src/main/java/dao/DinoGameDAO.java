@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class DinoGameDAO {
 		}
 	}
 	
-	public void insertTop10Rank(List<DinoGameDTO> top10List) throws Exception {
+	public void insertTop10Rank(List<DinoGameDTO> top10List) throws Exception { //백업기능
 	    String insertSQL = "INSERT INTO dinogamehistory (seq, player, score, played_time) VALUES (null, ?, ?, ?)";
 	    
 	    try (Connection con = this.getConnection(); 
@@ -63,7 +64,7 @@ public class DinoGameDAO {
 	}
 	
 	
-	public List<DinoGameDTO> top10Rank() throws Exception{
+	public List<DinoGameDTO> top10Rank() throws Exception{ // 최고기록 10등까지 기록자는 중복을 허용
 		String sql = "SELECT ROW_NUMBER() OVER (ORDER BY score DESC) AS row_num, player, score, played_time "
 				+ "FROM dinogame "
 				+ "GROUP BY player, score, played_time "
@@ -81,5 +82,35 @@ public class DinoGameDAO {
 				return list;
 			}
 		}
+	}
+	
+	public List<Integer> countWeekPlay() throws SQLException, Exception {
+		String sql = "SELECT DATE(played_time) AS play_date, COUNT(*) AS play_count "
+				+ "FROM dinogame "
+				+ "GROUP BY play_date "
+				+ "ORDER BY play_date "
+				+ "limit 7";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			try (ResultSet rs = pstat.executeQuery()){
+				List<Integer> list = new ArrayList<>();
+				while(rs.next()) {
+					list.add(rs.getInt(2)); 
+				}
+				return list;
+			}
+		}
+	}
+	
+	public int countTodayPlay() throws Exception {
+	    String sql = "SELECT COUNT(*) AS countTodayDate FROM dinogame WHERE DATE(played_time) = CURDATE()";
+	    try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+	        try (ResultSet rs = pstat.executeQuery()){
+	            if (rs.next()) {
+	                return rs.getInt("countTodayDate");
+	            } else {
+	                return 0; 
+	            }
+	        }
+	    }
 	}
 }
