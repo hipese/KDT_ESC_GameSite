@@ -504,6 +504,23 @@ form>.searchArea {
 	height: 100%;
 	width: 100px;
 }
+
+.searchresultText{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size:30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.notboard{
+	margin-top: 20px;
+	font-size:20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
 /* 네비박스 틀 */
 .navbox {
 	width: 100%;
@@ -646,7 +663,7 @@ form>.searchArea {
                                 <c:otherwise>
                                     <li class="headerli headerlogout"><a href="/logout.members">로그아웃</a>
                                     </li>
-                                    <li class="headerli"><a href="/showBoardList.board?cpage=1">게시판</a></li>
+                                    <li class="headerli"><a href="/showBoardList.board?cpage=1&searchText=">게시판</a></li>
                                     <li class="headerli headerboard"><a href="/mypage.members">마이페이지</a></li>
                                 </c:otherwise>
 
@@ -862,6 +879,15 @@ form>.searchArea {
 	  				</div>
 	  			</div>
             </div>
+            <c:choose>
+            	 <c:when test="${empty searchText}">
+            	 	 <div class="searchresultText">자유게시판</div>
+            	</c:when>
+            	<c:otherwise>
+            		  <div class="searchresultText">${searchText} : 검색 결과</div>
+            	</c:otherwise>
+            </c:choose>
+            
 	<div class="container">
 
 		<div class="body">
@@ -877,8 +903,8 @@ form>.searchArea {
 			</div>
 		</div>
 		<c:choose>
-				<c:when test="${boardlist.size()==0}">
-					표시할 내용이 없습니다.
+				<c:when test="${boardlist.size() == 0 || !isExistText}">
+					<div class="notboard">	게시물이 존재하지 않습니다.</div>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="i" items="${boardlist }">
@@ -886,7 +912,8 @@ form>.searchArea {
 							<div class="row contents">
 								<div class="nav col-4 col-sm-1 d-none d-sm-block">${i.seq }</div>
 								<div class="nav col-12 col-sm-4 ">
-								<a href="/showContents.board?title=${i.title}&seq=${i.seq}&searchText=${searchText}" style="color: #000000;">${i.title}</a>
+								<a href="/showContents.board?title=${i.title}&seq=${i.seq}&searchText=${searchText}" 
+								onclick="return checkLoginAndRedirect();" style="color: #000000;">${i.title}</a>
 								</div>
 								<div class="nav col-4 col-sm-3">${i.writer }</div>
 								<div class="nav col-4 col-sm-1">${i.view_count }</div>
@@ -894,6 +921,20 @@ form>.searchArea {
 							</div>
 						</div>
 					</c:forEach>
+					<script>
+					/*로그인 되지 않으면 게시물을 확인 할 수 없게 하는 코드*/
+						function checkLoginAndRedirect(){
+							let loginID="${sessionScope.loginID}";
+							
+							if(loginID===""){
+								alert("로그인을 해야 이용할 수 있습니다. 로그인을 해주세요");
+								return false;
+							}
+							
+							console.log("로그인 되어있음")
+							return true;
+						}
+					</script>
 				</c:otherwise>
 			</c:choose>
 			
@@ -977,7 +1018,7 @@ form>.searchArea {
                 </div>
             </div>
 	<script>
-		${isExistText}
+	
 		let previousPageURL = window.location.href;
 		$("#write").on("click", function() {
 			location.href = "/board/write.jsp";
