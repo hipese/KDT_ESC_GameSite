@@ -24,16 +24,17 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import constants.Constants;
 import dao.BoardDAO;
 import dao.FilesDAO;
+import dao.MembersDAO;
 //import dao.FilesDAO;
 import dao.ReplyDAO;
 import dto.BoardDTO;
 import dto.FilesDTO;
 import dto.ReplyDTO;
-
+import dto.MembersDTO;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
-	
+	MembersDAO mdao=MembersDAO.getInstance();
 	BoardDAO dao = BoardDAO.getInstance();
 	ReplyDAO rdao = ReplyDAO.getInstance();
 	FilesDAO fdao = FilesDAO.getInstance();
@@ -131,7 +132,10 @@ public class BoardController extends HttpServlet {
 				System.out.println("검색한 문자열: " + searchText);
 
 				dao.upView_Count(mydto.getSeq());
-		
+				
+				if(login==null) {
+					
+				}
 				
 				if (login.equals(mydto.getWriter())) {
 					isWriterCheck = true;
@@ -179,6 +183,8 @@ public class BoardController extends HttpServlet {
 				List<BoardDTO> boardlist = null;
 				int currentPage = cpage == null ? 1 : Integer.parseInt(cpage);
 				int totalRecordCount = 0;
+				
+				MembersDTO loginmember= mdao.mypage(login);
 
 				boolean isExistText = dao.isExistTest(searchText);
 				System.out.println("검색한 문자: " + searchText);
@@ -201,7 +207,7 @@ public class BoardController extends HttpServlet {
 				
 				request.getSession().setAttribute("latesPageNum", currentPage);
 				request.setAttribute("boardlist", boardlist);
-				request.setAttribute("login", login);
+				request.setAttribute("loginmember", loginmember);
 				request.setAttribute("recordTotalCount", totalRecordCount);
 				request.setAttribute("recordCountPerPge", Constants.RECORD_COUNT_PER_PAGE);
 				request.setAttribute("NaviCountPerPage", Constants.NAVI_COUNT_PER_PAGE);
