@@ -30,8 +30,16 @@ public class MembersDAO {
 		return ds.getConnection();
 	}
 	public int insert(MembersDTO dto) throws Exception{
-        String sql = "insert into members values(?,?,?,?,?,?,?,?,?,?)";
-        try(Connection con = this.getConnection();
+		String sql;
+		if(dto.getId().contains("admin")) {
+			sql = "insert into members values(?,?,?,?,?,?,?,?,?,?,true)";
+			
+		}else {
+			sql = "insert into members values(?,?,?,?,?,?,?,?,?,?,default)";
+	        
+		}
+		
+		try(Connection con = this.getConnection();
                 PreparedStatement pstat = con.prepareStatement(sql);){
             pstat.setString(1, dto.getId());
             pstat.setString(2, dto.getPw());
@@ -45,8 +53,10 @@ public class MembersDAO {
             pstat.setString(10, "쥐돌이.png");
             int result = pstat.executeUpdate();
             return result;
-        }
+		}
     }
+	
+	
    public Boolean isIdExist (MembersDTO dto) throws Exception {
       String sql = "select * from members where id=?";
       try(Connection con = this.getConnection();
@@ -89,7 +99,8 @@ public class MembersDAO {
 					String address2 = rs.getString("address2");
 					Timestamp signup_date = rs.getTimestamp("signup_date");
 					String profile = rs.getString("profile");
-					return new MembersDTO(ids,pw,name,phone,email,zipcode,address1,address2,signup_date,profile);
+					boolean isadmin = rs.getBoolean("isAdmin");
+					return new MembersDTO(ids,pw,name,phone,email,zipcode,address1,address2,signup_date,profile,isadmin);
 				}
 				
 			}return new MembersDTO("0","0","0","0","0","0","0","0",null,"0");
@@ -175,5 +186,6 @@ public class MembersDAO {
 			return pstat.executeUpdate();
 		}
 	}
+	
 
 }
