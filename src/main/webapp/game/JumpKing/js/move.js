@@ -18,12 +18,14 @@ class MoveScene extends Phaser.Scene {
     }
 
     create() {
-        this.anims.create({
-            key: "playerdown",
-            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 9 }),
-            frameRate: 10,
-            repeat: -1
-        });
+        if (!this.anims.exists("playerdown")) {
+	        this.anims.create({
+	            key: "playerdown",
+	            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 9 }),
+	            frameRate: 10,
+	            repeat: -1
+	        });
+	    }
         this.anims.create({
             key: "left",
             frames: this.anims.generateFrameNumbers('player', { start: 10, end: 19 }),
@@ -63,14 +65,20 @@ class MoveScene extends Phaser.Scene {
         this.physics.add.overlap(bottomLine, this.player, () => {
             this.scene.start('GameOverScene', { timer: this.timer });
             const postData = {
-		        loginID: this.loginID,
-		        score: this.timer
-		    };
-		    $.ajax({
-		        url: "/JumpkingGameOver.game",
-		        type: "POST",
-		        data: postData,
-		    });
+                loginID: this.loginID,
+                score: this.timer
+            };
+            if (this.loginID != "") { // 로그인을 했을 때만 점수를 저장한다.
+                $.ajax({
+                    url: "/JumpkingGameOver.game",
+                    type: "POST",
+                    data: postData,
+                });
+            }else {
+                // 로그인을 하지 않았다면 로그인을 할 수 있는 모달창을 띄운다.
+                $('#loginModal').modal('show');
+                
+            }
             
         });
         this.physics.add.overlap(bottomLine, this.box, (line, box) => {
@@ -125,7 +133,7 @@ class MoveScene extends Phaser.Scene {
         }
         if (!this.cursor.left.isDown && !this.cursor.right.isDown) {
             this.player.setVelocityX(0);
-            this.player.play("playerdown", true);
+            this.player.anims.play("playerdown", true);
         }
     }
 }

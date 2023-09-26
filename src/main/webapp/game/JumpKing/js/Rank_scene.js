@@ -5,13 +5,6 @@ class RankScene extends Phaser.Scene{
     }
     init(data) {
 		this.rankingData = data.rankingData;
-        console.log(this.rankingData);
-
-        for(let i=0; i<this.rankingData.length; i++){
-			console.log(this.rankingData[i].seq);
-            console.log(this.rankingData[i].player);
-            console.log(this.rankingData[i].score);
-        }
     }
     preload() {
         

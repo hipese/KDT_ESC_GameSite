@@ -23,14 +23,32 @@
             <script src="js/move.js"></script>
             <script src="js/GameOver_scene.js"></script>
             <script src="js/Rank_scene.js"></script>
-
+            <link rel="stylesheet" href="../../css/footer.css">
             <style>
+                ::-webkit-scrollbar {
+                    width: 10px;
+                }
+
+                ::-webkit-scrollbar-track {
+                    background-color: rgb(255, 255, 255);
+                }
+
+                ::-webkit-scrollbar-thumb {
+                    background-color: rgb(0, 0, 0);
+                    border-radius: 20px;
+                    background-clip: border-box;
+                }
+
                 #container {
                     width: 500px;
                     height: 500px;
                     margin: auto;
                     margin-top: 30px;
                     overflow-y: hidden;
+                }
+
+                .container-fluid {
+                    padding: 0px;
                 }
 
                 .header {
@@ -43,6 +61,7 @@
                     align-items: center;
                     font-size: 25px;
                     z-index: 9999;
+                    margin: 0px;
                 }
 
                 .headerul {
@@ -384,6 +403,25 @@
                         transform: scale(0);
                     }
                 }
+
+                .headerul2 {
+                    list-style: none;
+                    display: flex;
+                    justify-content: end;
+                    align-content: center;
+                    margin: 0px;
+                    position: absolute;
+                    right: 60px;
+                    cursor: pointer;
+                }
+
+                .headerul2 li:hover {
+                    color: pink;
+                }
+
+                .pdbottom {
+                    margin-top: 50px;
+                }
             </style>
         </head>
 
@@ -412,6 +450,21 @@
                     </div>
                     <div class="col-1 d-md-block d-none"></div>
                     <div class="col-1 d-block d-sm-none">
+                        <ul class="headerul2">
+                            <c:choose>
+                                <c:when test="${empty sessionScope.loginID}">
+                                    <li class="headerli headerlogin2">
+                                        <div class="login" id="login-button2">로그인</div>
+                                    </li>
+                                    <li class="headerli membership2"><a href="/Membership.members">회원가입</a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="headerli headerlogout2"><a href="/logout.members">로그아웃</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
                         <input type="checkbox" id="active">
                         <label for="active" class="menu-btn"><span></span></label>
                         <label for="active" class="close"></label>
@@ -469,6 +522,57 @@
                     </div>
                 </div>
             </div>
+            <div class="container-fluid ">
+                <div class="row g-0">
+                    <div class="col-12 opacity-0 pdbottom"></div>
+                </div>
+            </div>
+            <div class="second-fluid">
+                <div class="row footer gx-0">
+                    <div class="col-12 col-xl-4 order-4 order-xl-1">
+                        <div class="row">
+                            <div class="col-12 foottitle">
+                                <span>Team E.S.C</span>
+                            </div>
+                            <span class="footenter"> <span>팀 프로젝트로 만든 재밌는 게임들</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-3 order-3 order-xl-2">
+                        <div class="footertitle d-none d-xl-block">
+                            <span>고객센터</span>
+                        </div>
+                        <div class="row">
+                            <span class="col-12 service"> 문의 : 010-1234-5678 </span>
+                        </div>
+                        <div class="row">
+                            <span class="col-12 service"> <a target="_blank" href="https://pf.kakao.com"> 카카오톡 상담 문의
+                                </a></span>
+                        </div>
+                        <div class="row opacity-0">
+                            <br />
+                        </div>
+                        <div class="row">
+                            <span class="col-12 service"> 게임문의·단가문의·견적문의·기타문의 </span>
+                        </div>
+                        <div class="row">
+                            <span class="col-12 service"> 오픈 : 24시간 </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-1 order-2 order-xl-3 opacity-0"></div>
+                    <div class="col-12 col-xl-2 order-1 order-xl-4">
+                        <div class="footertitle d-none d-xl-block">
+                            <span> Social</span>
+                        </div>
+                        <div class="footericon">
+                            <a target="_blank" class="instaicon" href="https://www.instagram.com"><img class="icon"
+                                    src="../../img/instagram.svg" alt="icon" width="40px" /></a>
+                            <a target="_blank" class="youtubeicon" href="https://youtube.com"><img class="youtube"
+                                    src="../../img/youtube.svg" alt="icon" width="40px" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             <script>
@@ -521,7 +625,11 @@
                             debug: false
                         }
                     },
-                    scene: [GameStartScene, MoveScene, GameOverScene, RankScene]
+                    scene: [GameStartScene, MoveScene, GameOverScene, RankScene],
+                    fps: {
+                        target: 60, // 원하는 FPS 설정 (기본값은 60)
+                        forceSetTimeOut: true // 브라우저 지원이 안 되는 경우에 setTimeout 사용
+                    }
                 };
                 let game = new Phaser.Game(option);
 

@@ -564,7 +564,6 @@
 
                 .footericon {
                     padding-top: 5px;
-                    padding-left: 10px;
                 }
 
                 .icon {
@@ -919,7 +918,7 @@
                             <span>고객센터</span>
                         </div>
                         <div class="row">
-                            <span class="col-12 service"> 문의 : 010-9554-7757 </span>
+                            <span class="col-12 service"> 문의 : 010-1234-5678 </span>
                         </div>
                         <div class="row">
                             <span class="col-12 service"> <a target="_blank" href="https://pf.kakao.com"> 카카오톡 상담 문의
