@@ -68,6 +68,7 @@ class BounceScene extends Phaser.Scene {
 		this.textScore = this.add.text(700, 50, '점수 : ' + this.scoreboard, { font: "20px", fill: "#000000" }).setInteractive().setPadding(15);
 
 		this.physics.add.overlap(this.player,this.bboxes,(player,bone)=>{
+			console.log("c1")
 			const postData = {
 		        loginID: this.loginID,
 		        score: this.scoreboard
@@ -149,6 +150,7 @@ class BounceScene extends Phaser.Scene {
 			score: this.scoreboard
 		};
 		this.physics.add.overlap(this.player, this.bboxes, (player, bone) => {
+			console.log("u1")
 			this.scene.start("GameOverScene", dataToPass);
 		})
 		if (this.score == 20) {
