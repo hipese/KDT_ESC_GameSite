@@ -67,7 +67,7 @@ class UserRun extends Phaser.Scene {
 
         this.cactusTypes = ["cactus1", "cactus2", "cactus3", "cactus4", "cactus5"];
         this.cactusShow = [60,120,180];
-        this.hardcactusShow = [50,60,120,160];
+        this.hardcactusShow = [60,115,175];
 
         this.physics.add.overlap(this.dino, this.cactuses, (dino, cactus)=> {
             let text = this.add.text(200, 40, '다시 플레이 하려면 스페이스바를 누르세요', { fontFamily: '폰트', fontSize: 30, color: '색상' });
@@ -158,7 +158,7 @@ class UserRun extends Phaser.Scene {
         }
         
 
-        if(this.frame%10==0 && this.cactusvel>-1000) {
+        if(this.frame%10==0 && this.cactusvel>-1500) {
             this.cactusvel--;
         }
         
