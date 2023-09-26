@@ -832,7 +832,7 @@ form>.searchArea {
                                     <div class="col-12 g-0">
                                         <div class="loginbox3">
                                             <div class="imgbox">
-                                                <img src="img/쥐돌이.png" class="img" />
+                                                <img src="/files/${loginmember.profile }" class="img" />
                                             </div>
                                             <div class="mpname">${loginmember.id}</div>
                                             <div class="mpemail">${loginmember.email}</div>
