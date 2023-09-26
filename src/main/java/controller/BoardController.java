@@ -133,9 +133,7 @@ public class BoardController extends HttpServlet {
 
 				dao.upView_Count(mydto.getSeq());
 				
-				if(login==null) {
-					
-				}
+				
 				
 				if (login.equals(mydto.getWriter())) {
 					isWriterCheck = true;
@@ -176,7 +174,7 @@ public class BoardController extends HttpServlet {
 				String login = (String) request.getSession().getAttribute("loginID");
 				
 				System.out.println("아이디"+login);
-				String searchText = null;
+				String searchText = "";
 				String cpage = request.getParameter("cpage");
 				searchText = request.getParameter("searchText");
 			
