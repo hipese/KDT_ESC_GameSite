@@ -1083,7 +1083,18 @@
                  });
                 })
                 $(".game6").on("click", function () {
-                    window.open("game/RaiseDragon/raisedragon.jsp");
+                	$.ajax({
+                        url: "/RaiseDragonStart.game",
+                        type: "GET",
+                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        success: function (gameURL) {
+                           
+                            window.open(gameURL, "_blank");
+                        },
+                        error: function () {
+                            alert("게임을 시작하는 데 문제가 발생했습니다.");
+                        }
+                    });
                 })
 
                 // 로그인을 실행했을때 넣을 속성들이 사라지면서 error가 나기 때문에

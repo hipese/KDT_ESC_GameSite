@@ -16,6 +16,7 @@
     <script src="./js/main_scene.js"></script>
     <script src="./js/run.js"></script>
     <script src="./js/start_scene.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <style>
         #container{
             border: 3px solid black;

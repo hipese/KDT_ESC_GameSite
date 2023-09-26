@@ -8,7 +8,7 @@ class StartScene extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image("bgg","./image/room.jpg")
+        this.load.image("bgg","image/room.jpg")
     }
     create(){
         this.back = this.add.tileSprite(0,0,1000,500,"bgg");
@@ -16,7 +16,7 @@ class StartScene extends Phaser.Scene{
 
         let dataToPass = {
             stage: 1,
-            score: 1
+            score: 0
         };
 
         this.add.text(
@@ -45,8 +45,9 @@ class StartScene extends Phaser.Scene{
             startBtn.on("pointerdown",() => {
                 this.scene.start("MainScene", dataToPass);
             })
-      
-
+            
+            
+           
     }
     update(){
        

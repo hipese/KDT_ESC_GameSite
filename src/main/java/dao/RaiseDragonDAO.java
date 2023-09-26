@@ -30,11 +30,11 @@ public class RaiseDragonDAO {
 		return ds.getConnection();
 	}
 	
-	public int writeGameResult(RaiseDragonDTO dto) throws Exception {
-		String sql = "insert into raisedragon value(null,?,?,null)";
+	public int writeGameResult(String player, int score) throws Exception {
+		String sql = "insert into raisedragon value(null,?,?,default)";
 		try(Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setString(1,dto.getPlayer());
-			pstat.setInt(2,dto.getScore());
+			pstat.setString(1,player);
+			pstat.setInt(2,score);
 			return pstat.executeUpdate();
 		}
 	}
