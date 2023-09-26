@@ -297,18 +297,19 @@ class playScene extends Phaser.Scene {
 						score: this.score
 					};
 
-					$.ajax({
-						url: "/RoadOfSamuraiGameOver.game",
-						type: "POST",
-						data: postData,
-						success: (response) => {
-							console.log("Server response:", response);
-						},
-						error: (xhr, status, error) => {
-							console.error("AJAX request failed:", error);
-							// 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
-						}
-					});
+					if (this.loginID != "") { // 로그인을 했을 때만 점수를 저장한다.
+						$.ajax({
+							url: "/RoadOfSamuraiGameOver.game",
+							type: "POST",
+							data: postData,
+						});
+					}else {
+						// 로그인을 하지 않았다면 로그인을 할 수 있는 모달창을 띄운다.
+						const modal = document.getElementById('login-modal');
+						modal.style.display = "block";
+						body.style.overflow = "hidden";
+						$(".scroll").val(scrollY);
+					}
 				}
 
 			} else if (this.isattack) {
@@ -355,19 +356,19 @@ class playScene extends Phaser.Scene {
 						loginID: this.loginID,
 						score: this.score
 					};
-
-					$.ajax({
-						url: "/RoadOfSamuraiGameOver.game",
-						type: "POST",
-						data: postData,
-						success: (response) => {
-							console.log("Server response:", response);
-						},
-						error: (xhr, status, error) => {
-							console.error("AJAX request failed:", error);
-							// 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
-						}
-					});
+					if (this.loginID != "") { // 로그인을 했을 때만 점수를 저장한다.
+						$.ajax({
+							url: "/RoadOfSamuraiGameOver.game",
+							type: "POST",
+							data: postData,
+						});
+					}else {
+						// 로그인을 하지 않았다면 로그인을 할 수 있는 모달창을 띄운다.
+						const modal = document.getElementById('login-modal');
+						modal.style.display = "block";
+						body.style.overflow = "hidden";
+						$(".scroll").val(scrollY);
+					}
 				}
 
 			} else if (this.isattack) {

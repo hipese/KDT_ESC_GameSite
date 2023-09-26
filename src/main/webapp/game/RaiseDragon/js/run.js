@@ -145,15 +145,15 @@ class RunScene extends Phaser.Scene{
                 this.randombox.shift()
             }
         }
-        let dataToPass = {
+        this.dataToPass = {
             stage: 4,
             score: this.scoreboard 
         };
         if(this.second==13){
-            this.scene.start("GameOverScene",dataToPass)
+            this.scene.start("GameOverScene",this.dataToPass)
         }
         if(this.score==10){
-            this.scene.start("MainScene",dataToPass)
+            this.scene.start("MainScene",this.dataToPass)
         }
         
 
