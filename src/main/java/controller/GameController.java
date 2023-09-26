@@ -95,6 +95,13 @@ public class GameController extends HttpServlet {
 				PrintWriter pw = response.getWriter();
 				pw.append(gson.toJson(result));
 			}
+			else if(cmd.equals("/JumpKingTop10.game")) {
+				Gson gson = new Gson();
+				JumpkingDAO dao = JumpkingDAO.getInstance();
+				String json = gson.toJson(dao.top10Rank());
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
+			}
 		}catch(Exception e) {
 			response.sendRedirect("/error.html");
 			e.printStackTrace();

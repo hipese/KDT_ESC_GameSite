@@ -70,13 +70,6 @@ class MoveScene extends Phaser.Scene {
 		        url: "/JumpkingGameOver.game",
 		        type: "POST",
 		        data: postData,
-		        success: (response) => {
-		            console.log("Server response:", response);
-		        },
-		        error: (xhr, status, error) => {
-		            console.error("AJAX request failed:", error);
-		            // 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
-		        }
 		    });
             
         });

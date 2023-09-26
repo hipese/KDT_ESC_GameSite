@@ -19,7 +19,6 @@ class GameStartScene extends Phaser.Scene{
             repeat: -1
         });
         this.player = this.physics.add.sprite(250, 250, "player");
-        this.player.play("playerdown");
 
         
         startBtn.on('pointerover', () => {
@@ -37,11 +36,22 @@ class GameStartScene extends Phaser.Scene{
         startBtn.on('pointerdown', () => {
             this.scene.start('MoveScene');
         });
+        // rankBtn을 누르면 RankScene으로 이동하면서 ajax로 랭킹을 가져온다.
         rankBtn.on('pointerdown', () => {
-            this.scene.start('RankScene');
-        });  
-        
+            $.ajax({
+                url: "/JumpKingTop10.game",
+                type: "get",
+                dataType: "json",
+            }).done(function (data) {
+                this.scene.start('RankScene', { rankingData: data });
+            }.bind(this)).fail(function (xhr, status, errorThrown) {
+                console.log(xhr, status, errorThrown);
+            });
+        });
+
     }
+
+
     update() {
         
     }
