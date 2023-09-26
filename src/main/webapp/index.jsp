@@ -8,7 +8,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>E.S.C</title>
-          <link rel="bigcut icon" href="img/ESC.png" />
+            <link rel="bigcut icon" href="img/ESC.png" />
             <link href="https://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet" />
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
@@ -846,7 +846,7 @@
                                 <a href="/mypage.members?id=${id }">
                                     <li>마이페이지</li>
                                 </a>
-                                <a href="#">
+                                <a href="/rank/ranking.jsp">
                                     <li>랭킹보기</li>
                                 </a>
                                 <a href="shop.jsp">
