@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 import commons.EncryptionUtils;
 import dto.MembersDTO;
+import dto.UserManageDTO;
 
 public class MembersDAO {
     public static MembersDAO instance;
@@ -183,6 +184,23 @@ public class MembersDAO {
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, profile);
 			pstat.setString(2, id);
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public int insertUserManagement(String id) throws SQLException, Exception {
+		String sql = "insert into user_management values (?,default)";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public int updateUserIsBanned(UserManageDTO dto) throws Exception {
+		String sql = "update user_management set isbanned = ? where id = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setBoolean(1, !dto.isBanned());
+			pstat.setString(2, dto.getId());
 			return pstat.executeUpdate();
 		}
 	}
