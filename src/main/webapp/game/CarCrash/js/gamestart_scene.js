@@ -40,6 +40,20 @@ class GameStartScene extends Phaser.Scene {
             "How to play",
             {fontFamily: "PressStart2P", fontSize: "30px" }
         ).setOrigin(0.5).setInteractive();
+        let killText = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 260, "Get Out", { fontSize: '30px', fontFamily: "PressStart2P" }).setOrigin(0.5).setInteractive().setPadding(15);
+            
+            killText.on('pointerover', () => {
+	            this.game.canvas.style.cursor = "pointer";
+	            killText.setBackgroundColor("#2209FF");
+	        });
+	        killText.on('pointerout', () => {
+	            this.game.canvas.style.cursor = "default";
+	            killText.setBackgroundColor("transparent");
+	        });
+	        killText.on('pointerdown', () => {
+				this.select.play();
+	            window.close();
+	        });
 
         startBtn.on("pointerover", () => {
             startBtn.setStyle({ backgroundColor: "#2209FF" });

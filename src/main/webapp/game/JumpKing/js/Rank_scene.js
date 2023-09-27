@@ -29,7 +29,7 @@ class RankScene extends Phaser.Scene{
             if (minutes < 1) {
                 return `${formattedSeconds}.${formattedMillisecondsDisplay}초`;
             }else {
-                return `${formattedMinutes}:${formattedSeconds}.${formattedMillisecondsDisplay}초`;
+                return `${formattedMinutes}분 ${formattedSeconds}.${formattedMillisecondsDisplay}초`;
             }
 	    }
 
