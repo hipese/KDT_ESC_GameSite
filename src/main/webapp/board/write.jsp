@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -8,18 +8,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-	integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg="
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
 	integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg="
@@ -35,16 +27,13 @@
 	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ="
 	crossorigin="anonymous"></script>
 
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-	crossorigin="anonymous"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="../css/header.css">
 <link rel="stylesheet" href="../css/footer.css">
-<link href="https://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/earlyaccess/nanumpenscript.css"
+	rel="stylesheet" />
 <style>
 /* div {
                             border: 1px solid black;
@@ -92,14 +81,13 @@ form>.searchArea {
 	display: flex;
 }
 
-#write_area{
+#write_area {
 	margin-top: 70px;
 }
 
-#title{
-	width: 100%;
+#title {
+	width: 80%;
 }
-
 </style>
 </head>
 
@@ -164,6 +152,7 @@ form>.searchArea {
 	<div class="container">
 		<div class="row mb-4">
 			<div class="col-md-11" id="write_area">
+			
 				<!-- 제목 칸과 넓이를 동일하게 하기 위해 col 제거 -->
 				<div class="title" id="contents_title">
 					<input type="text" placeholder="제목을 입력하세요" id="title">
@@ -176,7 +165,7 @@ form>.searchArea {
 					<input type="file" class="custom-file-input" id="customFile"
 						name="files" multiple>
 					<!-- 추가: multiple 속성을 추가하여 여러 개의 파일 선택을 허용 -->
-					<label class="custom-file-label" for="customFile">파일선택</label>
+					<label class="custom-file-label" for="customFile"></label>
 				</div>
 
 			</div>
@@ -203,7 +192,7 @@ form>.searchArea {
 			<div class="col botton d-flex justify-content-end"></div>
 		</div>
 	</div>
-		<div class="second-fluid">
+	<div class="second-fluid">
 		<div class="row footer gx-0">
 			<div class="col-12 col-xl-4 order-4 order-xl-1">
 				<div class="row">

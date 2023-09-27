@@ -181,7 +181,10 @@ body{
 	text-align: right;
 }
 .titles{
-	  margin-top: 70px;
+	margin-top: 70px;
+}
+#view_count{
+	margin-top: 70px;
 }
 #date {
 	text-align: right;
