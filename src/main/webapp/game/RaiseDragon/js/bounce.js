@@ -4,11 +4,12 @@ class BounceScene extends Phaser.Scene {
 		super({ key: "BounceScene" });
 
 	}
-	init(data) {
+	init() {
 		this.frame = 0;
 		this.bboxes = [];
 		this.mboxes = [];
-		this.scoreboard = data.score;
+		this.score=0;
+		this.scoreboard = this.registry.get('score');
 		this.gameover = false;
 		this.urlParams = new URLSearchParams(window.location.search);
         this.loginID = this.urlParams.get("loginID");
@@ -69,6 +70,7 @@ class BounceScene extends Phaser.Scene {
 		this.textScore = this.add.text(700, 50, '점수 : ' + this.scoreboard, { font: "20px", fill: "#000000" }).setInteractive().setPadding(15);
 
 		this.physics.add.overlap(this.player,this.bboxes,(player,bone)=>{
+			this.registry.set('score', this.scoreboard );
 			this.gameover = true;
 			bone.destroy();
 			const postData = {
@@ -88,7 +90,7 @@ class BounceScene extends Phaser.Scene {
 				modal.style.display = "block";
 				//body.style.overflow = "hidden";
 				$(".scroll").val(scrollY);
-				this.scene.start("GameOverScene",this.dataToPass);
+				this.scene.start("GameOverScene");
 			}
         });
 	}
@@ -145,9 +147,6 @@ class BounceScene extends Phaser.Scene {
 			this.player.setVelocityX(0);
 			this.player.anims.play('run', true);
 		}
-		this.physics.add.overlap(this.player, this.potal, (player, potal) => {
-			this.scene.start("StartScene")
-		})
 		this.physics.add.overlap(this.player, this.mboxes, (player, mush) => {
 			this.textSecond.setText('목표 : ' + ++this.score + " / 20");
 			this.textScore.setText('점수 : ' + (this.scoreboard += 40));
@@ -155,18 +154,11 @@ class BounceScene extends Phaser.Scene {
 			mush.destroy();
 
 		})
-
-
-		this.dataToPass = {
-			stage: 2,
-			score: this.scoreboard
-		};
-		this.physics.add.overlap(this.player, this.bboxes, (player, bone) => {
-			this.scene.start("GameOverScene", this.dataToPass);
-		})
-		if (this.score == 20) {
-			this.scene.start("MainScene", this.dataToPass);
-		}
+		 if(this.score==20){
+            this.registry.set('score', this.scoreboard );
+            this.registry.set('stage', 2);
+            this.scene.start("MainScene");
+        }
 
 	}
 }
