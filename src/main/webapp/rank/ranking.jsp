@@ -295,7 +295,7 @@
             <div class="container-fluid">
                 <div class="row header">
                     <div class="col-1 d-sm-block d-none"></div>
-                    <div class="col-2 ">E.S.C</div>
+                    <div class="col-2 "><a href="/"><img src="../img/ESC HEADER.png" alt="" width="110px" height="50px"></a></div>
                     <div class="col-8 d-sm-block d-none">
                         <ul class="headerul">
                             <c:choose>
@@ -754,6 +754,90 @@
 
                     }
                 });
+            });
+            let loginID = "${sessionScope.loginID}";
+            
+            if (loginID == "") {
+                const loginButton = document.getElementById("login-button");
+                const loginButton2 = document.getElementById("login-button2");
+                const loginModal = document.getElementById("login-modal");
+                const closeButton = document.querySelector(".close-button");
+
+                loginButton.addEventListener("click", function () {
+                    loginModal.style.display = "block";
+                });
+                loginButton2.addEventListener("click", function () {
+                    loginModal.style.display = "block";
+                });
+
+                closeButton.addEventListener("click", function () {
+                    loginModal.style.display = "none";
+                });
+
+                window.addEventListener("click", function (event) {
+                    if (event.target === loginModal) {
+                        loginModal.style.display = "none";
+                    }
+                });
+                // 로그인 모달 관련
+                const modal = document.getElementById('login-modal');
+                const openButton = document.getElementById('login-button');
+                const openButton2 = document.getElementById('login-button2');
+                const body = document.body;
+                $(".url").val(window.location.href);
+
+                // 모달 열기
+                openButton.onclick = function () {
+                    modal.style.display = 'block';
+                    body.style.overflow = 'hidden'; // 배경 스크롤 막기
+                    $(".scroll").val(scrollY);
+                };
+                openButton2.onclick = function () {
+                    modal.style.display = 'block';
+                    body.style.overflow = 'hidden'; // 배경 스크롤 막기
+                    $(".scroll").val(scrollY);
+                };
+
+                // 모달 닫기
+                function closeModal() {
+                    modal.style.display = 'none';
+                    body.style.overflow = 'auto'; // 배경 스크롤 다시 활성화
+                    $(".scroll").val("");
+                }
+
+                closeButton.onclick = closeModal;
+
+                // 모달 외부 클릭 시 모달 닫기
+                window.onclick = function (event) {
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                };
+            }
+
+            if (loginID != "") {
+                $(".headerlogout2").show();
+                $(".headerlogin2").hide();
+                $(".membership2").hide();
+            } else {
+                $(".headerlogout2").hide();
+                $(".headerlogin2").show();
+                $(".membership2").show();
+            }
+
+            let scrollPosition = 0;
+            scrollPosition = "${ scrollPosition }";
+            window.scrollTo(0, scrollPosition);
+
+            $.ajax({
+                type: "POST",
+                url: "/scrollout.members",
+                data: {
+                    action: scrollY
+                },
+            }).done(function (response) {
+                // console.log(response);
+                // window.scrollTo(0, response);
             });
 
         </script>
