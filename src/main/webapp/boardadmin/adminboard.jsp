@@ -866,7 +866,7 @@ form>.searchArea {
                 </div>
                  <div class="row">
 	  				<div class ="col-12 col-xl-12 searchbox g-0">
-	  					<form action="/showBoardList.board" method="get" class="col-12 col-7">
+	  					<form action="/showBoardList.adminboard" method="get" class="col-12 col-7">
 							<div class="searchArea">
 								<input type="text" id="search" name="searchText" placeholder="게시글 통합검색">					
 								<button id="searchBtn" class="mpbtn btn-primary col-12 col-sm-2 m-2">검색</button>
@@ -938,10 +938,18 @@ form>.searchArea {
 
 		<div class="footer">
 			<div class="buttonbox">
-				<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
-					id="write">작성하기</button>
-				<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
-					id="back">돌아가기</button>
+				<c:choose>
+					<c:when test="${isadmin eq 1}">
+						<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
+							id="write">작성하기</button>
+						<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
+							id="back">돌아가기</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
+							id="back">돌아가기</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<c:choose>
 				<c:when test="${boardlist.size() == 0 || !isExistText}">
@@ -1022,7 +1030,9 @@ form>.searchArea {
                 </div>
             </div>
 	<script>
-	
+		let sssss=${isadmin}
+		
+		console.log("뭐 넘어오냐:"+sssss);
 		let previousPageURL = window.location.href;
 		$("#write").on("click", function() {
 			location.href = "/boardadmin/adminwrite.jsp";
@@ -1080,15 +1090,15 @@ form>.searchArea {
     let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination PageNavi">';
 
     if (needPrev) {
-        paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white " href="/showBoardList.board?cpage=' + (startNavi - 1) + '&searchText=${searchText}" aria-label="Previous">&laquo;</a></li>';
+        paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white " href="/showBoardList.adminboard?cpage=' + (startNavi - 1) + '&searchText=${searchText}" aria-label="Previous">&laquo;</a></li>';
     }
 
     for (let i = startNavi; i <= endNavi; i++) {
-        paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showBoardList.board?cpage=' + i + '&searchText=${searchText}">' + i + '</a></li>';
+        paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showBoardList.adminboard?cpage=' + i + '&searchText=${searchText}">' + i + '</a></li>';
     }
 
     if (needNext) {
-        paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showBoardList.board?cpage=' + (endNavi + 1) + '&searchText=${searchText}" aria-label="Next">&raquo;</a></li>';
+        paginationHTML += '<li class="page-item"><a class="page-link text-dark bg-white" href="/showBoardList.adminboard?cpage=' + (endNavi + 1) + '&searchText=${searchText}" aria-label="Next">&raquo;</a></li>';
     }
 
     paginationHTML += '</ul></nav>';
