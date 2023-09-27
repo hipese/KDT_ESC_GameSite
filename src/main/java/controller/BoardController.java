@@ -207,6 +207,9 @@ public class BoardController extends HttpServlet {
 					}
 				
 				}
+				
+				int isadmin=mdao.isadmin(login);
+				
 				System.out.println("출력할 목록의 개수: " + totalRecordCount);
 
 
@@ -222,6 +225,7 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("NaviCountPerPage", Constants.NAVI_COUNT_PER_PAGE);
 				request.setAttribute("searchText", searchText);
 				request.setAttribute("isExistText", isExistText);
+				request.setAttribute("isadmin", isadmin);
 				request.getRequestDispatcher("/board/board.jsp").forward(request, response);
 
 			} else if (cmd.equals("/updateContents.board")) {
