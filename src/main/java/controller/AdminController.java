@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import dao.AdminDAO;
 import dao.CarCrashDAO;
 import dao.DinoGameDAO;
 import dao.GameInfoDAO;
@@ -36,12 +37,14 @@ public class AdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getRequestURI();
 		System.out.println(cmd);
-		MembersDAO dao = MembersDAO.getInstance();
+
+		MembersDAO mdao = MembersDAO.getInstance();
+		AdminDAO adao = AdminDAO.getInstance();
 		
 		try {
-			if(cmd.equals("returnToAdmin.admin")) {
+			if(cmd.equals("/returnToAdmin.admin")) {
 				String id = (String) request.getSession().getAttribute("loginID");
-				MembersDTO dto = dao.mypage(id);
+				MembersDTO dto = mdao.mypage(id);
 				if(dto.isAdmin()){
 					Gson gson = new Gson();
 					CarCrashDAO ccdao = CarCrashDAO.getInstance();
@@ -64,6 +67,35 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("gamesData", gamesDataJson);
 					request.getRequestDispatcher("/admin.jsp").forward(request,response);
 				}
+			} else if(cmd.equals("/userManage.admin")) {
+				List<String> list = mdao.notBannedList();
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("/userManage.jsp").forward(request,response);
+			} else if(cmd.equals("/userMypage.admin")) {
+				String id = request.getParameter("id");
+				MembersDTO dto = mdao.mypage(id);
+				boolean isbanned = adao.isBan(id);
+				request.setAttribute("dto", dto);
+				request.setAttribute("isbanned", isbanned);
+				request.getRequestDispatcher("/userMypage.jsp").forward(request,response);
+			} else if(cmd.equals("/userban.admin")) {
+				String id = request.getParameter("id");
+				int isTrue = adao.userBan(id);
+				if(isTrue>=1) {
+					PrintWriter check = response.getWriter();
+					check.append("true");
+				}
+			} else if(cmd.equals("/userbancancel.admin")) { 
+				String id = request.getParameter("id");
+				int isTrue = adao.userBancancel(id);
+				if(isTrue>=1) {
+					PrintWriter check = response.getWriter();
+					check.append("true");
+				}
+			} else if(cmd.equals("/userBannedManage.admin")) {
+				List<String> list = mdao.isBannedList();
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("/userManage.jsp").forward(request,response);
 			}
 			
 		}catch(Exception e) {
