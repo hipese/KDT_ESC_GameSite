@@ -403,6 +403,7 @@ a.black-text-link {
 		</div>
 
 	</div>
+	
 	<div class="second-fluid">
 		<div class="row footer gx-0">
 			<div class="col-12 col-xl-4 order-4 order-xl-1">
@@ -415,7 +416,7 @@ a.black-text-link {
 				</div>
 			</div>
 			<div class="col-12 col-xl-3 order-3 order-xl-2">
-				<div class="footertitle d-none d-xl-block">
+				<div class="title d-none d-xl-block">
 					<span>고객센터</span>
 				</div>
 				<div class="row">

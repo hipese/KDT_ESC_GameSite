@@ -80,6 +80,22 @@ public class MembersDAO {
             }   
          }
       }
+   
+   
+   public int isadmin(String id) throws Exception {
+	    String sql = "SELECT isAdmin FROM members WHERE id=?";
+	    try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+	        pstat.setString(1, id);
+	        try (ResultSet rs = pstat.executeQuery();) {
+	            int result = 0; 
+	            if (rs.next()) { // 결과가 있을 때
+	                result = rs.getInt("isAdmin"); // "isAdmin" 컬럼의 값을 가져옴
+	            }
+
+	            return result;
+	        }
+	    }
+	}
    public MembersDTO mypage(String id) throws Exception {
       String sql = "select * from members where id=?";
 

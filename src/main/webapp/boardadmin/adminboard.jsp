@@ -938,10 +938,18 @@ form>.searchArea {
 
 		<div class="footer">
 			<div class="buttonbox">
-				<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
-					id="write">작성하기</button>
-				<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
-					id="back">돌아가기</button>
+				<c:choose>
+					<c:when test="${isadmin eq 1}">
+						<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
+							id="write">작성하기</button>
+						<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
+							id="back">돌아가기</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
+							id="back">돌아가기</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<c:choose>
 				<c:when test="${boardlist.size() == 0 || !isExistText}">
@@ -1022,7 +1030,9 @@ form>.searchArea {
                 </div>
             </div>
 	<script>
-	
+		let sssss=${isadmin}
+		
+		console.log("뭐 넘어오냐:"+sssss);
 		let previousPageURL = window.location.href;
 		$("#write").on("click", function() {
 			location.href = "/boardadmin/adminwrite.jsp";

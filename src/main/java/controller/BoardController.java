@@ -196,6 +196,11 @@ public class BoardController extends HttpServlet {
 					boardlist = dao.searchContents(searchText, currentPage * Constants.RECORD_COUNT_PER_PAGE - 9,
 							currentPage * Constants.RECORD_COUNT_PER_PAGE);
 					totalRecordCount = dao.getSearchRecordCount(searchText);
+					
+					for(int i=0;i<boardlist.size();i++) {
+						System.out.println("내용목록:"+boardlist.get(i).getContents());
+					}
+				
 				}
 				System.out.println("출력할 목록의 개수: " + totalRecordCount);
 
