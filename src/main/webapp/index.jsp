@@ -673,7 +673,8 @@
                                                 <strong>Jump King</strong>
                                             </div>
                                             <br> 떨어지면 죽을 것을 알기에<br> 끝없이 위를 향해 뛰어야만하는<br>
-                                            안타까운 엘프의 이야기<br> <br> <div class="game1"><button class="playbutton">Play</button></div>
+                                            안타까운 엘프의 이야기<br> <br>
+                                            <div class="game1"><button class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -687,7 +688,8 @@
                                                 <strong>Skeleton Survivor</strong>
                                             </div>
                                             <br> 죽어서도 악마들을 퇴치하는 <br> 뼈다귀 마법사의 처절한 이야기<br><br>
-                                            <br> <div class="game2"><button class="playbutton">Play</button></div>
+                                            <br>
+                                            <div class="game2"><button class="playbutton">Play</button></div>
 
                                         </div>
                                     </div>
@@ -702,8 +704,8 @@
                                                 <strong>Dino Game</strong>
                                             </div>
                                             <br> 404 Not Found가<br> 반가운 공룡의 이야기<br><br>
-                                            <br> <div class="game3"><button
-                                                    class="playbutton">Play</button></div>
+                                            <br>
+                                            <div class="game3"><button class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -717,8 +719,8 @@
                                                 <strong>Drive Safely!</strong>
                                             </div>
                                             <br> 안전운전을 하고 싶지만 <br> 역주행 하는 차들을 피해 <br> 돈을 버는 가장의 이야기 <br>
-                                            <br> <div class="game4"><button
-                                                    class="playbutton">Play</button></div>
+                                            <br>
+                                            <div class="game4"><button class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -732,8 +734,8 @@
                                                 <strong>Samurai Game</strong>
                                             </div>
                                             <br> 조국을 지키기 위해서 <br> 백만 대군도 물리칠 수 있는 <br> 용감한 사무라이! <br>
-                                            <br> <div class="game5"><button
-                                                    class="playbutton">Play</button></div>
+                                            <br>
+                                            <div class="game5"><button class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -747,7 +749,8 @@
                                                 <strong>RaiseDragon</strong>
                                             </div>
                                             <br> 드래곤의 알을 구해서 <br> 열심히 키워가지고 펫을 삼으려는 <br> 아름다운 여전사의 이야기 <br>
-                                            <br> <div class="game6"><button class="playbutton">Play</button></div>
+                                            <br>
+                                            <div class="game6"><button class="playbutton">Play</button></div>
                                         </div>
                                     </div>
                                 </div>
