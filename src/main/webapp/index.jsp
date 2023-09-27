@@ -841,6 +841,9 @@
                                 <a href="/showBoardList.board?cpage=1&searchText=">
                                     <li>게시판</li>
                                 </a>
+                                <a href="/showBoardList.adminboard?cpage=1&searchText=">
+                                    <li>공지게시판</li>
+                                </a>
                                 <a href="/mypage.members?id=${id }">
                                     <li>마이페이지</li>
                                 </a>
