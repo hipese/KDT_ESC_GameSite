@@ -80,7 +80,7 @@ public class AdminBoardController extends HttpServlet {
 						String ori_name = multi.getOriginalFileName(fileName); // file : input type="file"의 name
 						String sys_name = multi.getFilesystemName(fileName); // file : input type="file"의 name
 						FilesDTO dto = new FilesDTO(0, ori_name, sys_name, parentseq);
-						fdao.insert(dto);
+						fdao.adminInsert(dto);
 						pw.append("/files/"+sys_name);
 						System.out.println("파일 저장 완료");
 					}
@@ -117,7 +117,7 @@ public class AdminBoardController extends HttpServlet {
 				boolean isWriterCheck;
 				System.out.println("클릭한 번호:  " + seq);
 
-				List<FilesDTO> innerFiles = fdao.selectAll(seq);
+				List<FilesDTO> innerFiles = fdao.adminSelectAll(seq);
 				System.out.println("검색한 해당 문서에 존재하는 파일수: " + innerFiles.size());
 
 				AdminBoardDTO mydto = dao.showContents(seq);
