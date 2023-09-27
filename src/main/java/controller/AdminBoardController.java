@@ -165,10 +165,15 @@ public class AdminBoardController extends HttpServlet {
 				int totalRecordCount = 0;
 				
 				MembersDTO loginmember= mdao.mypage(login);
-
+				
+//				관리자인지 아닌지 확인
+				int isadmin = mdao.isadmin(login);
+				
 				boolean isExistText = dao.isExistTest(searchText);
+				
 				System.out.println("검색한 문자: " + searchText);
 				System.out.println("문자열이 존재해?: " + isExistText);
+				System.out.println("로그인 한놈 관리자임?:"+isadmin);
 
 				if (searchText == null || !isExistText) {
 					boardlist = dao.selectBy(currentPage * Constants.RECORD_COUNT_PER_PAGE - 9,
@@ -194,6 +199,7 @@ public class AdminBoardController extends HttpServlet {
 				request.setAttribute("NaviCountPerPage", Constants.NAVI_COUNT_PER_PAGE);
 				request.setAttribute("searchText", searchText);
 				request.setAttribute("isExistText", isExistText);
+				request.setAttribute("isadmin", isadmin);
 				request.getRequestDispatcher("/boardadmin/adminboard.jsp").forward(request, response);
 
 			} else if (cmd.equals("/updateContents.adminboard")) {

@@ -115,6 +115,36 @@ public class GameController extends HttpServlet {
 				String json = gson.toJson(dao.top10Rank());
 				PrintWriter pw = response.getWriter();
 				pw.append(json);
+			}else if(cmd.equals("/CarCrashTop10.game")) {
+				Gson gson = new Gson();
+				CarCrashDAO dao = CarCrashDAO.getInstance();
+				String json = gson.toJson(dao.top10Rank());
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
+			}else if(cmd.equals("/DinoGameTop10.game")) {
+				Gson gson = new Gson();
+				DinoGameDAO dao = DinoGameDAO.getInstance();
+				String json = gson.toJson(dao.top10Rank());
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
+			}else if(cmd.equals("/RoadOfSamuraiTop10.game")) {
+				Gson gson = new Gson();
+				RoadOfSamuraiDAO dao = RoadOfSamuraiDAO.getInstance();
+				String json = gson.toJson(dao.top10Rank());
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
+			}else if(cmd.equals("/RaiseDragonTop10.game")) {
+				Gson gson = new Gson();
+				RaiseDragonDAO dao = RaiseDragonDAO.getInstance();
+				String json = gson.toJson(dao.top10Rank());
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
+			}else if(cmd.equals("/SkeletonSurvivorTop10.game")) {
+				Gson gson = new Gson();
+				SkeletonSurvivorDAO dao = SkeletonSurvivorDAO.getInstance();
+				String json = gson.toJson(dao.top10Rank());
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
 			}
 		}catch(Exception e) {
 			response.sendRedirect("/error.html");

@@ -348,7 +348,7 @@ a.black-text-link {
 		<div class="row botton mb-4">
 			<div class="col botton d-flex justify-content-end">
 				<c:choose>
-					<c:when test="${loginID eq selectboard.writer}">
+					 <c:when test="${loginID eq selectboard.writer or isadmin eq 1}">
 						<button type="button" class="mpbtn btn-outline-secondary"
 							style="margin-right: 10px;" id="return">목록으로</button>
 						<button type="button" class="mpbtn btn-outline-secondary"
@@ -403,6 +403,7 @@ a.black-text-link {
 		</div>
 
 	</div>
+	
 	<div class="second-fluid">
 		<div class="row footer gx-0">
 			<div class="col-12 col-xl-4 order-4 order-xl-1">
@@ -415,7 +416,7 @@ a.black-text-link {
 				</div>
 			</div>
 			<div class="col-12 col-xl-3 order-3 order-xl-2">
-				<div class="footertitle d-none d-xl-block">
+				<div class="title d-none d-xl-block">
 					<span>고객센터</span>
 				</div>
 				<div class="row">

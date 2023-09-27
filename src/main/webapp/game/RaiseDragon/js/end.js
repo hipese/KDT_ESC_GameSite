@@ -4,7 +4,7 @@ class EndScene extends Phaser.Scene{
         super({key:"EndScene"});
     }
     init(data){
-        this.scoreboard=data.score
+        this.scoreboard = this.registry.get('score');
     }
    
     preload() {
