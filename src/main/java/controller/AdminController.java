@@ -57,6 +57,9 @@ public class AdminController extends HttpServlet {
 				String gamesDataJson = gson.toJson(gamesDataList);
 				PrintWriter pw = response.getWriter();
 				pw.append(gamesDataJson);
+			} else if(cmd.equals("/userManage.admin")) {
+				
+				response.sendRedirect("/userManage.jsp");
 			}
 			
 		}catch(Exception e) {

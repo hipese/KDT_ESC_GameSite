@@ -113,7 +113,7 @@
                         <a href="/showBoardList.adminboard?cpage=1&searchText=">
                             <button class="btn btn-dark">게시판 관리</button>
                         </a>
-                        <a href="/manageMembers.admin">
+                        <a href="/userManage.admin">
                             <button class="btn btn-dark">회원정보 관리</button>
                         </a>
                     </div>
