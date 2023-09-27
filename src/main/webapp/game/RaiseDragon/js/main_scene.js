@@ -3,11 +3,13 @@ class MainScene extends Phaser.Scene{
     constructor(){
         super({key:"MainScene"});
     }
-    init(data){
+    init(){
         this.frame=0;
         this.number=0;
-        this.stage=data.stage;
-        this.score=data.score;
+        this.scoreboard = this.registry.get('score');
+        this.stage = this.registry.get('stage'); 
+        this.urlParams = new URLSearchParams(window.location.search);
+        this.loginID = this.urlParams.get("loginID");
         
     }
 
@@ -64,7 +66,7 @@ class MainScene extends Phaser.Scene{
         let scoreboard = this.add.text(
             this.cameras.main.width-150,
             30,
-            "점수 : "+(this.score),
+            "점수 : "+(this.scoreboard),
             {fontSize:"20px"}
 
         ).setOrigin(0.5).setInteractive().setPadding(5);// Interactive 추가로 이벤트 추가 가능
@@ -90,7 +92,7 @@ class MainScene extends Phaser.Scene{
         this.add.text(
             this.cameras.main.width/2,
             100,
-            "알을 부화시키기 위해 포탈에 입장하여 재료를 구해오세요123",
+            "알을 부화시키기 위해 포탈에 입장하여 재료를 구해오세요456",
             {fontSize:"20px"}
 
         ).setOrigin(0.5).setInteractive().setPadding(5);// Interactive 추가로 이벤트 추가 가능
@@ -133,7 +135,30 @@ class MainScene extends Phaser.Scene{
                
         }
         
-       
+       this.registry.set('score', this.scoreboard);	
+        
+        if(this.stage==1){
+            this.physics.add.overlap(this.player,this.potal,(player,potal)=>{
+                potal.destroy();
+            this.scene.start("BounceScene")
+        })
+        }
+        if(this.stage==2){
+            this.physics.add.overlap(this.player,this.potal,(player,potal)=>{
+            this.scene.start("BallScene")
+        })
+        }
+        if(this.stage==3){
+            console.log("asd")
+            this.physics.add.overlap(this.player,this.potal,(player,potal)=>{
+            this.scene.start("RunScene")
+        })
+        }
+        if(this.stage==4){
+             this.physics.add.overlap(this.dragon,this.potal,(player,potal)=>{
+            this.scene.start("EndScene")
+        })
+        }
         
         
         
@@ -160,33 +185,8 @@ class MainScene extends Phaser.Scene{
             this.player.setVelocityX(0);
             this.player.anims.play('run', true);
         }
-        let dataToPass = {
-            score: this.score
-        };
         
         
-        if(this.stage==1){
-            this.physics.add.overlap(this.player,this.potal,(player,potal)=>{
-                potal.destroy();
-            this.scene.start("BounceScene",dataToPass)
-        })
-        }
-        if(this.stage==2){
-            this.physics.add.overlap(this.player,this.potal,(player,potal)=>{
-            this.scene.start("BallScene",dataToPass)
-        })
-        }
-        if(this.stage==3){
-            console.log("asd")
-            this.physics.add.overlap(this.player,this.potal,(player,potal)=>{
-            this.scene.start("RunScene",dataToPass)
-        })
-        }
-        if(this.stage==4){
-             this.physics.add.overlap(this.dragon,this.potal,(player,potal)=>{
-            this.scene.start("EndScene",dataToPass)
-        })
-        }
        
     }
  }
