@@ -22,11 +22,14 @@ class RankScene extends Phaser.Scene{
 	        const minutes = Math.floor(milliseconds / 60000);
 	        const seconds = Math.floor((milliseconds % 60000) / 1000);
             const millisecondsDisplay = Math.floor((milliseconds % 1000) / 10);
+            let formattedMinutes = minutes.toString().padStart(2, "0"); // padStart를 사용하여 2자리로 만들어줌
+            let formattedSeconds = seconds.toString().padStart(2, "0"); // padStart를 사용하여 2자리로 만들어줌
+            let formattedMillisecondsDisplay = millisecondsDisplay.toString().padStart(2, "0"); // padStart를 사용하여 2자리로 만들어줌
             
             if (minutes < 1) {
-                return `${seconds}초 ${millisecondsDisplay}`;
+                return `${formattedSeconds}.${formattedMillisecondsDisplay}초`;
             }else {
-                return `${minutes}분 ${seconds}초 ${millisecondsDisplay}`;
+                return `${formattedMinutes}:${formattedSeconds}.${formattedMillisecondsDisplay}초`;
             }
 	    }
 

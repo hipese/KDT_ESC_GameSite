@@ -10,7 +10,7 @@ class MoveScene extends Phaser.Scene {
         this.count = 0;
         this.box = [];
         this.urlParams = new URLSearchParams(window.location.search);
-        this.loginID = this.urlParams.get("loginID");
+       	this.loginID = this.urlParams.get("loginID");
     }
     preload() {
         this.load.image("box", "img/ballpan.png");
@@ -77,9 +77,11 @@ class MoveScene extends Phaser.Scene {
             }else {
                 // 로그인을 하지 않았다면 로그인을 할 수 있는 모달창을 띄운다.
                 const modal = document.getElementById('login-modal');
+                const body = document.body;
                 modal.style.display = "block";
                 body.style.overflow = "hidden";
                 $(".scroll").val(scrollY);
+                
             }
             
         });

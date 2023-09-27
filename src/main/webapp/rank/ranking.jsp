@@ -358,7 +358,7 @@
 
             <div class="container">
                 <div class="row text-center RankTop">
-                    <div class="col-12 col-md-6 margintop">
+                    <div class="col-12 col-md-6 margintop JumpKing">
                         <h2>JumpKing</h2>
                         <div class="row RankHeader">
                             <div class="col-3">
@@ -374,23 +374,9 @@
                                 DATE
                             </div>
                         </div>
-                        <div class="row RankBody">
-                            <div class="col-3">
-                                test
-                            </div>
-                            <div class="col-3">
-                                test
-                            </div>
-                            <div class="col-3">
-                                test
-                            </div>
-                            <div class="col-3">
-                                test
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-12 col-md-6 margintop">
-                        <h2>Vampire Survivor</h2>
+                    <div class="col-12 col-md-6 margintop SkeletonSurvivor">
+                        <h2>Skeleton Survivor</h2>
                         <div class="row RankHeader">
                             <div class="col-3">
                                 RANK
@@ -405,21 +391,74 @@
                                 DATE
                             </div>
                         </div>
-                        <div class="row RankBody">
+                    </div>
+                    <div class="col-12 col-md-6 margintop DinoGame">
+                        <h2>Dino Game</h2>
+                        <div class="row RankHeader">
                             <div class="col-3">
-                                test
+                                RANK
                             </div>
                             <div class="col-3">
-                                test
+                                ID
                             </div>
                             <div class="col-3">
-                                test
+                                SCORE
                             </div>
                             <div class="col-3">
-                                test
+                                DATE
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-12 col-md-6 margintop CarCrash">
+                        <h2>Car Crash</h2>
+                        <div class="row RankHeader">
+                            <div class="col-3">
+                                RANK
+                            </div>
+                            <div class="col-3">
+                                ID
+                            </div>
+                            <div class="col-3">
+                                SCORE
+                            </div>
+                            <div class="col-3">
+                                DATE
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 margintop RoadOfSamurai">
+                        <h2>Road Of Samurai</h2>
+                        <div class="row RankHeader">
+                            <div class="col-3">
+                                RANK
+                            </div>
+                            <div class="col-3">
+                                ID
+                            </div>
+                            <div class="col-3">
+                                SCORE
+                            </div>
+                            <div class="col-3">
+                                DATE
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 margintop RaiseDragon">
+                        <h2>Raise Dragon</h2>
+                        <div class="row RankHeader">
+                            <div class="col-3">
+                                RANK
+                            </div>
+                            <div class="col-3">
+                                ID
+                            </div>
+                            <div class="col-3">
+                                SCORE
+                            </div>
+                            <div class="col-3">
+                                DATE
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -503,7 +542,220 @@
 
         </body>
         <script>
-            // ajax를 통해서 랭킹 불러오기
+            function formatTime(milliseconds) {
+                const minutes = Math.floor(milliseconds / 60000);
+                const seconds = Math.floor((milliseconds % 60000) / 1000);
+                const millisecondsDisplay = Math.floor((milliseconds % 1000) / 10);
+                let formattedMinutes = minutes.toString().padStart(2, "0"); // padStart를 사용하여 2자리로 만들어줌
+                let formattedSeconds = seconds.toString().padStart(2, "0"); // padStart를 사용하여 2자리로 만들어줌
+                let formattedMillisecondsDisplay = millisecondsDisplay.toString().padStart(2, "0"); // padStart를 사용하여 2자리로 만들어줌
+
+                return `\${formattedMinutes}분 \${formattedSeconds}.\${formattedMillisecondsDisplay} `;
+            }
+            function formatDate(date) {
+                const dateParts = date.split(" ");
+
+                const monthName = dateParts[0];
+                const day = dateParts[1].replace(',', '');
+                const year = dateParts[2];
+
+                const monthNames = {
+                    'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+                    'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
+                };
+                const month = monthNames[monthName];
+                const formattedDate = `\${month}월 \${day}일`;
+                return formattedDate;
+            }
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/JumpKingTop10.game",
+                    type: "get",
+                    dataType: "json",
+                }).done(function (data) {
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        let rank = data[i].seq;
+                        let id = data[i].player;
+                        let score = data[i].score;
+                        let formattedScore = formatTime(score);
+                        let date = data[i].played_time;
+                        let formattedDate = formatDate(date);
+                        let html = "<div class='row RankBody'><div class='col-3'>" + rank +
+                            "</div><div class='col-3'>" + id + "</div><div class='col-3'>" + formattedScore +
+                            "</div><div class='col-3'>" + formattedDate + "</div></div>";
+                        $(".JumpKing").append(html);
+
+                        if (i === 0) {
+                            $(".JumpKing .RankBody:first").css("background-color", "gold");
+                        }
+                        else if (i == 1) {
+                            $(".JumpKing .RankBody:eq(1)").css("background-color", "silver");
+                        }
+                        else if (i == 2) {
+                            $(".JumpKing .RankBody:eq(2)").css("background-color", "#cd7f32");
+                        }
+                    }
+                });
+            });
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/SkeletonSurvivorTop10.game",
+                    type: "get",
+                    dataType: "json",
+                }).done(function (data) {
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        let rank = data[i].seq;
+                        let id = data[i].player;
+                        let score = data[i].score;
+                        let date = data[i].played_time;
+                        let formattedDate = formatDate(date);
+                        let html = "<div class='row RankBody'><div class='col-3'>" + rank +
+                            "</div><div class='col-3'>" + id + "</div><div class='col-3'>" + score +
+                            "</div><div class='col-3'>" + formattedDate + "</div></div>";
+                        $(".SkeletonSurvivor").append(html);
+
+                        if (i === 0) {
+                            $(".SkeletonSurvivor .RankBody:first").css("background-color", "gold");
+                        }
+                        else if (i == 1) {
+                            $(".SkeletonSurvivor .RankBody:eq(1)").css("background-color", "silver");
+                        }
+                        else if (i == 2) {
+                            $(".SkeletonSurvivor .RankBody:eq(2)").css("background-color", "#cd7f32");
+                        }
+                    }
+                });
+            });
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/DinoGameTop10.game",
+                    type: "get",
+                    dataType: "json",
+                }).done(function (data) {
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        let rank = data[i].seq;
+                        let id = data[i].player;
+                        let score = data[i].score;
+                        let date = data[i].played_time;
+                        let formattedDate = formatDate(date);
+                        let html = "<div class='row RankBody'><div class='col-3'>" + rank +
+                            "</div><div class='col-3'>" + id + "</div><div class='col-3'>" + score +
+                            "</div><div class='col-3'>" + formattedDate + "</div></div>";
+                        $(".DinoGame").append(html);
+
+                        if (i === 0) {
+                            $(".DinoGame .RankBody:first").css("background-color", "gold");
+                        }
+                        else if (i == 1) {
+                            $(".DinoGame .RankBody:eq(1)").css("background-color", "silver");
+                        }
+                        else if (i == 2) {
+                            $(".DinoGame .RankBody:eq(2)").css("background-color", "#cd7f32");
+                        }
+                    }
+                });
+            });
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/CarCrashTop10.game",
+                    type: "get",
+                    dataType: "json",
+                }).done(function (data) {
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        let rank = data[i].seq;
+                        let id = data[i].player;
+                        let score = data[i].score;
+                        let date = data[i].played_time;
+                        let formattedDate = formatDate(date);
+                        let html = "<div class='row RankBody'><div class='col-3'>" + rank +
+                            "</div><div class='col-3'>" + id + "</div><div class='col-3'>" + score +
+                            "</div><div class='col-3'>" + formattedDate + "</div></div>";
+                        $(".CarCrash").append(html);
+
+                        if (i === 0) {
+                            $(".CarCrash .RankBody:first").css("background-color", "gold");
+                        }
+                        else if (i == 1) {
+                            $(".CarCrash .RankBody:eq(1)").css("background-color", "silver");
+                        }
+                        else if (i == 2) {
+                            $(".CarCrash .RankBody:eq(2)").css("background-color", "#cd7f32");
+                        }
+                    }
+                });
+            });
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/RoadOfSamuraiTop10.game",
+                    type: "get",
+                    dataType: "json",
+                }).done(function (data) {
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        let rank = data[i].seq;
+                        let id = data[i].player;
+                        let score = data[i].score;
+                        let date = data[i].played_time;
+                        let formattedDate = formatDate(date);
+                        let html = "<div class='row RankBody'><div class='col-3'>" + rank +
+                            "</div><div class='col-3'>" + id + "</div><div class='col-3'>" + score +
+                            "</div><div class='col-3'>" + formattedDate + "</div></div>";
+                        $(".RoadOfSamurai").append(html);
+
+                        if (i === 0) {
+                            $(".RoadOfSamurai .RankBody:first").css("background-color", "gold");
+                        }
+                        else if (i == 1) {
+                            $(".RoadOfSamurai .RankBody:eq(1)").css("background-color", "silver");
+                        }
+                        else if (i == 2) {
+                            $(".RoadOfSamurai .RankBody:eq(2)").css("background-color", "#cd7f32");
+                        }
+                    }
+                });
+            });
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/RaiseDragonTop10.game",
+                    type: "get",
+                    dataType: "json",
+                }).done(function (data) {
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        let rank = data[i].seq;
+                        let id = data[i].player;
+                        let score = data[i].score;
+                        let date = data[i].played_time;
+                        let formattedDate = formatDate(date);
+                        let html = "<div class='row RankBody'><div class='col-3'>" + rank +
+                            "</div><div class='col-3'>" + id + "</div><div class='col-3'>" + score +
+                            "</div><div class='col-3'>" + formattedDate + "</div></div>";
+                        $(".RaiseDragon").append(html);
+
+                        if (i === 0) {
+                            $(".RaiseDragon .RankBody:first").css("background-color", "gold");
+                        }
+                        else if (i == 1) {
+                            $(".RaiseDragon .RankBody:eq(1)").css("background-color", "silver");
+                        }
+                        else if (i == 2) {
+                            $(".RaiseDragon .RankBody:eq(2)").css("background-color", "#cd7f32");
+                        }
+
+                    }
+                });
+            });
+
         </script>
 
         </html>
