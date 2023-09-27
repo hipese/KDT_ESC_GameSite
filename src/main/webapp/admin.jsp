@@ -106,7 +106,7 @@
             <div id="bodycontainer" class="container">
                 <div id="profile" class="row">
                     <div id="hello" class="col-12 g-0">
-                        <strong>관리자 ${sessionScope.loginID}님 환영합니다</strong>
+                        <strong>${sessionScope.loginID}님 환영합니다</strong>
                     </div>
                     <div class="col-12 g-0 blank20"></div>
                     <div class="col-12 g-0 btns">
@@ -292,10 +292,6 @@
                 });
             }
 
-
-            
-            
-            
 
             console.log(${ gamesData });
         </script>
