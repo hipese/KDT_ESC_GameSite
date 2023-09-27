@@ -904,9 +904,6 @@ form>.searchArea {
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="i" items="${boardlist }">
-						<c:if test="${isadmin eq 1}">
-						
-						</c:if>
 						<div class="col-12 c">
 							<div class="row contents">
 								<div class="nav col-4 col-sm-1 d-none d-sm-block text-sm-center">${i.seq }</div>
@@ -1025,7 +1022,10 @@ form>.searchArea {
                 </div>
             </div>
 	<script>
-	
+		let admin=${isadmin};
+		let ID="${loginID}";
+		
+		console.log(ID);
 		let previousPageURL = window.location.href;
 		$("#write").on("click", function() {
 			location.href = "/board/write.jsp";
@@ -1036,7 +1036,12 @@ form>.searchArea {
 			if (okorNo == false) {
 				return false;
 			}
-			location.href = "/updateBack.members";
+			
+			if(admin==1){
+				location.href = "/returnToAdmin.admin?loginID=" + ID;
+			}else{
+				location.href = "/updateBack.members";
+			}
 		});
 		
 	</script>

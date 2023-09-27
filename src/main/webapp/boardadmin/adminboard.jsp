@@ -1031,8 +1031,8 @@ form>.searchArea {
             </div>
 	<script>
 		let admin=${isadmin}
-		
-		console.log("관리자야?:"+admin)
+		let ID="${loginID}";
+	
 		let previousPageURL = window.location.href;
 		$("#write").on("click", function() {
 			location.href = "/boardadmin/adminwrite.jsp";
@@ -1043,13 +1043,12 @@ form>.searchArea {
 			if (okorNo == false) {
 				return false;
 			}
-			/*
+			
 			if(admin==1){
-				location.href = "/admin.jsp";
+				location.href = "/returnToAdmin.admin?loginID=" + ID;
 			}else{
 				location.href = "/updateBack.members";
-			}*/
-			location.href = "/updateBack.members";
+			}
 			
 		});
 		

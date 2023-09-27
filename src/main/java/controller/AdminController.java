@@ -39,7 +39,7 @@ public class AdminController extends HttpServlet {
 		MembersDAO dao = MembersDAO.getInstance();
 		
 		try {
-			if(cmd.equals("returnToAdmin.admin")) {
+			if(cmd.equals("/returnToAdmin.admin")) {
 				String id = (String) request.getSession().getAttribute("loginID");
 				MembersDTO dto = dao.mypage(id);
 				if(dto.isAdmin()){
