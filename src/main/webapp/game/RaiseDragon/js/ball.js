@@ -7,6 +7,7 @@ class BallScene extends Phaser.Scene{
         this.frame=0;
         this.ballboxes=[];
         this.scoreboard=data.score;
+        this.gameover=false;
         this.urlParams = new URLSearchParams(window.location.search);
         this.loginID = this.urlParams.get("loginID");
     }
@@ -88,27 +89,38 @@ class BallScene extends Phaser.Scene{
             this.ball.body.velocity.set(400,  400);
             this.ballboxes.push(this.ball);
             this.physics.add.overlap(this.player,this.ballboxes,(player,ball)=>{
+                this.gameover = true;
+                ball.destroy();
 				const postData = {
 			        loginID: this.loginID,
 			        score: this.scoreboard
 			    };
-	            $.ajax({
-			        url: "/RaiseDragonGameOver.game",
-			        type: "POST",
-			        data: postData,
-			        success: (response) => {
-			            console.log("Server response:", response);
-			        },
-			        error: (xhr, status, error) => {
-			            console.error("AJAX request failed:", error);
-			            // 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
-			        }
-			    });
-            
-        	})
+                if (this.loginID != "") { // 로그인을 했을 때만 점수를 저장한다.
+                    $.ajax({
+                        url: "/RaiseDragonGameOver.game",
+                        type: "POST",
+                        data: postData
+                    });
+                    this.scene.start("GameOverScene");
+                }else {
+                    // 로그인을 하지 않았다면 로그인을 할 수 있는 모달창을 띄운다.
+                    const modal = document.getElementById('login-modal');
+                    modal.style.display = "block";
+                    //body.style.overflow = "hidden";
+                    $(".scroll").val(scrollY);
+                    this.scene.start("GameOverScene");
+                }
+        	});
     }
     update(){
-        this.frame++;
+        if(!this.gameover) {
+            this.frame++;
+        }
+        if (this.gameover) {
+            this.bboxes.forEach(ball => {
+                ball.destroy();
+            });  
+        }
         
         
         if(this.frame%60==0){
@@ -131,19 +143,16 @@ class BallScene extends Phaser.Scene{
             this.player.anims.play('run', true);
         }
 
-        let dataToPass = {
+        this.dataToPass = {
             stage: 3,
             score: this.scoreboard
         };
         if(this.second==30){
-            this.scene.start("MainScene", dataToPass);
+            this.scene.start("MainScene", this.dataToPass);
         }
         this.physics.add.overlap(this.player,this.ballboxes,(player,ball)=>{
-			ball.destroy();
-            this.scene.start("GameOverScene", dataToPass)
-            
-        })
-        
+            this.scene.start("GameOverScene", this.dataToPass);
+        });
         
     }
 }
