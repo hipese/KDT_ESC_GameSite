@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         
 
@@ -150,18 +152,16 @@
             <div class="col-12 col-md-2 d-md-block order-1 order-md-1 leftbox">
                 <div class="list">목록</div>
                 <ul>
-                    <a href="..."><li>일반 회원</li></a>
+                    <a href="/userManage.admin"><li>일반 회원</li></a>
                     <a href="..."><li>블랙 리스트</li></a>
                 </ul>
             </div>
             <div class="col-12 col-md-10 order-1 order-md-1">
                 <div class="row articles">
                    <ul id="userlist">
-                        <a href="...."><li>1번 회원</li></a>
-                        <a href="...."><li>2번 회원</li></a>
-                        <a href="...."><li>3번 회원</li></a>
-                        <a href="...."><li>4번 회원</li></a>
-                        <a href="...."><li>5번 회원</li></a>
+                   		<c:forEach var="i" items="${list}" varStatus="loopStatus">
+							<a href="/userMypage.admin?id=${i }"><li>${i}</li></a>
+						</c:forEach>
                    </ul>
                 </div>
             </div>
@@ -179,5 +179,4 @@
 
 
 </body>
-
 </html>
