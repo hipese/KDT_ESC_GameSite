@@ -24,6 +24,7 @@
             <script src="./js/gameover_scene.js"></script>
             <script src="./js/cargmae.js"></script>
             <script src="./js/gameexplain_scene.js"></script>
+            <script src="./js/Rank_scene.js"></script>
             <link rel="stylesheet" href="../../css/footer.css">
             <style>
                 ::-webkit-scrollbar {
@@ -668,7 +669,7 @@
                             debug: false
                         }
                     },
-                    scene: [GameStartScene, CarScene, GameOverScene, GameExplainScene],
+                    scene: [GameStartScene, CarScene, GameOverScene, GameExplainScene, RankScene],
                     fps: {
                         target: 60, // 원하는 FPS 설정 (기본값은 60)
                         forceSetTimeOut: true // 브라우저 지원이 안 되는 경우에 setTimeout 사용
