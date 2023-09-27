@@ -880,7 +880,7 @@ form>.searchArea {
             	 	 <div class="searchresultText">자유게시판</div>
             	</c:when>
             	<c:otherwise>
-            		  <div class="searchresultText">${searchText} : 검색 결과</div>
+            		  <div class="searchresultText">검색 결과: ${searchText}</div>
             	</c:otherwise>
             </c:choose>
             
@@ -904,6 +904,9 @@ form>.searchArea {
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="i" items="${boardlist }">
+						<c:if test="${isadmin eq 1}">
+						
+						</c:if>
 						<div class="col-12 c">
 							<div class="row contents">
 								<div class="nav col-4 col-sm-1 d-none d-sm-block text-sm-center">${i.seq }</div>
@@ -911,9 +914,9 @@ form>.searchArea {
 								<a href="/showContents.board?title=${i.title}&seq=${i.seq}&searchText=${searchText}" 
 								onclick="return checkLoginAndRedirect();" style="color: #000000;">${i.title}</a>
 								</div>
-								<div class="nav col-4 col-sm-3 text-sm-center">${i.writer }</div>
-								<div class="nav col-4 col-sm-1 text-sm-center">${i.view_count }</div>
-								<div class="nav col-4 col-sm-3 text-sm-center">${i.formedSignupData}</div>
+								<div class="nav col-4 col-sm-3 d-sm-block text-center">${i.writer }</div>
+								<div class="nav col-4 col-sm-1 d-sm-block text-center">${i.view_count }</div>
+								<div class="nav col-4 col-sm-3 d-sm-block text-center">${i.formedSignupData}</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -943,10 +946,18 @@ form>.searchArea {
 				<button type="button" class="mpbtn btn-primary col-12 col-sm-2 m-2"
 					id="back">돌아가기</button>
 			</div>
-
-			<div class="pageNav">
+			<c:choose>
+				<c:when test="${boardlist.size() == 0 || !isExistText}">
+					<div class="pageNav" style="display: none;">
 				
-			</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="pageNav">
+				
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		
 	</div>

@@ -106,12 +106,15 @@
             <div id="bodycontainer" class="container">
                 <div id="profile" class="row">
                     <div id="hello" class="col-12 g-0">
-                        <strong>관리자 ${sessionScope.loginID}님 환영합니다</strong>
+                        <strong>${sessionScope.loginID}님 환영합니다</strong>
                     </div>
                     <div class="col-12 g-0 blank20"></div>
                     <div class="col-12 g-0 btns">
-                        <a href="...">
+                    <a href="/showBoardList.board?cpage=1&searchText=">
                             <button class="btn btn-dark">게시판 관리</button>
+                        </a>
+                        <a href="/showBoardList.adminboard?cpage=1&searchText=">
+                            <button class="btn btn-dark">공지 게시판</button>
                         </a>
                         <a href="/manageMembers.admin">
                             <button class="btn btn-dark">회원정보 관리</button>
@@ -289,10 +292,6 @@
                 });
             }
 
-
-            
-            
-            
 
             console.log(${ gamesData });
         </script>

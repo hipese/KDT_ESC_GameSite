@@ -107,7 +107,7 @@
 						      <b>Signup Date</b>
 						    </div>
 						    <div class="col">
-						      ${dto.signup_date }
+						      ${signup_date }
 						    </div>
 						  </div>
 						</div>
@@ -121,9 +121,4 @@
 				</div>
 	</form>
 </body>
-<script>
-	if(${sys_name} == "0") {
-		$("#profile").attr("src","/img/쥐돌이.png");
-	}
-</script>
 </html>

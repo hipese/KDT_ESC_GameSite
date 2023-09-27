@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -12,6 +14,7 @@ import javax.sql.DataSource;
 
 import commons.EncryptionUtils;
 import dto.MembersDTO;
+import dto.UserManageDTO;
 
 public class MembersDAO {
     public static MembersDAO instance;
@@ -80,6 +83,22 @@ public class MembersDAO {
             }   
          }
       }
+   
+   
+   public int isadmin(String id) throws Exception {
+	    String sql = "SELECT isAdmin FROM members WHERE id=?";
+	    try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+	        pstat.setString(1, id);
+	        try (ResultSet rs = pstat.executeQuery();) {
+	            int result = 0; 
+	            if (rs.next()) { // 결과가 있을 때
+	                result = rs.getInt("isAdmin"); // "isAdmin" 컬럼의 값을 가져옴
+	            }
+
+	            return result;
+	        }
+	    }
+	}
    public MembersDTO mypage(String id) throws Exception {
       String sql = "select * from members where id=?";
 
@@ -184,6 +203,49 @@ public class MembersDAO {
 			pstat.setString(1, profile);
 			pstat.setString(2, id);
 			return pstat.executeUpdate();
+		}
+	}
+	
+	public int insertUserManagement(String id) throws SQLException, Exception {
+		String sql = "insert into user_management values (?,default)";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public int updateUserIsBanned(UserManageDTO dto) throws Exception {
+		String sql = "update user_management set isbanned = ? where id = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setBoolean(1, !dto.isBanned());
+			pstat.setString(2, dto.getId());
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public List<String> notBannedList() throws Exception{
+		String sql = "select id from user_management where isbanned = false";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			try(ResultSet rs = pstat.executeQuery() ){
+				List<String> list = new ArrayList<>();
+				while(rs.next()) {
+					list.add(rs.getString(1));
+				}
+				return list;
+			}
+		}
+	}
+	
+	public List<String> isBannedList() throws Exception{
+		String sql = "select id from user_management where isbanned = true";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			try(ResultSet rs = pstat.executeQuery() ){
+				List<String> list = new ArrayList<>();
+				while(rs.next()) {
+					list.add(rs.getString(1));
+				}
+				return list;
+			}
 		}
 	}
 	

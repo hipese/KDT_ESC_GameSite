@@ -6,7 +6,7 @@ class BallScene extends Phaser.Scene{
     init(data){
         this.frame=0;
         this.ballboxes=[];
-        this.scoreboard=data.score;
+        this.scoreboard = this.registry.get('score');
         this.gameover=false;
         this.urlParams = new URLSearchParams(window.location.search);
         this.loginID = this.urlParams.get("loginID");
@@ -91,6 +91,7 @@ class BallScene extends Phaser.Scene{
             this.physics.add.overlap(this.player,this.ballboxes,(player,ball)=>{
                 this.gameover = true;
                 ball.destroy();
+                this.registry.set('score', this.scoreboard );
 				const postData = {
 			        loginID: this.loginID,
 			        score: this.scoreboard
@@ -143,16 +144,12 @@ class BallScene extends Phaser.Scene{
             this.player.anims.play('run', true);
         }
 
-        this.dataToPass = {
-            stage: 3,
-            score: this.scoreboard
-        };
         if(this.second==30){
-            this.scene.start("MainScene", this.dataToPass);
+            this.registry.set('score', this.scoreboard );
+            this.registry.set('stage', 3);
+            this.scene.start("MainScene");
         }
-        this.physics.add.overlap(this.player,this.ballboxes,(player,ball)=>{
-            this.scene.start("GameOverScene", this.dataToPass);
-        });
+        
         
     }
 }

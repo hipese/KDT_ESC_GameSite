@@ -179,7 +179,6 @@ form>.searchArea {
 		</div>
 		<div class="row update_buttons mb-4">
 			<div class="col botton d-flex justify-content-end">
-				<!-- ajax /write.board에게 정보를 보낸다. -->
 				<button type="button" class="btn btn-outline-secondary"
 					id="write_check_button" style="margin-right: 10px;">확인</button>
 
@@ -264,13 +263,13 @@ form>.searchArea {
 			}
 
 			$.ajax({
-				url : '/write.board',
+				url : '/write.adminboard',
 				method : 'POST',
 				data : dataToSend,
 				processData : false, // 필수: FormData를 변환하지 않음
 				contentType : false, // 필수: 컨텐츠 타입 설정하지 않음
 			}).done(function(resp) {
-				window.location.href = "/showBoardList.board?searchText=";
+				window.location.href = "/showBoardList.adminboard?searchText=";
 			});
 		});
 
@@ -290,7 +289,7 @@ form>.searchArea {
 								// 이미지를 업로드한 경우, 서버에서 이미지를 삭제하고 에디터에 이미지를 추가했을 때 이 부분을 적절하게 처리해야 합니다.
 
 								// 뒤로 돌아가기
-								window.location.href = location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText=";
+								window.location.href = location.href = "/showBoardList.adminboard?cpage=${latesPageNum}&searchText=";
 							}
 						});
 

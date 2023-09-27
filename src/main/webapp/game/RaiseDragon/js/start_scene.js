@@ -14,11 +14,8 @@ class StartScene extends Phaser.Scene{
         this.back = this.add.tileSprite(0,0,1000,500,"bgg");
         this.back.setOrigin(0,0);
 
-        let dataToPass = {
-            stage: 1,
-            score: 0
-        };
-
+        
+        
         this.add.text(
             this.cameras.main.width/2,
             this.cameras.main.height/3,
@@ -42,12 +39,12 @@ class StartScene extends Phaser.Scene{
                 
                 this.game.canvas.style.cursor = "default"
             });
+            
             startBtn.on("pointerdown",() => {
-                this.scene.start("MainScene", dataToPass);
+				this.registry.set('score', 0);
+				this.registry.set('stage', 1);
+                this.scene.start("MainScene");
             })
-            
-            
-           
     }
     update(){
        

@@ -3,7 +3,9 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -12,7 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
@@ -28,7 +29,6 @@ import dao.MembersDAO;
 import dao.RaiseDragonDAO;
 import dao.RoadOfSamuraiDAO;
 import dao.SkeletonSurvivorDAO;
-import dto.FilesDTO;
 import dto.GameInfoDTO;
 import dto.MembersDTO;
 
@@ -58,6 +58,7 @@ public class MembersController extends HttpServlet {
 				String address2 = request.getParameter("address2");
 				Timestamp regdate = new Timestamp(currentTime);
 				dao.insert(new MembersDTO(id, shapw, name, phone, email, zipcode, address1, address2, regdate));
+				dao.insertUserManagement(id);
 				response.sendRedirect("/");
 			}
 			else if(cmd.equals("/idcheck.members")){ // 아이디 중복체크 ajax
@@ -122,10 +123,15 @@ public class MembersController extends HttpServlet {
 				String filePath = request.getServletContext().getRealPath("files");
 				//dto에서 프로필 이름 가져오기
 				String sys_name = dto.getProfile();
-				request.setAttribute("filePath", filePath);
 				request.setAttribute("sys_name", sys_name);
-				System.out.println(filePath + "/" + sys_name);
 				
+				Timestamp signup_date = dto.getSignup_date();
+
+		        // 원하는 형식으로 날짜와 시간을 포맷합니다.
+		        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        String formattedTimestamp = sdf.format(new Date(signup_date.getTime()));
+
+		        request.setAttribute("signup_date", formattedTimestamp);
 				request.getRequestDispatcher("/myPage.jsp").forward(request,response);
 			} 
 			

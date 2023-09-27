@@ -143,6 +143,9 @@ public class BoardController extends HttpServlet {
 					System.out.println("작성자와 일치하지 않은 아이디입니다.");
 				}
 				
+//				관리자인지 아닌지 확인하는 코드
+				int isadmin=mdao.isadmin(login);
+				
 				
 //				댓글 리스트 추출
 				List<ReplyDTO> replyList = rdao.selectReply(seq);
@@ -154,6 +157,7 @@ public class BoardController extends HttpServlet {
 				
 				System.out.println("로그인한 놈 아이디임?:"+isWriterCheck);
 				System.out.println("댓글이 존재하는가?: "+isParentseq);
+				System.out.println("로긴 한놈 관리자임?:"+isadmin);
 				
 				request.setAttribute("isParentseq", isParentseq);
 				request.setAttribute("replyList", replyList);
@@ -163,6 +167,7 @@ public class BoardController extends HttpServlet {
 				
 				// 게시판을 작성한 주인의 여부
 				request.setAttribute("isWriterCheck", isWriterCheck);
+				request.setAttribute("isadmin", isadmin);
 				request.setAttribute("searchText", searchText);
 				request.setAttribute("innerFiles", innerFiles);
 				request.setAttribute("seq", seq);
@@ -177,7 +182,7 @@ public class BoardController extends HttpServlet {
 				String searchText = "";
 				String cpage = request.getParameter("cpage");
 				searchText = request.getParameter("searchText");
-			
+				
 				List<BoardDTO> boardlist = null;
 				int currentPage = cpage == null ? 1 : Integer.parseInt(cpage);
 				int totalRecordCount = 0;
@@ -196,6 +201,11 @@ public class BoardController extends HttpServlet {
 					boardlist = dao.searchContents(searchText, currentPage * Constants.RECORD_COUNT_PER_PAGE - 9,
 							currentPage * Constants.RECORD_COUNT_PER_PAGE);
 					totalRecordCount = dao.getSearchRecordCount(searchText);
+					
+					for(int i=0;i<boardlist.size();i++) {
+						System.out.println("내용목록:"+boardlist.get(i).getContents());
+					}
+				
 				}
 				System.out.println("출력할 목록의 개수: " + totalRecordCount);
 
