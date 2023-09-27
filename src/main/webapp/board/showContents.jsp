@@ -348,7 +348,7 @@ a.black-text-link {
 		<div class="row botton mb-4">
 			<div class="col botton d-flex justify-content-end">
 				<c:choose>
-					<c:when test="${loginID eq selectboard.writer}">
+					 <c:when test="${loginID eq selectboard.writer or isadmin eq 1}">
 						<button type="button" class="mpbtn btn-outline-secondary"
 							style="margin-right: 10px;" id="return">목록으로</button>
 						<button type="button" class="mpbtn btn-outline-secondary"
