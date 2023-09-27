@@ -642,6 +642,22 @@ form>.searchArea {
     background-color:black !important;
 }
 
+.headerul2 {
+			top:5px;
+               list-style: none;
+               display: flex;
+               justify-content: end;
+               align-content: center;
+               margin: 0px;
+               position: absolute;
+               right: 60px;
+               cursor: pointer;
+            }
+            
+            .headerul2 li:hover {
+               color: pink;
+            }
+
 </style>
 </head>
 
@@ -1030,9 +1046,9 @@ form>.searchArea {
                 </div>
             </div>
 	<script>
-		let sssss=${isadmin}
-		
-		console.log("뭐 넘어오냐:"+sssss);
+		let admin=${isadmin}
+		let ID="${loginID}";
+	
 		let previousPageURL = window.location.href;
 		$("#write").on("click", function() {
 			location.href = "/boardadmin/adminwrite.jsp";
@@ -1043,7 +1059,13 @@ form>.searchArea {
 			if (okorNo == false) {
 				return false;
 			}
-			location.href = "/updateBack.members";
+			
+			if(admin==1){
+				location.href = "/returnToAdmin.admin?loginID=" + ID;
+			}else{
+				location.href = "/updateBack.members";
+			}
+			
 		});
 		
 	</script>
