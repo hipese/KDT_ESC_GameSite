@@ -10,8 +10,9 @@ class GameStartScene extends Phaser.Scene{
     }
     create() {
         this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 - 200, 'Game Start', { fontSize: '60px', fill: '#ffffff', fontWeight: 'bold' }).setOrigin(0.5);
-        let startBtn = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 150, "게임 시작하기", { fontSize: '40px', fill: '#ff0000' }).setOrigin(0.5).setInteractive().setPadding(15);
-        let rankBtn = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 200, "랭킹 보기", { fontSize: '40px', fill: '#00ff' }).setOrigin(0.5).setInteractive().setPadding(15);
+        let startBtn = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 110, "게임 시작하기", { fontSize: '40px', fill: '#ff0000' }).setOrigin(0.5).setInteractive().setPadding(15);
+        let rankBtn = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 160, "랭킹 보기", { fontSize: '40px', fill: '#00ff' }).setOrigin(0.5).setInteractive().setPadding(15);
+        let outBtn = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 210, "나가기", { fontSize: '40px', fill: '#ffffff' }).setOrigin(0.5).setInteractive().setPadding(15);
         if (!this.anims.exists("playerdown")) {
 	        this.anims.create({
 	            key: "playerdown",
@@ -50,8 +51,17 @@ class GameStartScene extends Phaser.Scene{
                 console.log(xhr, status, errorThrown);
             });
         });
-
+        outBtn.on('pointerover', () => {
+            this.game.canvas.style.cursor = "pointer";
+        });
+        outBtn.on('pointerout', () => {
+            this.game.canvas.style.cursor = "default";
+        });
+        outBtn.on('pointerdown', () => {
+            window.close();
+        });
     }
+
 
 
     update() {
