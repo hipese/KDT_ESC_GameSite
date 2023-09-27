@@ -14,9 +14,7 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
             <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-            <link rel="preload" as="font" href="./font/PressStart2P.ttf" type="font/ttf" crossorigin="anonymous" />
-            <link rel="preload" as="font" href="./font/Sam3KRFont.ttf" type="font/ttf" crossorigin="anonymous" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"
+           <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"
                 integrity="sha512-YQL0GVx/Too3vZjBl9plePRIYsRnd1s8N6QOvXPdZ+JMH2mtRTLQXGUDGjNW6zr1HUgcOIury67IvWe91oeEwQ=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src="./js/ball.js"></script>
@@ -519,7 +517,7 @@
                                 ------------------------------------- </p>
                             <p> 첫번째 스테이지 : 머리 위에서 해골과 버섯이 쏟아집니다. 해골을 피해서 버섯을 획득하세요</p>
                             <p> 두번째 스테이지 : 30초 동안 튕겨다니는 공들을 피해서 버텨보세요</p>
-                            <p> 세번째 스테이지 : 13초 동안 왼쪽에 나오는 방향키를 눌러주세요</p>
+                            <p> 세번째 스테이지 : 빠른시간 내에 같은 방향키를 눌러 고기를 획득하세요</p>
                         </div>
                     </div>
                 </div>
@@ -661,7 +659,7 @@
                             debug: false
                         }
                     },
-                    scene: [StartScene, EndScene, RunScene, BallScene, MainScene, BounceScene, GameOverScene],
+                    scene: [StartScene,RunScene,EndScene,  BallScene, MainScene, BounceScene, GameOverScene],
                     fps: {
                         target: 60,
                         forceSetTimeOut: true
@@ -671,13 +669,7 @@
 
                 $("#url").val(window.location.href);
 
-                function preventScroll(event) {
-                    if (
-                        (event.key === 'ArrowUp' || event.key === 'ArrowDown')
-                    ) {
-                        event.preventDefault();
-                    }
-                }
+                
 
 
                 document.addEventListener('keydown', preventScroll);

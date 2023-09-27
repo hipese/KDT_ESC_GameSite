@@ -4,8 +4,7 @@ class GameOverScene extends Phaser.Scene{
         super({key:"GameOverScene"});
     }
     init(data){
-        this.scoreboard=data.score
-        console.log(data.score);
+        this.scoreboard = this.registry.get('score');
     }   
 
     preload(){
@@ -43,13 +42,11 @@ class GameOverScene extends Phaser.Scene{
                 this.game.canvas.style.cursor = "default"
             });
 
-            let dataToPass = {
-                stage: 1,
-                score:0
-            };
+            this.registry.set('score', 0);
+            this.registry.set('stage', 1);
 
             restartBtn.on("pointerdown",() => {
-                this.scene.start("MainScene", dataToPass);
+                this.scene.start("MainScene");
             })
     }
     update(){
