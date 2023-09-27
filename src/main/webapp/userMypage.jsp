@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,7 +117,12 @@
 				  </ul>
 				  <div class="card-body">
 				    <button id="back" type="button" class="btn btn-light">뒤로가기</button>
-					<button id="banned" type="button" class="btn btn-dark">블랙리스트 추가</button>
+				    <c:if test="${isbanned == true}">
+						<button id="cancelbanned" type="button" class="btn btn-dark">블랙리스트 취소</button>
+					</c:if>
+					<c:if test="${isbanned == false}">
+						<button id="banned" type="button" class="btn btn-dark">블랙리스트 추가</button>
+					</c:if>
 					<a href="/delete.members"><button type="button" class="btn btn-dark">회원탈퇴</button></a>
 				  </div>
 				</div>
@@ -146,6 +152,33 @@
 				}).done(function(resp){
 					if(resp == "true") {
 						 Swal.fire('밴 되었습니다.', '', 'success')
+					}
+				});
+			  } else if (result.isDenied) {
+			    Swal.fire('취소되었습니다', '', 'info')
+			  }
+		})
+	});
+	
+	$("#cancelbanned").on("click",function() {
+		Swal.fire({
+			  title: '이 사용자를 밴 취소하시겠습니까?',
+			  showDenyButton: true,
+			  showCancelButton: true,
+			  confirmButtonText: 'Yes',
+			  denyButtonText: 'No',
+			}).then((result) => {
+			  /* Read more about isConfirmed, isDenied below */
+			  if (result.isConfirmed) {
+			    $.ajax({
+					url:"/userbancancel.admin",
+					type: "POST", // 또는 다른 HTTP 메서드
+					data:{
+				        id:$("#id").val()
+				    }
+				}).done(function(resp){
+					if(resp == "true") {
+						 Swal.fire('밴 취소되었습니다.', '', 'success')
 					}
 				});
 			  } else if (result.isDenied) {

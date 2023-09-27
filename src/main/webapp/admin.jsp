@@ -113,14 +113,10 @@
                     <a href="/showBoardList.board?cpage=1&searchText=">
                             <button class="btn btn-dark">게시판 관리</button>
                         </a>
-<<<<<<< HEAD
-                        <a href="/userManage.admin">
-=======
                         <a href="/showBoardList.adminboard?cpage=1&searchText=">
                             <button class="btn btn-dark">공지 게시판</button>
                         </a>
-                        <a href="/manageMembers.admin">
->>>>>>> 39a9490018cc9686534b4ccc73d13cb1af4a9777
+						<a href="/userManage.admin">
                             <button class="btn btn-dark">회원정보 관리</button>
                         </a>
                     </div>

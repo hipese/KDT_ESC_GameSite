@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.MembersDTO;
+import dto.UserManageDTO;
 
 public class AdminDAO {
 	public static AdminDAO instance;
@@ -62,6 +63,30 @@ public class AdminDAO {
 			pstat.setString(1, id);
 
 			return pstat.executeUpdate();
+		}
+	}
+	
+	public int userBancancel(String id) throws Exception {
+		String sql = "update user_management set isbanned=false where id=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1, id);
+
+			return pstat.executeUpdate();
+		}
+	}
+	
+	public boolean isBan(String id) throws Exception {
+		String sql = "select isbanned from user_management where id=?";
+		try (Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1, id);
+			try (ResultSet rs = pstat.executeQuery()) {
+				while(rs.next()) {
+					boolean isbanned = rs.getBoolean("isbanned");
+					return isbanned;
+				}
+				return false;
+			}
 		}
 	}
 }

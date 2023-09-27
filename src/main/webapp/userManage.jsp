@@ -153,7 +153,7 @@
                 <div class="list">목록</div>
                 <ul>
                     <a href="/userManage.admin"><li>일반 회원</li></a>
-                    <a href="..."><li>블랙 리스트</li></a>
+                    <a href="/userBannedManage.admin"><li>블랙 리스트</li></a>
                 </ul>
             </div>
             <div class="col-12 col-md-10 order-1 order-md-1">
@@ -171,7 +171,7 @@
         <div class="row">
             <div class="col-12 col-md-10 order-5 order-md-5"></div>
             <div class="col-12 col-md-2 order-5 order-md-5">
-                <button type="button" class="btn btn-dark">돌아가기</button>
+                <a href="/returnToAdmin.admin"><button type="button" class="btn btn-dark">돌아가기</button></a>
             </div>
         </div>
     </div>
