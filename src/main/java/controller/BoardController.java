@@ -177,7 +177,7 @@ public class BoardController extends HttpServlet {
 				String searchText = "";
 				String cpage = request.getParameter("cpage");
 				searchText = request.getParameter("searchText");
-			
+				
 				List<BoardDTO> boardlist = null;
 				int currentPage = cpage == null ? 1 : Integer.parseInt(cpage);
 				int totalRecordCount = 0;

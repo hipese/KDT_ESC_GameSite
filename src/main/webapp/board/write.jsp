@@ -270,7 +270,7 @@ form>.searchArea {
 				processData : false, // 필수: FormData를 변환하지 않음
 				contentType : false, // 필수: 컨텐츠 타입 설정하지 않음
 			}).done(function(resp) {
-				window.location.href = "/showBoardList.board";
+				window.location.href = "/showBoardList.board?searchText=";
 			});
 		});
 
@@ -290,8 +290,7 @@ form>.searchArea {
 								// 이미지를 업로드한 경우, 서버에서 이미지를 삭제하고 에디터에 이미지를 추가했을 때 이 부분을 적절하게 처리해야 합니다.
 
 								// 뒤로 돌아가기
-								window.location.href = location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText="
-										+ $("search").val();
+								window.location.href = location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText=";
 							}
 						});
 
