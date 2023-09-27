@@ -455,6 +455,8 @@ a.black-text-link {
 	<!-- 댓글을 생성하는 ajax 스크립트 부분 여기서 nav도 같이 출력한다. -->
 	<script>
 	let loginId="${loginID}";
+	let admin=${isadmin};
+	console.log("관리자임(1이 관리자 0은 아님):"+admin);
 window.onload = function() {
 	//자신이 작성한 댓글만 수정 삭제 하기위한 변수
     let seq = "${selectboard.seq}";
@@ -574,7 +576,7 @@ window.onload = function() {
     	        'data-parent-seq': comment.parent_seq,
     	        text: '삭제'
     	    });
-    	    if(comment.writer==loginId){
+    	    if(comment.writer==loginId||admin==1){
     	    	 buttonColumn.append(editButton, confirmButton, cancelButton,deleteButton);
     	    	    commentDiv.append(buttonColumn);
     	    	   
