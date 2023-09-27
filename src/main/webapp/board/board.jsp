@@ -642,6 +642,21 @@ form>.searchArea {
     background-color:black !important;
 }
 
+.headerul2 {
+               list-style: none;
+               display: flex;
+               justify-content: end;
+               align-content: center;
+               margin: 0px;
+               position: absolute;
+               right: 60px;
+               cursor: pointer;
+            }
+            
+            .headerul2 li:hover {
+               color: pink;
+            }
+
 </style>
 </head>
 

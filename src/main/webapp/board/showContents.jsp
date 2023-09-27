@@ -226,7 +226,21 @@ a.black-text-link {
     color: white !important; /* 현재 페이지 링크의 글자 색상을 변경 */
     background-color:black !important;
 }
-
+.headerul2 {
+			top:5px;
+               list-style: none;
+               display: flex;
+               justify-content: end;
+               align-content: center;
+               margin: 0px;
+               position: absolute;
+               right: 60px;
+               cursor: pointer;
+            }
+            
+            .headerul2 li:hover {
+               color: pink;
+            }
 </style>
 </head>
 
