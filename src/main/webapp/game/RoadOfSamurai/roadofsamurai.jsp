@@ -22,6 +22,7 @@
             <script src="./js/GameOverScene.js"></script>
             <script src="./js/playerScene.js"></script>
             <script src="./js/title.js"></script>
+            <script src="js/Rank_scene.js"></script>
             <link rel="stylesheet" href="../../css/footer.css">
             <style>
                 ::-webkit-scrollbar {
@@ -668,7 +669,7 @@
                         target: 60, // 원하는 FPS 설정 (기본값은 60)
                         forceSetTimeOut: true // 브라우저 지원이 안 되는 경우에 setTimeout 사용
                     },
-                    scene: [titleScene, playScene, GameOverScene]
+                    scene: [titleScene, playScene, GameOverScene,RankScene]
                 };
 
                 let game = new Phaser.Game(option);

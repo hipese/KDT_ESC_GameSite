@@ -7,6 +7,7 @@ class GameOverScene extends Phaser.Scene{
         this.killcount=data.score1
         this.time=data.score2
         this.total=data.totalscore;
+        this.score=data
     }
 
     preload(){
@@ -41,7 +42,7 @@ class GameOverScene extends Phaser.Scene{
         
 
         let scoreText=this.add.text(this.cameras.main.width/2,
-        this.cameras.main.height/2-70,"종합점수:"+(this.killcount+this.total)+"점",{fontFamily: "DungGeunMo",fontSize:"50px",fill:"#FFFFFF"}).setOrigin(0.5).setPadding(15);
+        this.cameras.main.height/2-70,"종합점수:"+this.total+"점",{fontFamily: "DungGeunMo",fontSize:"50px",fill:"#FFFFFF"}).setOrigin(0.5).setPadding(15);
 
         let timeText=this.add.text(this.cameras.main.width/2,
         this.cameras.main.height/2+60,"생존 시간:"+this.time+"초",{fontFamily: "DungGeunMo",fontSize:"30px"}).setOrigin(0.5).setPadding(15);
