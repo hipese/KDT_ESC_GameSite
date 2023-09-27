@@ -904,6 +904,9 @@ form>.searchArea {
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="i" items="${boardlist }">
+						<c:if test="${isadmin eq 1}">
+						
+						</c:if>
 						<div class="col-12 c">
 							<div class="row contents">
 								<div class="nav col-4 col-sm-1 d-none d-sm-block text-sm-center">${i.seq }</div>
