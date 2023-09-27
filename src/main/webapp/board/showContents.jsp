@@ -248,7 +248,7 @@ a.black-text-link {
 	<div class="container-fluid">
 		<div class="row header">
 			<div class="col-1 d-sm-block d-none"></div>
-			<div class="col-2 ">E.S.C</div>
+			<div class="col-2 "><a href="/"><img src="../../img/ESC HEADER.png" alt="" width="110px" height="50px"></a></div>
 			<div class="col-8 d-sm-block d-none">
 				<ul class="headerul">
 					<c:choose>

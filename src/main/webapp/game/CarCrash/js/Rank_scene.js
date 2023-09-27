@@ -29,14 +29,14 @@ class RankScene extends Phaser.Scene{
             if (minutes < 1) {
                 return `${formattedSeconds}.${formattedMillisecondsDisplay}초`;
             }else {
-                return `${formattedMinutes}분 ${formattedSeconds}.${formattedMillisecondsDisplay}초`;
+                return `${formattedMinutes}:${formattedSeconds}.${formattedMillisecondsDisplay}초`;
             }
 	    }
 
         for (let i = 0; i < this.rankingData.length; i++){
             let formattedTime = formatTime(this.rankingData[i].score);
             this.add.text(this.cameras.main.width / 2 - 170, this.cameras.main.height / 2 - 110 + (i * 30), this.rankingData[i].seq, { fontSize: '20px', fill: '#ffffff' }).setOrigin(0.5).setPadding(15);
-            this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 - 110 + (i * 30), formattedTime, { fontSize: '20px', fill: '#ffffff' }).setOrigin(0.5).setPadding(15);
+            this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 - 110 + (i * 30), this.rankingData[i].score+"점", { fontSize: '20px', fill: '#ffffff' }).setOrigin(0.5).setPadding(15);
             this.add.text(this.cameras.main.width / 2 + 170, this.cameras.main.height / 2 - 110 + (i * 30), this.rankingData[i].player, { fontSize: '20px', fill: '#ffffff' }).setOrigin(0.5).setPadding(15);
         }
 

@@ -292,6 +292,7 @@ class playScene extends Phaser.Scene {
 					this.hunt.play();
 					emenys.destroy();
 				} else if(this.playerLife === 0){
+					this.lifes[this.playerLife].destroy();
 					const postData = {
 						loginID: this.loginID,
 						score: this.score
@@ -352,6 +353,7 @@ class playScene extends Phaser.Scene {
 					this.hunt.play();
 					emenys2.destroy();
 				} else if(this.playerLife === 0) {
+					this.lifes[this.playerLife].destroy();
 					const postData = {
 						loginID: this.loginID,
 						score: this.score

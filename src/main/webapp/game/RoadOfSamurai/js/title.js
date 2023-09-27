@@ -83,9 +83,18 @@ class titleScene extends Phaser.Scene {
 
         let rankBtn = this.add.text(this.cameras.main.width / 2 + 40,
             this.cameras.main.height / 2 + 160, "게임랭킹", { fontFamily: "DungGeunMo",fontSize: "30px" }).setOrigin(0.5).setInteractive().setPadding(15);
-
-        let killText = this.add.text(this.cameras.main.width / 2 + 40,
-            this.cameras.main.height / 2 + 220, "게임종료", { fontFamily: "DungGeunMo",fontSize: "30px" }).setOrigin(0.5).setPadding(15);
+            
+            let killText = this.add.text(this.cameras.main.width / 2 + 40, this.cameras.main.height / 2 + 220, "나가기", { fontSize: '30px', fontFamily: "DungGeunMo" }).setOrigin(0.5).setInteractive().setPadding(15);
+            
+            killText.on('pointerover', () => {
+	            this.game.canvas.style.cursor = "pointer";
+	        });
+	        killText.on('pointerout', () => {
+	            this.game.canvas.style.cursor = "default";
+	        });
+	        killText.on('pointerdown', () => {
+	            window.close();
+	        });
 
 
         this.backText = this.add.text(this.cameras.main.width - 100,
@@ -151,8 +160,9 @@ class titleScene extends Phaser.Scene {
             this.description.setVisible(false);
 
         });
+        
 
-         rankBtn.on('pointerover', () => {
+        rankBtn.on('pointerover', () => {
 			rankBtn.setBackgroundColor("#720938");
             this.game.canvas.style.cursor = "pointer";
         });
@@ -163,7 +173,7 @@ class titleScene extends Phaser.Scene {
        
         rankBtn.on('pointerdown', () => {
             $.ajax({
-                url: "/JumpKingTop10.game",
+                url: "/RoadOfSamuraiTop10.game",
                 type: "get",
                 dataType: "json",
             }).done(function (data) {

@@ -36,7 +36,7 @@ class RankScene extends Phaser.Scene{
         for (let i = 0; i < this.rankingData.length; i++){
             let formattedTime = formatTime(this.rankingData[i].score);
             this.add.text(this.cameras.main.width / 2 - 170, this.cameras.main.height / 2 - 110 + (i * 30), this.rankingData[i].seq, { fontSize: '20px', fill: '#ffffff' }).setOrigin(0.5).setPadding(15);
-            this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 - 110 + (i * 30), formattedTime, { fontSize: '20px', fill: '#ffffff' }).setOrigin(0.5).setPadding(15);
+            this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 - 110 + (i * 30), this.rankingData[i].score, { fontSize: '20px', fill: '#ffffff' }).setOrigin(0.5).setPadding(15);
             this.add.text(this.cameras.main.width / 2 + 170, this.cameras.main.height / 2 - 110 + (i * 30), this.rankingData[i].player, { fontSize: '20px', fill: '#ffffff' }).setOrigin(0.5).setPadding(15);
         }
 
