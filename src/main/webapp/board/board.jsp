@@ -911,9 +911,9 @@ form>.searchArea {
 								<a href="/showContents.board?title=${i.title}&seq=${i.seq}&searchText=${searchText}" 
 								onclick="return checkLoginAndRedirect();" style="color: #000000;">${i.title}</a>
 								</div>
-								<div class="nav col-4 col-sm-3 text-sm-center">${i.writer }</div>
-								<div class="nav col-4 col-sm-1 text-sm-center">${i.view_count }</div>
-								<div class="nav col-4 col-sm-3 text-sm-center">${i.formedSignupData}</div>
+								<div class="nav col-4 col-sm-3 d-sm-block text-center">${i.writer }</div>
+								<div class="nav col-4 col-sm-1 d-sm-block text-center">${i.view_count }</div>
+								<div class="nav col-4 col-sm-3 d-sm-block text-center">${i.formedSignupData}</div>
 							</div>
 						</div>
 					</c:forEach>
