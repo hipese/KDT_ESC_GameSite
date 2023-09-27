@@ -180,7 +180,12 @@ body{
 #title_search {
 	text-align: right;
 }
-
+.titles{
+	margin-top: 70px;
+}
+#view_count{
+	margin-top: 70px;
+}
 #date {
 	text-align: right;
 }
@@ -284,22 +289,8 @@ a.black-text-link {
 		</div>
 	</div>
 	<div class="container">
-		<!-- 게시판 내용 코드 -->
 		<div class="row mb-4">
-			<div class="col-md-7">
-				<!-- 다른 내용을 추가하거나 빈 공간으로 남길 수 있습니다. -->
-			</div>
-			<div class="col-md-5">
-				<form action="/showBoardList.board" method="get" class="col-12">
-					<div class="searchArea">
-						<input type="text" id="search" name="searchText">
-						<button id="searchBtn" class="btn btn-primary m-2">검색</button>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row mb-4">
-			<div class="col-md-10">
+			<div class="col-md-10 titles">
 				<!-- 제목 칸과 넓이를 동일하게 하기 위해 col 제거 -->
 				<div class="title" id="title_update" style="display: none;">
 					<input type="text" id="title_update_value" name="title_update"
@@ -830,14 +821,14 @@ window.onload = function() {
 						seq : deleteSeq
 					}
 				}).done(function(resp) {
-					window.location.href = "/showBoardList.board?cpage=${latesPageNum}";
+					window.location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText=";
 				});
 			}
 			return;
 		})
 
 		$("#return").on("click", function() {
-			location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText="+$("search").val();
+			location.href = "/showBoardList.board?cpage=${latesPageNum}&searchText=";
 		})
 		
 		// Assuming you have elements with IDs like "like_btn" and "dislike_btn"
