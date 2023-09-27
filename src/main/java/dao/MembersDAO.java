@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -202,6 +204,32 @@ public class MembersDAO {
 			pstat.setBoolean(1, !dto.isBanned());
 			pstat.setString(2, dto.getId());
 			return pstat.executeUpdate();
+		}
+	}
+	
+	public List<String> notBannedList() throws Exception{
+		String sql = "select id from user_management where isbanned = false";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			try(ResultSet rs = pstat.executeQuery() ){
+				List<String> list = new ArrayList<>();
+				while(rs.next()) {
+					list.add(rs.getString(1));
+				}
+				return list;
+			}
+		}
+	}
+	
+	public List<String> isBannedList() throws Exception{
+		String sql = "select id from user_management where isbanned = true";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
+			try(ResultSet rs = pstat.executeQuery() ){
+				List<String> list = new ArrayList<>();
+				while(rs.next()) {
+					list.add(rs.getString(1));
+				}
+				return list;
+			}
 		}
 	}
 	
