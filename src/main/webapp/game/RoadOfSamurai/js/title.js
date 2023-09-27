@@ -81,8 +81,8 @@ class titleScene extends Phaser.Scene {
             fontSize: "30px"
         }).setOrigin(0.5).setInteractive().setPadding(15);
 
-        let RankText = this.add.text(this.cameras.main.width / 2 + 40,
-            this.cameras.main.height / 2 + 160, "게임랭킹", { fontFamily: "DungGeunMo",fontSize: "30px" }).setOrigin(0.5).setPadding(15);
+        let rankBtn = this.add.text(this.cameras.main.width / 2 + 40,
+            this.cameras.main.height / 2 + 160, "게임랭킹", { fontFamily: "DungGeunMo",fontSize: "30px" }).setOrigin(0.5).setInteractive().setPadding(15);
 
         let killText = this.add.text(this.cameras.main.width / 2 + 40,
             this.cameras.main.height / 2 + 220, "게임종료", { fontFamily: "DungGeunMo",fontSize: "30px" }).setOrigin(0.5).setPadding(15);
@@ -152,10 +152,28 @@ class titleScene extends Phaser.Scene {
 
         });
 
-        // 설명창에서 나가는 기능
+         rankBtn.on('pointerover', () => {
+			rankBtn.setBackgroundColor("#720938");
+            this.game.canvas.style.cursor = "pointer";
+        });
+        rankBtn.on('pointerout', () => {
+			rankBtn.setBackgroundColor("transparent");
+            this.game.canvas.style.cursor = "default";
+        });
+       
+        rankBtn.on('pointerdown', () => {
+            $.ajax({
+                url: "/JumpKingTop10.game",
+                type: "get",
+                dataType: "json",
+            }).done(function (data) {
+                this.scene.start('RankScene', { rankingData: data });
+            }.bind(this)).fail(function (xhr, status, errorThrown) {
+                console.log(xhr, status, errorThrown);
+            });
+        });
 
-
-    };
+    }
 
 
 
