@@ -110,7 +110,7 @@
                     </div>
                     <div class="col-12 g-0 blank20"></div>
                     <div class="col-12 g-0 btns">
-                        <a href="...">
+                        <a href="/showBoardList.adminboard?cpage=1&searchText=">
                             <button class="btn btn-dark">게시판 관리</button>
                         </a>
                         <a href="/manageMembers.admin">
