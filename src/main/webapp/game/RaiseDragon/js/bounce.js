@@ -9,6 +9,7 @@ class BounceScene extends Phaser.Scene {
 		this.bboxes = [];
 		this.mboxes = [];
 		this.scoreboard = data.score;
+		this.gameover = false;
 		this.urlParams = new URLSearchParams(window.location.search);
         this.loginID = this.urlParams.get("loginID");
 	}
@@ -68,27 +69,38 @@ class BounceScene extends Phaser.Scene {
 		this.textScore = this.add.text(700, 50, '점수 : ' + this.scoreboard, { font: "20px", fill: "#000000" }).setInteractive().setPadding(15);
 
 		this.physics.add.overlap(this.player,this.bboxes,(player,bone)=>{
-			console.log("c1")
+			this.gameover = true;
+			bone.destroy();
 			const postData = {
-		        loginID: this.loginID,
-		        score: this.scoreboard
-		    };
-            $.ajax({
-		        url: "/RaiseDragonGameOver.game",
-		        type: "POST",
-		        data: postData,
-		        success: (response) => {
-		            console.log("Server response:", response);
-		        },
-		        error: (xhr, status, error) => {
-		            console.error("AJAX request failed:", error);
-		            // 오류를 처리하세요. 예를 들어 사용자에게 메시지를 표시하는 등의 처리를 할 수 있습니다.
-		        }
-		    });
-        })
+				loginID: this.loginID,
+				score: this.scoreboard
+			};
+			if (this.loginID != "") { // 로그인을 했을 때만 점수를 저장한다.
+				$.ajax({
+					url: "/RaiseDragonGameOver.game",
+					type: "POST",
+					data: postData
+				});
+				this.scene.start("GameOverScene");
+			}else {
+				// 로그인을 하지 않았다면 로그인을 할 수 있는 모달창을 띄운다.
+				const modal = document.getElementById('login-modal');
+				modal.style.display = "block";
+				//body.style.overflow = "hidden";
+				$(".scroll").val(scrollY);
+				this.scene.start("GameOverScene",this.dataToPass);
+			}
+        });
 	}
 	update() {
-		this.frame++;
+		if(!this.gameover) {
+            this.frame++;
+        }
+        if (this.gameover) {
+            this.bboxes.forEach(bone => {
+                bone.destroy();
+            });  
+        }
 
 		this.bnum = Phaser.Math.Between(1, 7)
 		this.mnum = Phaser.Math.Between(1, 3)
@@ -145,16 +157,16 @@ class BounceScene extends Phaser.Scene {
 		})
 
 
-		let dataToPass = {
+		this.dataToPass = {
 			stage: 2,
 			score: this.scoreboard
 		};
 		this.physics.add.overlap(this.player, this.bboxes, (player, bone) => {
-			console.log("u1")
-			this.scene.start("GameOverScene", dataToPass);
+			this.scene.start("GameOverScene", this.dataToPass);
+
 		})
 		if (this.score == 20) {
-			this.scene.start("MainScene", dataToPass);
+			this.scene.start("MainScene", this.dataToPass);
 		}
 
 	}

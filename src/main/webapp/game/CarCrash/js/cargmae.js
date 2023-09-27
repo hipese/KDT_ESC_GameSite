@@ -98,19 +98,21 @@ class CarScene extends Phaser.Scene {
 			        score: this.score
 			    };
 				
-			    $.ajax({
-			        url: "/CarCrashGameOver.game",
-			        type: "POST",
-			        data: postData,
-			        success: (response) => {
-			            console.log("Server response:", response);
-			            this.scene.start("GameOverScene"); // Move to the game over scene on success
-			        },
-			        error: (xhr, status, error) => {
-			            console.error("AJAX request failed:", error);
-			            // Handle the error here, such as displaying a message to the user
-			        }
-			    });
+				if (this.loginID != "") { // 로그인을 했을 때만 점수를 저장한다.
+					$.ajax({
+						url: "/CarCrashGameOver.game",
+						type: "POST",
+						data: postData,
+					});
+					this.scene.start("GameOverScene");
+				}else {
+					this.scene.start("GameOverScene");
+					const modal = document.getElementById('login-modal');
+					modal.style.display = "block";
+					body.style.overflow = "hidden";
+					$(".scroll").val(scrollY);
+				}
+	
 			},null,this,true);
 
         this.time.addEvent({

@@ -48,12 +48,12 @@ public class AdminController extends HttpServlet {
 				GameInfoDAO gamesdao = GameInfoDAO.getInstance();
 				List<GameInfoDTO> gamesDataList =
 						gamesdao.getGamesInfo(
-								new GameInfoDTO("CarCrash",ccdao.countWeekPlay(),ccdao.countTodayPlay()),
-								new GameInfoDTO("DinoGame",dgdao.countWeekPlay(),dgdao.countTodayPlay()),
-								new GameInfoDTO("Jumpking",jkdao.countWeekPlay(),jkdao.countTodayPlay()),
-								new GameInfoDTO("RaiseDragon",rddao.countWeekPlay(),rddao.countTodayPlay()),
-								new GameInfoDTO("RoadOfSamurai",rsdao.countWeekPlay(),rsdao.countTodayPlay()),
-								new GameInfoDTO("SkeletonSurvivor",ssdao.countWeekPlay(),ssdao.countTodayPlay()));
+								new GameInfoDTO("CarCrash",ccdao.countWeekPlay(),ccdao.countTodayPlay(),ccdao.countAllPlays()),
+								new GameInfoDTO("DinoGame",dgdao.countWeekPlay(),dgdao.countTodayPlay(),dgdao.countAllPlays()),
+								new GameInfoDTO("Jumpking",jkdao.countWeekPlay(),jkdao.countTodayPlay(),jkdao.countAllPlays()),
+								new GameInfoDTO("RaiseDragon",rddao.countWeekPlay(),rddao.countTodayPlay(),rddao.countAllPlays()),
+								new GameInfoDTO("RoadOfSamurai",rsdao.countWeekPlay(),rsdao.countTodayPlay(),rsdao.countAllPlays()),
+								new GameInfoDTO("SkeletonSurvivor",ssdao.countWeekPlay(),ssdao.countTodayPlay(),ssdao.countAllPlays()));
 				String gamesDataJson = gson.toJson(gamesDataList);
 				PrintWriter pw = response.getWriter();
 				pw.append(gamesDataJson);
