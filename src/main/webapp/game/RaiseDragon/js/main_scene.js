@@ -92,7 +92,7 @@ class MainScene extends Phaser.Scene{
         this.add.text(
             this.cameras.main.width/2,
             100,
-            "알을 부화시키기 위해 포탈에 입장하여 재료를 구해오세요456",
+            "알을 부화시키기 위해 포탈에 입장하여 재료를 구해오세요",
             {fontSize:"20px"}
 
         ).setOrigin(0.5).setInteractive().setPadding(5);// Interactive 추가로 이벤트 추가 가능
