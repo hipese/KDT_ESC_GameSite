@@ -78,6 +78,17 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.setAttribute("isbanned", isbanned);
 				request.getRequestDispatcher("/userMypage.jsp").forward(request,response);
+			} else if(cmd.equals("/isuserban.admin")) {
+				String loginID = request.getParameter("loginID");
+				boolean isTrue = adao.isBan(loginID);
+				if(isTrue) {
+					PrintWriter check = response.getWriter();
+					check.append("true");
+				}
+				else {
+					PrintWriter check = response.getWriter();
+					check.append("false");
+				}
 			} else if(cmd.equals("/userban.admin")) {
 				String id = request.getParameter("id");
 				int isTrue = adao.userBan(id);
