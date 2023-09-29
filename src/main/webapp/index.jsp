@@ -1082,8 +1082,8 @@ scale(
                 $(".game1").on("click", function () {
                     $.ajax({
                         url: "/JumpkingStart.game",
-                        type: "GET",
-                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        type: "POST",
+                        data: { loginID: loginID },
                         success: function (gameURL) {
                         	if(gameURL=="true"){
                         		alert("사용하고 계신 아이디가 벤되었습니다.\n게임 플레이가 제한됩니다.")
@@ -1101,8 +1101,8 @@ scale(
                 $(".game2").on("click", function () {
                     $.ajax({
                         url: "/SkeletonSurvivorStart.game",
-                        type: "GET",
-                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        type: "POST",
+                        data: { loginID: loginID }, 
                         success: function (gameURL) {
                         	if(gameURL=="true"){
                         		alert("사용하고 계신 아이디가 벤되었습니다.\n게임 플레이가 제한됩니다.")
@@ -1119,8 +1119,8 @@ scale(
                 $(".game3").on("click", function () {
                     $.ajax({
                         url: "/DinoGameStart.game",
-                        type: "GET",
-                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        type: "POST",
+                        data: { loginID: loginID }, 
                         success: function (gameURL) {
                         	if(gameURL=="true"){
                         		alert("사용하고 계신 아이디가 벤되었습니다.\n게임 플레이가 제한됩니다.")
@@ -1137,8 +1137,8 @@ scale(
                 $(".game4").on("click", function () {
                     $.ajax({
                         url: "/CarCrashStart.game",
-                        type: "GET",
-                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        type: "POST",
+                        data: { loginID: loginID }, 
                         success: function (gameURL) {
                         	if(gameURL=="true"){
                         		alert("사용하고 계신 아이디가 벤되었습니다.\n게임 플레이가 제한됩니다.")
@@ -1155,8 +1155,8 @@ scale(
                 $(".game5").on("click", function () {
                     $.ajax({
                         url: "/RoadOfSamuraiStart.game",
-                        type: "GET",
-                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        type: "POST",
+                        data: { loginID: loginID }, 
                         success: function (gameURL) {
                         	if(gameURL=="true"){
                         		alert("사용하고 계신 아이디가 벤되었습니다.\n게임 플레이가 제한됩니다.")
@@ -1173,8 +1173,8 @@ scale(
                 $(".game6").on("click", function () {
                     $.ajax({
                         url: "/RaiseDragonStart.game",
-                        type: "GET",
-                        data: { loginID: loginID }, // loginID를 사용하여 전달합니다.
+                        type: "POST",
+                        data: { loginID: loginID }, 
                         success: function (gameURL) {
                         	if(gameURL=="true"){
                         		alert("사용하고 계신 아이디가 벤되었습니다.\n게임 플레이가 제한됩니다.")

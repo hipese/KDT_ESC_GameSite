@@ -8,8 +8,7 @@ class BallScene extends Phaser.Scene{
         this.ballboxes=[];
         this.scoreboard = this.registry.get('score');
         this.gameover=false;
-        this.urlParams = new URLSearchParams(window.location.search);
-        this.loginID = this.urlParams.get("loginID");
+        this.loginID = loginID;
     }
 
     preload(){
