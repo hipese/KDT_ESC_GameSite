@@ -224,7 +224,10 @@ public class MembersDAO {
 	}
 	
 	public List<String> notBannedList() throws Exception{
-		String sql = "select id from user_management where isbanned = false";
+		String sql = "SELECT um.id "
+				+ "FROM user_management um "
+				+ "JOIN members m ON um.id = m.id "
+				+ "WHERE um.isbanned = false AND m.isAdmin = false";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
 			try(ResultSet rs = pstat.executeQuery() ){
 				List<String> list = new ArrayList<>();
@@ -237,7 +240,10 @@ public class MembersDAO {
 	}
 	
 	public List<String> isBannedList() throws Exception{
-		String sql = "select id from user_management where isbanned = true";
+		String sql = "SELECT um.id "
+				+ "FROM user_management um "
+				+ "JOIN members m ON um.id = m.id "
+				+ "WHERE um.isbanned = true AND m.isAdmin = false";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
 			try(ResultSet rs = pstat.executeQuery() ){
 				List<String> list = new ArrayList<>();
