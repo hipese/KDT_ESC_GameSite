@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MyPage</title>
+<title>User Info</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -123,68 +123,81 @@
 					<c:if test="${isbanned == false}">
 						<button id="banned" type="button" class="btn btn-dark">블랙리스트 추가</button>
 					</c:if>
-					<a href="/delete.members"><button type="button" class="btn btn-dark">회원탈퇴</button></a>
 				  </div>
 				</div>
 	
 </body>
 <script>
 	$("#back").on("click",function() {
-		window.history.back();
+		$("#back").on("click", function () {
+		    window.location.href = 'userManage.admin'; // 이동하려는 페이지의 경로로 변경
+		});
 	});
 	
-	$("#banned").on("click",function() {
-		Swal.fire({
-			  title: '이 사용자를 밴하시겠습니까?',
-			  showDenyButton: true,
-			  showCancelButton: true,
-			  confirmButtonText: 'Yes',
-			  denyButtonText: 'No',
-			}).then((result) => {
-			  /* Read more about isConfirmed, isDenied below */
-			  if (result.isConfirmed) {
-			    $.ajax({
-					url:"/userban.admin",
-					type: "POST", // 또는 다른 HTTP 메서드
-					data:{
-				        id:$("#id").val()
-				    }
-				}).done(function(resp){
-					if(resp == "true") {
-						 Swal.fire('밴 되었습니다.', '', 'success')
-					}
-				});
-			  } else if (result.isDenied) {
-			    Swal.fire('취소되었습니다', '', 'info')
-			  }
-		})
+	$("#banned").on("click", function () {
+	    Swal.fire({
+	        title: '이 사용자를 블랙리스트에 등록하시겠습니까?',
+	        showDenyButton: true,
+	        showCancelButton: true,
+	        confirmButtonText: 'Yes',
+	        denyButtonText: 'No',
+	    }).then((result) => {
+	        /* Read more about isConfirmed, isDenied below */
+	        if (result.isConfirmed) {
+	            $.ajax({
+	                url: "/userban.admin",
+	                type: "POST", // 또는 다른 HTTP 메서드
+	                data: {
+	                    id: $("#id").val()
+	                }
+	            }).done(function (resp) {
+	                if (resp === "true") {
+	                    Swal.fire('해당 사용자가 블랙리스트에 등록되었습니다.', '', 'success').then(() => {
+	                        // 페이지 새로고침
+	                        window.location.href = 'userManage.admin';
+	                    });
+	                } else {
+	                    Swal.fire('블랙리스트 등록에 실패하였습니다.', '', 'error');
+	                }
+	            });
+	        } else if (result.isDenied) {
+	            Swal.fire('취소되었습니다', '', 'info');
+	        }
+	    });
 	});
+
 	
-	$("#cancelbanned").on("click",function() {
-		Swal.fire({
-			  title: '이 사용자를 밴 취소하시겠습니까?',
-			  showDenyButton: true,
-			  showCancelButton: true,
-			  confirmButtonText: 'Yes',
-			  denyButtonText: 'No',
-			}).then((result) => {
-			  /* Read more about isConfirmed, isDenied below */
-			  if (result.isConfirmed) {
-			    $.ajax({
-					url:"/userbancancel.admin",
-					type: "POST", // 또는 다른 HTTP 메서드
-					data:{
-				        id:$("#id").val()
-				    }
-				}).done(function(resp){
-					if(resp == "true") {
-						 Swal.fire('밴 취소되었습니다.', '', 'success')
-					}
-				});
-			  } else if (result.isDenied) {
-			    Swal.fire('취소되었습니다', '', 'info')
-			  }
-		})
+	$("#cancelbanned").on("click", function () {
+	    Swal.fire({
+	        title: '이 사용자를 블랙리스트에서 해제하시겠습니까?',
+	        showDenyButton: true,
+	        showCancelButton: true,
+	        confirmButtonText: 'Yes',
+	        denyButtonText: 'No',
+	    }).then((result) => {
+	        /* Read more about isConfirmed, isDenied below */
+	        if (result.isConfirmed) {
+	            $.ajax({
+	                url: "/userbancancel.admin",
+	                type: "POST", // 또는 다른 HTTP 메서드
+	                data: {
+	                    id: $("#id").val()
+	                }
+	            }).done(function (resp) {
+	                if (resp === "true") {
+	                    Swal.fire('해당 사용자가 블랙리스트에서 해제되었습니다.', '', 'success').then(() => {
+	                        // 페이지 새로고침
+	                        window.location.href = 'userManage.admin';
+	                    });
+	                } else {
+	                    Swal.fire('블랙리스트 해제에 실패하였습니다.', '', 'error');
+	                }
+	            });
+	        } else if (result.isDenied) {
+	            Swal.fire('취소되었습니다', '', 'info');
+	        }
+	    });
 	});
+
 </script>
 </html>

@@ -52,6 +52,8 @@
         }
 
         .btn-group {
+        	display : flex;
+        	
             text-align: center;
         }
 
@@ -94,7 +96,7 @@
                 <button type="submit">비밀번호 찾기</button>
             </div>
         </form>
-        <a href="index.jsp">Back to Home</a>
+        <a href="index.jsp">홈으로 돌아가기</a>
     </div>
     
     <script>

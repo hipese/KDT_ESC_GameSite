@@ -69,15 +69,17 @@ public class AdminController extends HttpServlet {
 				}
 			} else if(cmd.equals("/userManage.admin")) {
 				List<String> list = mdao.notBannedList();
+				List<String> banlist = mdao.isBannedList();
 				request.setAttribute("list", list);
+				request.setAttribute("banlist",banlist);
 				request.getRequestDispatcher("/userManage.jsp").forward(request,response);
-			} else if(cmd.equals("/userMypage.admin")) {
+			} else if(cmd.equals("/userInfo.admin")) {
 				String id = request.getParameter("id");
 				MembersDTO dto = mdao.mypage(id);
 				boolean isbanned = adao.isBan(id);
 				request.setAttribute("dto", dto);
 				request.setAttribute("isbanned", isbanned);
-				request.getRequestDispatcher("/userMypage.jsp").forward(request,response);
+				request.getRequestDispatcher("/userInfo.jsp").forward(request,response);
 			} else if(cmd.equals("/userban.admin")) {
 				String id = request.getParameter("id");
 				int isTrue = adao.userBan(id);
@@ -92,11 +94,7 @@ public class AdminController extends HttpServlet {
 					PrintWriter check = response.getWriter();
 					check.append("true");
 				}
-			} else if(cmd.equals("/userBannedManage.admin")) {
-				List<String> list = mdao.isBannedList();
-				request.setAttribute("list", list);
-				request.getRequestDispatcher("/userManage.jsp").forward(request,response);
-			}
+			} 
 			
 		}catch(Exception e) {
 			e.printStackTrace();
