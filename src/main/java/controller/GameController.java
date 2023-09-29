@@ -39,7 +39,7 @@ public class GameController extends HttpServlet {
 					check.append("true");
 				}
 				else {
-				String gameURL = "/game/CarCrash/carcrash.jsp?loginID=" + loginID;
+				String gameURL = "/game/CarCrash/carcrash.jsp";
 			    PrintWriter pw = response.getWriter();
 			    pw.append(gameURL);
 				}
@@ -59,7 +59,7 @@ public class GameController extends HttpServlet {
 					check.append("true");
 				}
 				else {
-				String gameURL = "/game/SkeletonSurvivor/skeletonsurvivor.jsp?loginID=" + loginID;
+				String gameURL = "/game/SkeletonSurvivor/skeletonsurvivor.jsp";
 			    PrintWriter pw = response.getWriter();
 			    pw.append(gameURL);
 				}
@@ -79,7 +79,7 @@ public class GameController extends HttpServlet {
 					check.append("true");
 				}
 				else {
-				String gameURL = "/game/DinoGame/dinogame.jsp?loginID=" + loginID;
+				String gameURL = "/game/DinoGame/dinogame.jsp";
 			    PrintWriter pw = response.getWriter();
 			    pw.append(gameURL);
 				}
@@ -99,7 +99,7 @@ public class GameController extends HttpServlet {
 					check.append("true");
 				}
 				else {
-				String gameURL = "/game/JumpKing/jumpking.jsp?loginID=" + loginID;
+				String gameURL = "/game/JumpKing/jumpking.jsp";
 			    PrintWriter pw = response.getWriter();
 			    pw.append(gameURL);
 				}
@@ -120,7 +120,7 @@ public class GameController extends HttpServlet {
 					check.append("true");
 				}
 				else {
-				String gameURL = "/game/RoadOfSamurai/roadofsamurai.jsp?loginID=" + loginID;
+				String gameURL = "/game/RoadOfSamurai/roadofsamurai.jsp";
 			    PrintWriter pw = response.getWriter();
 			    pw.append(gameURL);
 				}
@@ -140,7 +140,7 @@ public class GameController extends HttpServlet {
 					check.append("true");
 				}
 				else {
-				String gameURL = "/game/RaiseDragon/raisedragon.jsp?loginID=" + loginID;
+				String gameURL = "/game/RaiseDragon/raisedragon.jsp";
 			    PrintWriter pw = response.getWriter();
 			    pw.append(gameURL);
 				}

@@ -9,8 +9,7 @@ class MoveScene extends Phaser.Scene {
         this.doubleJump = true;
         this.count = 0;
         this.box = [];
-        this.urlParams = new URLSearchParams(window.location.search);
-       	this.loginID = this.urlParams.get("loginID");
+       	this.loginID = loginID;
     }
     preload() {
         this.load.image("box", "img/ballpan.png");
@@ -68,7 +67,7 @@ class MoveScene extends Phaser.Scene {
                 loginID: this.loginID,
                 score: this.timer
             };
-            if (this.loginID != "") { // 로그인을 했을 때만 점수를 저장한다.
+            if (this.loginID !== "") { // 로그인을 했을 때만 점수를 저장한다.
                 $.ajax({
                     url: "/JumpkingGameOver.game",
                     type: "POST",

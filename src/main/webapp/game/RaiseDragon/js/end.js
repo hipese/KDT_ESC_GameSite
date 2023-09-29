@@ -5,6 +5,7 @@ class EndScene extends Phaser.Scene{
     }
     init(data){
         this.scoreboard = this.registry.get('score');
+        this.loginID = loginID;
     }
    
     preload() {

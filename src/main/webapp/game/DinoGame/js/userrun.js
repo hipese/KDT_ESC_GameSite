@@ -9,7 +9,7 @@ class UserRun extends Phaser.Scene {
         this.cactusvel = -200;
         this.gameover = false;
         this.score = 0;
-		this.loginID = "${sessionScope.loginID}"
+		this.loginID = loginID;
     }
 
     preload() {
