@@ -207,7 +207,7 @@ public class MembersDAO {
 	}
 	
 	public int insertUserManagement(String id) throws SQLException, Exception {
-		String sql = "insert into user_management values (?,default)";
+		String sql = "insert into user_management values (?,default,null)";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, id);
 			return pstat.executeUpdate();

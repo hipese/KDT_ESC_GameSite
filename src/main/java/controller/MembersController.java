@@ -57,11 +57,8 @@ public class MembersController extends HttpServlet {
 				String address1 = request.getParameter("address1");
 				String address2 = request.getParameter("address2");
 				Timestamp regdate = new Timestamp(currentTime);
-				if(id.contains("admin")) {
-					dao.insertUserManagement(id);
-				} else {
-					dao.insert(new MembersDTO(id, shapw, name, phone, email, zipcode, address1, address2, regdate));
-				}
+				dao.insertUserManagement(id);
+				dao.insert(new MembersDTO(id, shapw, name, phone, email, zipcode, address1, address2, regdate));
 				response.sendRedirect("/");
 			}
 			else if(cmd.equals("/idcheck.members")){ // 아이디 중복체크 ajax
