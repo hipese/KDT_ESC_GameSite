@@ -604,7 +604,7 @@ class playScene extends Phaser.Scene {
 				// Ajax 요청을 보냅니다.
 				this.BGM.stop();
 				this.char.destroy(); // 캐릭터 제거
-				this.scene.start("GameOverScene", { score1: this.killCount, score2: this.time - 3, totalscore: this.score })
+				this.scene.start("GameOverScene", { score1: this.killCount, score2: this.time - 3, totalscore: this.score  })
 			}, 3000); // 5초 (5000 밀리초) 후에 캐릭터 제거
 		}
 
