@@ -15,8 +15,7 @@ class GameScene extends Phaser.Scene {
         this.playerCollisionCount = 0; // 플레이어와 적의 충돌 횟수
         this.playerHealth = 5; // 게임 오버 조건: 충돌 횟수가 이 값 이상이면 게임 오버
         this.urlParams = new URLSearchParams(window.location.search);
-        this.loginID = this.urlParams.get("loginID");
-        //this.loginID = "${sessionScope.loginID}"
+        this.loginID = loginID;
     }
 
     preload() {

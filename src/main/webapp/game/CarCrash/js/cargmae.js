@@ -10,8 +10,7 @@ class CarScene extends Phaser.Scene {
         this.score = 0;
         this.coins = [];
 		this.gameoverCondition = false;
-		this.urlParams = new URLSearchParams(window.location.search);
-        this.loginID = this.urlParams.get("loginID");
+        this.loginID = loginID;
     }
 
     preload() {

@@ -9,8 +9,7 @@ class UserRun extends Phaser.Scene {
         this.cactusvel = -200;
         this.gameover = false;
         this.score = 0;
-        this.urlParams = new URLSearchParams(window.location.search);
-        this.loginID = this.urlParams.get("loginID");
+		this.loginID = loginID;
     }
 
     preload() {

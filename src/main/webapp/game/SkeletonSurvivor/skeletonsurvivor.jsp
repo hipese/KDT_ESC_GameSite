@@ -494,7 +494,7 @@
                     <div class="modal-content">
                         <span class="close-button">&times;</span>
                         <h2>Login</h2>
-                        <form action="/login.members" method="post">
+                        <form action="/login.members" id="loginForm" method="post">
                             <label> <i class="fa fa-user"></i> <input type="text" id="username" placeholder="아이디"
                                     name="id">
                             </label> <label> <i class="fa fa-lock"></i> <input type="password" id="password"
@@ -660,6 +660,18 @@
                 }
 
                 $("#url").val(window.location.href);
+                
+				document.addEventListener("DOMContentLoaded", function () {
+                    
+                    var loginForm = document.getElementById("loginForm");
+                    loginForm.addEventListener("submit", function (event) {
+                        var loginSuccessful = true; 
+
+                        if (loginSuccessful) {
+                            opener.location.reload();
+                        }
+                    });
+                });
             </script>
             <script src="./asset/js/main.js"></script>
         </body>

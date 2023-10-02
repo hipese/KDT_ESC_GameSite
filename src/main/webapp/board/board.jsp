@@ -1053,7 +1053,7 @@ form>.searchArea {
 			}
 			
 			if(admin==1){
-				location.href = "/returnToAdmin.admin?loginID=" + ID;
+				location.href = "/returnToAdmin.admin";
 			}else{
 				location.href = "/updateBack.members";
 			}

@@ -10,8 +10,7 @@ class RunScene extends Phaser.Scene{
         this.second=0;
         this.score=0;
         this.scoreboard = this.registry.get('score');
-        this.urlParams = new URLSearchParams(window.location.search);
-        this.loginID = this.urlParams.get("loginID");
+        this.loginID = loginID;
     }
    
     preload() {

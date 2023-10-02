@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find ID</title>
+    <title>아이디 찾기</title>
 
     <link href="https://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -76,21 +76,21 @@
 
 <body>
     <div class="container">
-        <h1>Find Your ID</h1>
+        <h1>아이디 찾기</h1>
         <form id="frm">
             <div class="form-group">
-                <label for="name">Name:</label>
+                <label for="name">이름:</label>
                 <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email">이메일:</label>
                 <input type="text" id="email" name="email" required>
             </div>
             <div class="btn-group">
-                <button type="submit">Find ID</button>
+                <button type="submit">아이디 찾기</button>
             </div>
         </form>
-        <a href="index.jsp">Back to Home</a>
+        <a href="index.jsp">홈으로 이동하기</a>
     </div>
     
     <script>

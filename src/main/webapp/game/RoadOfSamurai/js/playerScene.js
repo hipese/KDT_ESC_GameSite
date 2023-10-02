@@ -21,8 +21,7 @@ class playScene extends Phaser.Scene {
 		this.score = 0;
 		this.attackcount = 0;
 		this.maxattackcount = 5;
-		this.urlParams = new URLSearchParams(window.location.search);
-		this.loginID = this.urlParams.get("loginID");
+		this.loginID = loginID;
 		this.gameOverSent = false;
 	}
 

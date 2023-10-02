@@ -11,8 +11,7 @@ class BounceScene extends Phaser.Scene {
 		this.score=0;
 		this.scoreboard = this.registry.get('score');
 		this.gameover = false;
-		this.urlParams = new URLSearchParams(window.location.search);
-        this.loginID = this.urlParams.get("loginID");
+        this.loginID = loginID;
 	}
 
 	preload() {
