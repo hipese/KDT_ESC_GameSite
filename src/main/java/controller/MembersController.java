@@ -43,7 +43,7 @@ public class MembersController extends HttpServlet {
 		System.out.println(cmd);
 		try {
 			if(cmd.equals("/Membership.members")) { // 회원가입 페이지로 이동
-				response.sendRedirect("/member.jsp");
+				response.sendRedirect("/membership/member.jsp");
 			}
 			else if(cmd.equals("/AcceptLogin.members")) { // 회원가입 후 index.jsp로 이동
 				request.setCharacterEncoding("UTF-8");
@@ -84,6 +84,7 @@ public class MembersController extends HttpServlet {
 					request.getSession().setAttribute("name",dto.getName());
 					request.getSession().setAttribute("email",dto.getEmail());
 					request.getSession().setAttribute("sys_name", dto.getProfile());
+					request.getSession().setAttribute("isAdmin", dto.isAdmin());
 					if(dto.isAdmin()) {
 						Gson gson = new Gson();
 						CarCrashDAO ccdao = CarCrashDAO.getInstance();
@@ -104,7 +105,7 @@ public class MembersController extends HttpServlet {
 										new GameInfoDTO("Skeleton Survivor",ssdao.countWeekPlay(),ssdao.countTodayPlay(),ssdao.countAllPlays()));
 						String gamesDataJson = gson.toJson(gamesDataList);
 						request.setAttribute("gamesData", gamesDataJson);
-						request.getRequestDispatcher("/admin.jsp").forward(request,response);
+						request.getRequestDispatcher("/admin/admin.jsp").forward(request,response);
 					}else {
 						response.sendRedirect(url);
 					}
@@ -132,7 +133,7 @@ public class MembersController extends HttpServlet {
 		        String formattedTimestamp = sdf.format(new Date(signup_date.getTime()));
 
 		        request.setAttribute("signup_date", formattedTimestamp);
-				request.getRequestDispatcher("/myPage.jsp").forward(request,response);
+				request.getRequestDispatcher("/membership/myPage.jsp").forward(request,response);
 			} 
 			
 			
@@ -141,7 +142,7 @@ public class MembersController extends HttpServlet {
 				MembersDTO dto = dao.mypage(id);
 				String sys_name = dto.getProfile();
 				request.setAttribute("sys_name", sys_name);
-				request.getRequestDispatcher("/updateMyPage.jsp").forward(request,response);
+				request.getRequestDispatcher("/membership/updateMyPage.jsp").forward(request,response);
 			} 
 			
 			
@@ -193,7 +194,7 @@ public class MembersController extends HttpServlet {
 				request.getSession().setAttribute("name",dto.getName());
 				request.getSession().setAttribute("email",dto.getEmail());
 				request.getSession().setAttribute("sys_name", dto.getProfile());
-				response.sendRedirect("/");
+				response.sendRedirect("/index.jsp");
 			} else if(cmd.equals("/findMemberId.members")) {
 				Gson gson = new Gson();
 				String name = request.getParameter("name");
@@ -225,7 +226,7 @@ public class MembersController extends HttpServlet {
 			} 
 			
 			else if(cmd.equals("/delete.members")) {
-				response.sendRedirect("/deleteMembers.jsp");
+				response.sendRedirect("/membership/deleteMembers.jsp");
 			} 
 			
 			
@@ -251,7 +252,7 @@ public class MembersController extends HttpServlet {
 				request.getSession().invalidate();
 				response.sendRedirect("/");
 			} else if(cmd.equals("/changePW.members")) {
-				response.sendRedirect("/changePW.jsp");
+				response.sendRedirect("/membership/changePW.jsp");
 			} 
 			
 			

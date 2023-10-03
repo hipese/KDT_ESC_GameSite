@@ -65,21 +65,21 @@ public class AdminController extends HttpServlet {
 									new GameInfoDTO("SkeletonSurvivor",ssdao.countWeekPlay(),ssdao.countTodayPlay(),ssdao.countAllPlays()));
 					String gamesDataJson = gson.toJson(gamesDataList);
 					request.setAttribute("gamesData", gamesDataJson);
-					request.getRequestDispatcher("/admin.jsp").forward(request,response);
+					request.getRequestDispatcher("/admin/admin.jsp").forward(request,response);
 				}
 			} else if(cmd.equals("/userManage.admin")) {
 				List<String> list = mdao.notBannedList();
 				List<String> banlist = mdao.isBannedList();
 				request.setAttribute("list", list);
 				request.setAttribute("banlist",banlist);
-				request.getRequestDispatcher("/userManage.jsp").forward(request,response);
+				request.getRequestDispatcher("/admin/userManage.jsp").forward(request,response);
 			} else if(cmd.equals("/userInfo.admin")) {
 				String id = request.getParameter("id");
 				MembersDTO dto = mdao.mypage(id);
 				boolean isbanned = adao.isBan(id);
 				request.setAttribute("dto", dto);
 				request.setAttribute("isbanned", isbanned);
-				request.getRequestDispatcher("/userInfo.jsp").forward(request,response);
+				request.getRequestDispatcher("/admin/userInfo.jsp").forward(request,response);
 			} else if(cmd.equals("/isuserban.admin")) {
 				String loginID = request.getParameter("loginID");
 				boolean isTrue = adao.isBan(loginID);
