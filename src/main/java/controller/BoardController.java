@@ -221,7 +221,7 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("loginmember", loginmember);
 				request.setAttribute("recordTotalCount", totalRecordCount);
-				request.setAttribute("recordCountPerPge", Constants.RECORD_COUNT_PER_PAGE);
+				request.setAttribute("recordCountPerPage", Constants.RECORD_COUNT_PER_PAGE);
 				request.setAttribute("NaviCountPerPage", Constants.NAVI_COUNT_PER_PAGE);
 				request.setAttribute("searchText", searchText);
 				request.setAttribute("isExistText", isExistText);
