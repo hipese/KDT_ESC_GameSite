@@ -110,23 +110,23 @@
                     </div>
                     <div class="col-12 g-0 blank20"></div>
                     <div class="col-12 g-0 btns">
-                    <a href="/showBoardList.board?cpage=1&searchText=">
+                        <a href="/showBoardList.board?cpage=1&searchText=">
                             <button class="btn btn-dark">게시판 관리</button>
                         </a>
                         <a href="/showBoardList.adminboard?cpage=1&searchText=">
                             <button class="btn btn-dark">공지 게시판</button>
                         </a>
-						<a href="/userManage.admin">
+                        <a href="/userManage.admin">
                             <button class="btn btn-dark">회원정보 관리</button>
                         </a>
                     </div>
                 </div>
                 <div class="blank50"></div>
                 <div id="body" class="row">
-                	<div class="graph">
+                    <div class="graph">
                         <canvas class="chart" id="myChart0"></canvas>
                     </div>
-                	<div class="blank50"></div>
+                    <div class="blank50"></div>
                     <div class="graph">
                         <canvas class="chart" id="myChart1"></canvas>
                     </div>
@@ -183,10 +183,10 @@
                 const month = months[monthName];
 
                 // 날짜를 YYYY-MM-DD 형식으로 반환
-                return year+"-"+month+"-"+day;
+                return year + "-" + month + "-" + day;
             }
             let jsonData = ${ gamesData };
-            
+
 
             new Chart(document.getElementById('myChart0'), {
                 type: 'bar',
@@ -229,7 +229,7 @@
                 data: {
                     labels: [jsonData[0]["gameName"], jsonData[1]["gameName"], jsonData[2]["gameName"], jsonData[3]["gameName"], jsonData[4]["gameName"], jsonData[5]["gameName"]],
                     datasets: [{
-                        label: '오늘 ('+ formatDate(jsonData[0]["weekCounts"][6]["date"]) +') 플레이 한 횟수',
+                        label: '오늘 (' + formatDate(jsonData[0]["weekCounts"][6]["date"]) + ') 플레이 한 횟수',
                         data: [jsonData[0]["todayCounts"], jsonData[1]["todayCounts"], jsonData[2]["todayCounts"], jsonData[3]["todayCounts"], jsonData[4]["todayCounts"], jsonData[5]["todayCounts"]],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -262,9 +262,9 @@
 
 
             const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-            
-            for(let i = 0; i < jsonData.length;i++){
-            	new Chart(document.getElementById('myChart'+(2+i)), {
+
+            for (let i = 0; i < jsonData.length; i++) {
+                new Chart(document.getElementById('myChart' + (2 + i)), {
                     // 챠트 종류를 선택
                     type: 'line',
 

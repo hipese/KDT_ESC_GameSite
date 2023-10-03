@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>비밀번호 찾기</title>
+    <title>아이디 찾기</title>
 
     <link href="https://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -52,8 +52,8 @@
         }
 
         .btn-group {
-        	display : flex;
-        	
+            display:flex;
+            justify-content: center;
             text-align: center;
         }
 
@@ -78,7 +78,7 @@
 
 <body>
     <div class="container">
-        <h1>비밀번호 찾기</h1>
+        <h1>아이디 찾기</h1>
         <form id="frm">
             <div class="form-group">
                 <label for="name">이름:</label>
@@ -88,49 +88,46 @@
                 <label for="email">이메일:</label>
                 <input type="text" id="email" name="email" required>
             </div>
-            <div class="form-group">
-                <label for="id">아이디:</label>
-                <input type="text" id="id" name="id" required>
-            </div>
             <div class="btn-group">
-                <button type="submit">비밀번호 찾기</button>
+                <button type="submit">아이디 찾기</button>
             </div>
         </form>
-        <a href="index.jsp">홈으로 돌아가기</a>
+        <a href="/index.jsp">홈으로 이동하기</a>
     </div>
-    
+
     <script>
-	    $(document).ready(function () {
-	        // 폼 전송 이벤트 리스너 등록
-	        $("#frm").submit(function (e) {
-	            e.preventDefault(); // 기본 폼 전송 방지
-	
-	            // 입력된 데이터 가져오기
-	            var name = $("#name").val();
-	            var email = $("#email").val();
-	            var id = $("#id").val();
-	
-	            // AJAX 요청 설정
-	            $.ajax({
-	                type: "POST",
-	                url: "/tempPwRelease.members", // 서블릿 URL
-	                data: { name: name, email: email, id: id }, // 전송할 데이터
-	                success: function (response) {
-	                    if (response === "1") { // 수정된 부분
-	                        alert("적어주신 이메일로 임시 비밀번호를 발급해드렸습니다. 추후에 변경해주시길 바랍니다.");
-	                        location.href = "/updateBack.members";
-	                    } else {
-	                        alert("이메일이 도착하지 않았습니다. 입력하신 이름과 이메일, 아이디를 확인해주세요");
-	                    }
-	                },
-	                error: function (error) {
-	                    // 에러 처리
-	                    alert("An error occurred: " + error.responseText);
-	                }
-	            });
-	        });
-	    });
-	</script>
+        $(document).ready(function() {
+            // 폼 전송 이벤트 리스너 등록
+            $("#frm").submit(function(e) {
+                e.preventDefault(); // 기본 폼 전송 방지
+
+                // 입력된 데이터 가져오기
+                var name = $("#name").val();
+                var email = $("#email").val();
+
+                // AJAX 요청 설정
+                $.ajax({
+                    type: "POST",
+                    url: "/findMemberId.members", // 서블릿 URL
+                    data: {
+                        name: name,
+                        email: email
+                    }, // 전송할 데이터
+                    success: function(response) {
+                        if (response !== null && response !== "null") { // 수정된 부분
+                            alert("ID found: " + response);
+                        } else {
+                            alert("ID not found.");
+                        }
+                    },
+                    error: function(error) {
+                        // 에러 처리
+                        alert("An error occurred: " + error.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

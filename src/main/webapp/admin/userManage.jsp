@@ -109,12 +109,10 @@
             <div class="col-12 col-md-12 order-0 order-md-0 title">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" id="normalUsersTab" data-bs-toggle="tab" href="#normalUsers"
-                            onclick="updateTitle('normalUsers')">일반 회원</a>
+                        <a class="nav-link active" id="normalUsersTab" data-bs-toggle="tab" href="#normalUsers" onclick="updateTitle('normalUsers')">일반 회원</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="blacklistTab" data-bs-toggle="tab" href="#blacklist"
-                            onclick="updateTitle('blacklist')">블랙 리스트</a>
+                        <a class="nav-link" id="blacklistTab" data-bs-toggle="tab" href="#blacklist" onclick="updateTitle('blacklist')">블랙 리스트</a>
                     </li>
                 </ul>
             </div>
@@ -127,7 +125,9 @@
                     <div class="tab-pane fade show active" id="normalUsers">
                         <ul id="userlist">
                             <c:forEach var="i" items="${list}" varStatus="loopStatus">
-                                <a href="/userInfo.admin?id=${i }"><li>${i}</li></a>
+                                <a href="/userInfo.admin?id=${i }">
+                                    <li>${i}</li>
+                                </a>
                             </c:forEach>
                         </ul>
                     </div>
@@ -135,7 +135,9 @@
                     <div class="tab-pane fade" id="blacklist">
                         <ul id="userlist">
                             <c:forEach var="i" items="${banlist}" varStatus="loopStatus">
-                                <a href="/userInfo.admin?id=${i }"><li>${i}</li></a>
+                                <a href="/userInfo.admin?id=${i }">
+                                    <li>${i}</li>
+                                </a>
                             </c:forEach>
                         </ul>
                     </div>
@@ -153,4 +155,5 @@
         </div>
     </div>
 </body>
+
 </html>

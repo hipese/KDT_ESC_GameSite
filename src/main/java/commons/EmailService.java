@@ -18,6 +18,7 @@ public class EmailService {
     private final String SMTP_HOST = "smtp.gmail.com";
     private final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private final String SPECIAL_CHARACTERS = "!@#$";
+    private final String CODECHARACTER = "0123456789";
     //private final int SMTP_PORT = 465; //SSL
   	private final int SMTP_PORT = 587; //TLS
 
@@ -78,6 +79,21 @@ public class EmailService {
         password.append(randomSpecialChar);
 
         return password.toString();
+    }
+    
+    public String generateRandomCode() {
+    	Random random = new Random();
+        StringBuilder code = new StringBuilder();
+
+        int length = 6;
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(CODECHARACTER.length());
+            char randomChar = CODECHARACTER.charAt(index);
+            code.append(randomChar);
+        }
+
+        return code.toString();
     }
 
    
