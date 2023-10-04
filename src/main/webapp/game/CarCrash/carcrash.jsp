@@ -505,16 +505,6 @@
     </div>
     <div id="container">
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="explanation">
-                    <br>
-                    <p>조작법 : 방향키 < ,> 를 이용하여 이동합니다.</p>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container-fluid ">
         <div class="row g-0">
             <div class="col-12 opacity-0 pdbottom"></div>

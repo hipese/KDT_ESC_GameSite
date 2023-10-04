@@ -69,6 +69,15 @@ public class MembersController extends HttpServlet {
 				PrintWriter pw = response.getWriter();
 				pw.append(json);
 			}
+			else if(cmd.equals("/emailcheck.members")) {
+				Gson gson = new Gson();
+				String id = request.getParameter("id");
+				String email = request.getParameter("email");
+				Boolean result = dao.isEmailExist(new MembersDTO(id,email));
+				String json = gson.toJson(result);
+				PrintWriter pw = response.getWriter();
+				pw.append(json);
+			}
 			else if(cmd.equals("/login.members")){
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");

@@ -60,7 +60,7 @@ public class MembersDAO {
     }
 	
 	
-   public Boolean isIdExist (MembersDTO dto) throws Exception {
+   public boolean isIdExist (MembersDTO dto) throws Exception {
       String sql = "select * from members where id=?";
       try(Connection con = this.getConnection();
          PreparedStatement pstat = con.prepareStatement(sql);){
@@ -72,6 +72,20 @@ public class MembersDAO {
          }
       }
    }
+   
+   public boolean isEmailExist (MembersDTO dto) throws Exception {
+	      String sql = "select * from members where email=?";
+	      try(Connection con = this.getConnection();
+	         PreparedStatement pstat = con.prepareStatement(sql);){
+	         
+	         pstat.setString(1, dto.getEmail());
+	         
+	         try(ResultSet rs = pstat.executeQuery();){
+	            return rs.next();
+	         }
+	      }
+   }
+   
    public boolean login(String id,String pw)throws Exception{
          String sql = "select * from members where id=? and pw=?";
          try(Connection con = this.getConnection();
