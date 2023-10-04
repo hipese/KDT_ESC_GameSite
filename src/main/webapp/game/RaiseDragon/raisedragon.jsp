@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js" integrity="sha512-YQL0GVx/Too3vZjBl9plePRIYsRnd1s8N6QOvXPdZ+JMH2mtRTLQXGUDGjNW6zr1HUgcOIury67IvWe91oeEwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/ball.js"></script>
     <script src="./js/bounce.js"></script>
     <script src="./js/end.js"></script>
@@ -568,6 +569,16 @@
             </div>
         </div>
     </div>
+    <c:if test="${not empty loginError}">
+		<script>
+	        Swal.fire({
+	            icon: 'error',
+	            title: '로그인 오류',
+	            text: '${loginError}'
+	        });
+	    </script>
+		<c:remove var="loginError" scope="session" />
+	</c:if>
     <script>
         let loginID = "${sessionScope.loginID}";
 

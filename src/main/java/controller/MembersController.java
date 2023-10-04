@@ -110,6 +110,7 @@ public class MembersController extends HttpServlet {
 						response.sendRedirect(url);
 					}
 				}else {
+					request.getSession().setAttribute("loginError", "로그인에 실패했습니다!");
 					response.sendRedirect(url);
 				}
 			}

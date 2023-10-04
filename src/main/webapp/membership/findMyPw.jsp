@@ -100,41 +100,57 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            // 폼 전송 이벤트 리스너 등록
-            $("#frm").submit(function(e) {
-                e.preventDefault(); // 기본 폼 전송 방지
-
-                // 입력된 데이터 가져오기
-                var name = $("#name").val();
-                var email = $("#email").val();
-                var id = $("#id").val();
-
-                // AJAX 요청 설정
-                $.ajax({
-                    type: "POST",
-                    url: "/tempPwRelease.members", // 서블릿 URL
-                    data: {
-                        name: name,
-                        email: email,
-                        id: id
-                    }, // 전송할 데이터
-                    success: function(response) {
-                        if (response === "1") { // 수정된 부분
-                            alert("적어주신 이메일로 임시 비밀번호를 발급해드렸습니다. 추후에 변경해주시길 바랍니다.");
-                            location.href = "/updateBack.members";
-                        } else {
-                            alert("이메일이 도착하지 않았습니다. 입력하신 이름과 이메일, 아이디를 확인해주세요");
-                        }
-                    },
-                    error: function(error) {
-                        // 에러 처리
-                        alert("An error occurred: " + error.responseText);
-                    }
-                });
-            });
-        });
-    </script>
+	    $(document).ready(function () {
+	        // 폼 전송 이벤트 리스너 등록
+	        $("#frm").submit(function (e) {
+	            e.preventDefault(); // 기본 폼 전송 방지
+	
+	            // 버튼 비활성화 및 텍스트 변경
+	            var submitButton = $("button[type='submit']");
+	            submitButton.prop("disabled", true);
+	            submitButton.css("background-color", "black"); // 색상을 검은색으로 변경
+	            submitButton.text("Wait..."); // 텍스트를 'Wait...'로 변경
+	
+	            // 입력된 데이터 가져오기
+	            var name = $("#name").val();
+	            var email = $("#email").val();
+	            var id = $("#id").val();
+	
+	            // AJAX 요청 설정
+	            $.ajax({
+	                type: "POST",
+	                url: "/tempPwRelease.members",
+	                data: {
+	                    name: name,
+	                    email: email,
+	                    id: id
+	                },
+	                success: function (response) {
+	                    // 버튼 활성화 및 원래대로 텍스트 변경
+	                    submitButton.prop("disabled", false);
+	                    submitButton.css("background-color", "#007bff"); // 기본 색상으로 변경
+	                    submitButton.text("비밀번호 찾기");
+	
+	                    if (response === "1") {
+	                        alert("적어주신 이메일로 임시 비밀번호를 발급해드렸습니다. 추후에 변경해주시길 바랍니다.");
+	                        location.href = "/updateBack.members";
+	                    } else {
+	                        alert("이메일이 도착하지 않았습니다. 입력하신 이름과 이메일, 아이디를 확인해주세요");
+	                    }
+	                },
+	                error: function (error) {
+	                    // 에러 처리
+	                    alert("An error occurred: " + error.responseText);
+	
+	                    // 버튼 활성화 및 원래대로 텍스트 변경
+	                    submitButton.prop("disabled", false);
+	                    submitButton.css("background-color", "#007bff"); // 기본 색상으로 변경
+	                    submitButton.text("비밀번호 찾기");
+	                }
+	            });
+	        });
+	    });
+	</script>
 </body>
 
 </html>
