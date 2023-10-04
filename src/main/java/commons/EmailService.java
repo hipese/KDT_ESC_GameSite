@@ -58,6 +58,43 @@ public class EmailService {
             return null; // 또는 다른 방식으로 오류 처리
         }
     }
+    
+    public String sendAuthCode(String toEmail) {
+    	 // SMTP 서버 설정
+        Properties props = new Properties();
+        props.put("mail.smtp.host", SMTP_HOST);
+        props.put("mail.smtp.port", SMTP_PORT);
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        //props.put("mail.smtp.ssl.enable", "true"); 
+        //props.put("mail.smtp.ssl.trust", SMTP_HOST);
+
+        // 세션 생성
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(USER_EMAIL, USER_PW);
+            }
+        });
+
+        try {
+            // 이메일 생성 및 보내기
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(USER_EMAIL));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+            message.setSubject("ESC sends email Authentication code");
+
+            String authCode = generateRandomCode();
+            message.setText("Your Authentication code is : " + authCode);
+
+            Transport.send(message);
+
+            return authCode;
+        } catch (MessagingException e) {
+            // 예외 처리: 이메일 전송 중 에러 발생
+            e.printStackTrace();
+            return null; // 또는 다른 방식으로 오류 처리
+        }
+    }
 
     public String generateRandomPassword() {
         Random random = new Random();

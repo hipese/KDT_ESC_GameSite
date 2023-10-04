@@ -17,6 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/GameOverScene.js"></script>
     <script src="./js/playerScene.js"></script>
     <script src="./js/title.js"></script>
@@ -559,6 +560,16 @@
             </div>
         </div>
     </div>
+    <c:if test="${not empty loginError}">
+		<script>
+	        Swal.fire({
+	            icon: 'error',
+	            title: '로그인 오류',
+	            text: '${loginError}'
+	        });
+	    </script>
+		<c:remove var="loginError" scope="session" />
+	</c:if>
 
     <script>
         let loginID = "${sessionScope.loginID}";

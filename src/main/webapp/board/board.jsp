@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <style>
@@ -1032,6 +1033,17 @@
             </form>
         </div>
     </div>
+    <c:if test="${not empty loginError}">
+		<script>
+	        Swal.fire({
+	            icon: 'error',
+	            title: '로그인 오류',
+	            text: '${loginError}'
+	        });
+	    </script>
+		<c:remove var="loginError" scope="session" />
+	</c:if>
+    
     <script>
         let admin = ${isadmin};
         let ID = "${loginID}";
