@@ -77,6 +77,8 @@ public class AdminController extends HttpServlet {
 				String id = request.getParameter("id");
 				MembersDTO dto = mdao.mypage(id);
 				boolean isbanned = adao.isBan(id);
+				String sys_name = dto.getProfile();
+				request.setAttribute("sys_name", sys_name);
 				request.setAttribute("dto", dto);
 				request.setAttribute("isbanned", isbanned);
 				request.getRequestDispatcher("/admin/userInfo.jsp").forward(request,response);
