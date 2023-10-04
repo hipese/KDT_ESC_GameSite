@@ -506,7 +506,7 @@
                             signup = writeDate.getTime();
                         }
 
-                        let gapTime = currentTime - signup - (12 * 60 * 60 * 1000); //이유는 잘 모르겠는데 12시간이 차이남... 나중에 알면 고치겠습니다.
+                        let gapTime = currentTime - signup
 
                         //이놈도 원인 찾으면 바꾸겠습니다.
                         if (gapTime < 0) {
