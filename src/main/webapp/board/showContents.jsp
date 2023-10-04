@@ -720,7 +720,7 @@
                     parent_seq: seq
                 },
                 success: function() {
-                    window.location.reload();
+                	window.location.href = "/showContents.board?seq="+seq+"&searchText=";
                 }
             });
         });
