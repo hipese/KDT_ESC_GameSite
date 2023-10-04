@@ -451,7 +451,7 @@
                             <a href="/logout.members">로그아웃</a>
                         </li>
                         <li class="headerli">
-                            <a href="#">게시판</a>
+                            <a href="/showBoardList.board?cpage=1&searchText=">게시판</a>
                         </li>
                         <li class="headerli headerboard">
                             <a href="#">마이페이지</a>

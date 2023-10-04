@@ -112,7 +112,7 @@
                         <c:otherwise>
                             <li class="headerli headerlogout"><a href="/logout.members">로그아웃</a>
                             </li>
-                            <li class="headerli"><a href="/showBoardList.board?cpage=1">게시판</a></li>
+                            <li class="headerli"><a href="/showBoardList.board?cpage=${latesPageNum}&searchText=">게시판</a></li>
                             <li class="headerli headerboard"><a href="/mypage.members">마이페이지</a></li>
                         </c:otherwise>
 
