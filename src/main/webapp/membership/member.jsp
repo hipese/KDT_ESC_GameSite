@@ -299,6 +299,7 @@
 
     <script>
         let duplcheck = false;
+        let emailduplcheck = false;
         // 무조건 마지막에 숫자 나오게 하기
         let regexid = /^[A-Za-z]\w{6,28}[0-9]$/;
         let regexpw = /^[A-Za-z]\w{6,}[!,@,#,$]$/;
@@ -404,20 +405,42 @@
                 $("#phonecheck").css("color", "red");
             }
         });
+        
+        $("#email").on("input", function() {
+            emailduplcheck = false;
+        });
         $("#email").on("keyup", function() {
             if ($("#email").val() == "") {
                 $("#emcheck").css("display", "none");
                 return;
             }
-            if (regexemail.test($("#email").val())) {
-                $("#emcheck").css("display", "block");
-                $("#emcheck").html("사용 가능한 이메일 입니다.");
-                $("#emcheck").css("color", "skyblue");
-            } else {
-                $("#emcheck").css("display", "block");
-                $("#emcheck").html("사용 불가능한 이메일 입니다.");
-                $("#emcheck").css("color", "red");
-            }
+            $.ajax({
+                url: "/emailcheck.members",
+                type: "post",
+                data: {
+                    id: $("#id").val(),
+                    email: $("#email").val()
+                }
+            }).done(function(response) {
+                if (response == "false") {
+                	if (regexemail.test($("#email").val())) {
+                        $("#emcheck").css("display", "block");
+                        $("#emcheck").html("사용 가능한 이메일 입니다.");
+                        $("#emcheck").css("color", "skyblue");
+                    } else {
+                        $("#emcheck").css("display", "block");
+                        $("#emcheck").html("사용 불가능한 이메일 입니다.");
+                        $("#emcheck").css("color", "red");
+                    }
+
+                } else {
+                    $("#emcheck").css("display", "block");
+                    $("#emcheck").html("중복된 이메일 입니다.");
+                    $("#emcheck").css("color", "red");
+                    emailduplcheck = false;
+                }
+            })
+            
         });
         $(".reset").on("click", function() {
             $("#idcheck").css("display", "none");
@@ -469,6 +492,10 @@
             } else if (!duplcheck) {
                 alert("아이디를 제대로 작성해주세요");
                 $("#id").focus();
+                return false;
+            }else if (!emailduplcheck) {
+                alert("이메일을 제대로 작성해주세요");
+                $("#email").focus();
                 return false;
             }
             alert("회원가입이 완료되었습니다.");
