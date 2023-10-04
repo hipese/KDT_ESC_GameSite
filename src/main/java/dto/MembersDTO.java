@@ -66,6 +66,12 @@ public class MembersDTO {
 		super();
 		this.id = id;
 	}
+	
+	public MembersDTO(String id,String email) {
+		super();
+		this.id = id;
+		this.email = email;
+	}
 
 	public MembersDTO() {
 		super();
