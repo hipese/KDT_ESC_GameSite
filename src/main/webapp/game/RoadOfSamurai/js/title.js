@@ -22,7 +22,7 @@ class titleScene extends Phaser.Scene {
         this.background.setOrigin(0, 0);
         this.background.setScale(1.08);
 
-
+		
         this.titleimage = this.add.sprite(this.cameras.main.width / 2 + 40, this.cameras.main.height / 2 - 150, "titleimage")
         this.left_arrow = this.add.sprite(this.cameras.main.width / 2 - 725, this.cameras.main.height / 2 - 200, "left_arrow_image")
         this.right_arrow = this.add.sprite(this.cameras.main.width / 2 - 525, this.cameras.main.height / 2 - 200, "right_arrow_image")
@@ -99,7 +99,7 @@ class titleScene extends Phaser.Scene {
 
         this.backText = this.add.text(this.cameras.main.width - 100,
             this.cameras.main.height - 20, "돌아가기", { fontFamily: "DungGeunMo",fontSize: "30px" }).setOrigin(0.5).setInteractive().setPadding(15);
-        this.backText.setVisible(false);
+        this.backText.setVisible();
 
 
         // 설명 버튼을 누르면 기존의 UI를 지우고 설명하는  UI를 띄움
@@ -118,7 +118,7 @@ class titleScene extends Phaser.Scene {
             this.titleText.setVisible(false);
             startBtn.setVisible(false);
             descriptionText.setVisible(false);
-            RankText.setVisible(false);
+            rankBtn.setVisible(false);
             killText.setVisible(false);
             this.backText.setVisible(true);
             this.left_arrow.setVisible(true);
@@ -147,7 +147,7 @@ class titleScene extends Phaser.Scene {
             this.titleText.setVisible(true);
             startBtn.setVisible(true);
             descriptionText.setVisible(true);
-            RankText.setVisible(true);
+            rankBtn.setVisible(true);
             killText.setVisible(true);
             this.backText.setVisible(false);
             this.left_arrow.setVisible(false);
